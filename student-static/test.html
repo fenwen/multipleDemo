@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <title>math</title>
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script> -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4.2.1/dist/echarts.min.js"></script>
+        <style>
+        * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+        body { font-size: 12px; line-height: 1.5; font-family:Arial,'Times New Roman','simsun', 'Microsoft YaHei'; }
+        h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+        ul { list-style: none; }
+        img { border: 0; }
+        em { font-style: normal; }
+        .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+        .wrapper { width: 210mm; margin: 0 auto; }
+
+        /* 统计数据样式 */
+        .static-content { width: 86%; margin: 0 auto; padding: 20px 0; color: #333333; font-family:Arial,'Times New Roman','Microsoft YaHei'; }
+        .static-content .static-title { color: #000000; font-size: 20px; text-align: center; }
+        .static-content .static-tit { font-size: 16px; line-height: 32px; padding: 0 8px; margin-top: 12px; background: #f6f6f6;}
+
+        .static-data { margin-top: 20px; }
+        .static-data .static-data-left { float: left; }
+        .static-data .static-data-left .score { font-size: 28px; }
+        .static-data .static-data-left .total { font-size: 20px; }
+        .static-data .static-data-right { margin-left: 150px; }
+        .static-data .static-data-right p { margin-top: 12px;}
+        .static-data .static-data-right span { display: inline-block; }
+        .static-data .static-data-right .tit { width: 25%; margin-left: 25%; }
+        .static-data .static-data-right .score { width: 22%; }
+
+        .static-content .static-chart { width: 100%; height: 300px; margin-top: 12px;}
+        .static-content .trend-chart { width: 100%; height: 300px; margin-top: 12px;}
+
+        .static-content .table-list { width: 100%; margin-top: 20px; }
+        .static-content .table-list tr { padding: 20px; }
+        .static-content .table-list th { font-weight: normal; text-align: left; font-size: 15px; line-height: 20px; padding: 6px 3px; }
+        .static-content .table-list td { font-size: 13px; color: #666666; line-height: 20px; padding: 6px 3px; }
+        .static-content .table-list .percent span { display: inline-block; height: 20px; vertical-align: 
+        middle; background: orange; }
+
+        </style>
+    </head>
+<body>
+<div class="wrapper">
+    <div class="static-content">
+        <h3 class="static-title">邵东创新初中部初三第⼀次⽉考-化学</h3>
+
+        <!-- 成绩单 -->
+        <div class="static-tit">成绩单</div>
+        <div class="static-data clearfix">
+            <div class="static-data-left">
+                <span class="score">0</span>
+                <em>得分</em>
+                <span class="total">/0</span>
+                <em>总分</em>
+            </div>
+            <div class="static-data-right">
+                <p>
+                    <span class="tit titHig">最高分</span>
+                    <span class="score">年级：<em class="grade1">0</em>分</span>
+                    <span class="score">班级：<em class="class1">0</em>分</span>
+                </p>
+                <p>
+                    <span class="tit titAvg">平均分</span>
+                    <span class="score">年级：<em class="grade2">0</em>分</span>
+                    <span class="score">班级：<em class="class2">0</em>分</span>
+                </p>
+            </div>
+        </div>
+        <div id="scoreChart" class="static-chart"></div>
+
+        <!-- 考试总结 -->
+        <!-- <div class="static-tit">考试总结</div>
+        <div class="solution-item">
+            <div>
+                <p>成绩趋势</p>
+            </div>
+        </div>
+        <div class="solution-item">
+
+        </div> -->
+        
+        <!-- 学科趋势 -->
+        <!-- <div class="static-tit">学科趋势</div>
+        <div id="trendChart" class="trend-chart"></div> -->
+
+        <!-- 试卷组成及错题知识点总结 -->
+        <div class="static-tit">试卷组成及错题知识点总结</div>
+        <div class="static-score">
+            <p>试卷组成：</p>
+            <p><span class="total">0</span>（满分）=<span class="object">0</span>分（客观题）+<span class="subject">0</span>分（主观题）</p>
+        </div>
+        <table class="table-list">
+            <thead style="display:table-header-group;">
+                <tr>
+                    <th width="35%">知识点</th>
+                    <th width="35%">分值占比</th>
+                    <th width="30%">错题题号</th>
+                </tr>
+            </thead>
+            <tbody class="exam-paper-body">
+                <!-- <tr>
+                    <td>量筒的使⽤</td>
+                    <td>
+                        <div class="percent">
+                            <span style="width: 10%;"></span>
+                            <em>12%</em>
+                        </div>
+                    </td>
+                    <td>1、⼀.7</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+var domain = 'http://39.108.133.172:8090/'
+var scoreChart = null, trendChart = null
+var isCompleteGrade = false, isCompleteKnowledge = false
+var subjectId = '', xuehao = '', className = '' // 数据信息
+var status
+
+function getUrlVars() {
+  var vars = [], hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+  for (var i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+  }
+
+  return vars;
+}
+paramsdata = getUrlVars();
+
+$(function () {
+  subjectId = paramsdata.subjectId
+  xuehao = paramsdata.xuehao
+  className = paramsdata.className
+
+  // scoreChart = echarts.init(document.getElementById('scoreChart'));
+  // trendChart = echarts.init(document.getElementById('trendChart'));
+
+//   getScoreData();
+  getKnowledgeData()
+});
+
+// 成绩
+var getScoreData = function getScoreData(){
+  $.ajax({
+    url: domain +"queryGradeClassScoreInfo",
+    type: "POST",
+    dataType: "json",
+    async: false,
+    contentType: 'application/json;charset=utf-8',
+    data: JSON.stringify({subjectId: '10000347',xuehao: '090205', className: '64'}), // subjectId: '10000347',xuehao: '090205', className: '64'
+    success: function (data) {
+      if(data.success){
+        const result = JSON.parse(data.message)
+        const list = []
+        console.log("score", result);
+  
+        $(".static-data-left .score").text(result.score)
+        $(".static-data-left .total").text('/'+ result.totalScore)
+        $(".static-data-right .grade1").text(result.gradeMaxScore)
+        $(".static-data-right .class1").text(result.classMaxScore)
+        $(".static-data-right .grade2").text(result.gradeAverageScore)
+        $(".static-data-right .class2").text(result.classAverageScore)
+  
+        for(i in result.scorePart){
+          list.push({
+            score: i,
+            person: result.scorePart[i]
+          })
+        }
+  
+        // console.log('list', list)
+        initScoreEchart(result.score, list)
+      }
+    }
+  });
+}
+
+// 统计占比
+var getKnowledgeData = function getKnowledgeData(){
+  $.ajax({
+    url: domain +"queryStudentPaperKnowledge",
+    type: "POST",
+    dataType: "json",
+    async: false,
+    contentType: 'application/json;charset=utf-8',
+    data: JSON.stringify({subjectId: '10000251',xuehao: '252008'}), // subjectId: '10000251',xuehao: '252008'
+    success: function (data) {
+      if(data.success){
+        const result = JSON.parse(data.message)
+        console.log(result.objectiveTopicScore)
+        // $(".wrapper").html("<h1>服务器打瞌睡去了</h1>");
+  
+        $('.static-score .total').text(result.subjectiveTopicScore + result.objectiveTopicScore)
+        $('.static-score .subject').text(result.subjectiveTopicScore)
+        $('.static-score .object').text(result.objectiveTopicScore)
+
+        // getKnowledgeList(result.knowledgeInfos)
+        // $(".wrapper").append("<h1>服务器打瞌睡去了</h1>");
+        // console.log(result.objectiveTopicScore)
+        // $('.exam-paper-body').append('<p>666666</p>')
+
+        for (var i = 0; i < result.knowledgeInfos.length; i++) {
+          var item = result.knowledgeInfos[i]
+          var html = '<tr><td>'+ item.knowledge +'</td><td><div class="percent"><span style="width: '+ item.scoreProportion +'%;"></span><em>'+ item.scoreProportion +'%</em></div></td><td>'+ item.score +'</td></tr>'
+          // var html = '<tr><td>werwer</td><td><div class="percent"><span style="width: 3%;"></span><em>4%</em></div></td><td>33</td></tr>'
+
+          $('.exam-paper-body').append(html)
+          console.log('99')
+        }
+
+      }
+    }
+  });
+}
+
+function getKnowledgeList( data) {
+  // for (var i = 0; i < yuantianswer.length; i++) {
+  //       var item = yuantianswer[i];
+  //       var html = getYTAnswerHtml(item);
+  //       $('.ytanswer').append(html);
+  //     }
+
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i]
+    var html = '<tr><td>'+ item.knowledge +'</td><td><div class="percent"><span style="width: '+ item.scoreProportion +'%;"></span><em>'+ item.scoreProportion +'%</em></div></td><td>'+ item.score +'</td></tr>'
+
+    $('.exam-paper-body').append(html)
+  }
+    // var datas = data;
+    // var _iteratorNormalCompletion = true;
+    // var _didIteratorError = false;
+    // var _iteratorError = undefined;
+    // try {
+    //     for (var _iterator = datas[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    //         var item = _step.value;
+    //         var html = getKnowledgeHtml(item);
+    //         consoel.log(html)
+    //         $('.exam-paper-body').append(html);
+    //     }
+    // } catch (err) {
+    //     _didIteratorError = true;
+    //     _iteratorError = err;
+    // } finally {
+    //     try {
+    //         if (!_iteratorNormalCompletion && _iterator.return != null) {
+    //         _iterator.return();
+    //         }
+    //     } finally {
+    //         status = 'completed'
+    //         console.log('8888')
+    //         if (_didIteratorError) {
+    //             //throw _iteratorError;
+    //         }
+    //     }
+    // }
+}
+
+var getKnowledgeHtml = function getKnowledgeHtml(item){
+    var html = ''
+    html = '<tr>'
+        html += '<td>'+ item.knowledge +'</td>'
+        html += '<td>'
+            html += '<div class="percent">'
+            html += '<span style="width: '+ item.scoreProportion +'%;"></span>'
+            html += '<em>'+ item.scoreProportion +'%</em>'
+            html += '</div>'
+        html += '</td>'
+        html += '<td>'+ item.score +'</td>'
+    html += '</tr>'
+
+    return html
+}
+
+
+// 分数段统计图表
+function initScoreEchart(score, list){
+  var xData = [], yData = [], dd = [], curPosition = [];
+  var len = list.length
+
+  list.forEach(function(item, index) {
+    if(index < len-1){
+      if(score >= item.score && score < list[index+1].score){
+        curPosition = [index, item.person]
+      }
+    }else{
+      if(score >= item.score){
+        curPosition = [index, item.person]
+      }
+    }
+
+    xData.push(item.score)
+    if(curPosition[0] == index){
+      dd.push({
+        name: '我',
+        value: item.person,
+        itemStyle : {
+          normal : {
+            color: '#9171de'
+          }
+        },
+      })
+    }else{
+      dd.push(item.person)
+    }
+  })
+
+  yData = [
+    {
+      type:'bar',
+      barWidth: '50%',
+      markPoint : {
+        data : [{
+          value: '我的\n位置',
+          coord: curPosition,
+          itemStyle : {
+            normal : {
+              color: '#ff7e00'
+            }
+          },
+        }]
+      },
+      data: dd
+    }
+  ]
+
+  var option = {
+    color: ['#febe02'],
+    tooltip : {
+      trigger: 'axis',
+      axisPointer : {
+        type : 'shadow'
+      }
+    },
+    grid: {
+      left: '4%',
+      right: '60',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis : [
+      {
+        type : 'category',
+        name: '分数段',
+        axisLine: {
+          lineStyle: {
+            color: "#d8d8d8"
+          }
+        },
+        axisLabel: {
+          color: '#666666'
+        },
+        nameTextStyle: {
+          color: '#666666'
+        },
+        data : xData
+      }
+    ],
+    yAxis : [
+      {
+        type : 'value',
+        name: '年纪所处分数段人数',
+        axisTick: { show: false },
+        axisLine: {
+          lineStyle: {
+            color: "#d8d8d8"
+          }
+        },
+        axisLabel: {
+          color: '#666666'
+        },
+        nameTextStyle: {
+          color: '#666666'
+        }
+      }
+    ],
+    series: yData
+  };
+  scoreChart.setOption(option);
+}
+
+
+</script>
+</body>
+</html>

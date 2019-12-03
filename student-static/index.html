@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>math</title>
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script> -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4.2.1/dist/echarts.min.js"></script>
+        <style>
+        * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+        body { font-size: 12px; line-height: 1.5; font-family:Arial,'Times New Roman','simsun', 'Microsoft YaHei'; }
+        h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+        ul { list-style: none; }
+        img { border: 0; }
+        em { font-style: normal; }
+        .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+
+        /* 统计数据样式 */
+        .static-content { width: 86%; margin: 0 auto; padding: 20px 0; color: #333333; font-family:Arial,'Times New Roman','Microsoft YaHei'; }
+        .static-content .static-title { color: #000000; font-size: 20px; text-align: center; }
+        .static-content .static-tit { font-size: 16px; line-height: 32px; padding: 0 8px; margin-top: 12px; background: #f6f6f6;}
+
+        .static-data { margin-top: 20px; }
+        .static-data .static-data-left { float: left; }
+        .static-data .static-data-left .score { font-size: 28px; }
+        .static-data .static-data-left .total { font-size: 20px; }
+        .static-data .static-data-right { margin-left: 150px; }
+        .static-data .static-data-right p { margin-top: 12px;}
+        .static-data .static-data-right span { display: inline-block; }
+        .static-data .static-data-right .tit { width: 25%; margin-left: 25%; }
+        .static-data .static-data-right .score { width: 22%; }
+
+        .static-content .static-chart { width: 100%; height: 300px; margin-top: 12px;}
+        .static-content .trend-chart { width: 100%; height: 300px; margin-top: 12px;}
+
+        .static-content .table-list { width: 100%; margin-top: 20px; }
+        .static-content .table-list tr { padding: 20px; }
+        .static-content .table-list th { font-weight: normal; text-align: left; font-size: 15px; line-height: 20px; padding: 6px 3px; }
+        .static-content .table-list td { font-size: 13px; color: #666666; line-height: 20px; padding: 6px 3px; }
+        .static-content .table-list .percent span { display: inline-block; height: 20px; vertical-align: 
+        middle; background: orange; }
+
+        </style>
+    </head>
+<body>
+<div class="wrapper">
+    <div class="static-content">
+        <h3 class="static-title">邵东创新初中部初三第⼀次⽉考-化学</h3>
+
+        <!-- 成绩单 -->
+        <div class="static-tit">成绩单</div>
+        <div class="static-data clearfix">
+            <div class="static-data-left">
+                <span class="score">0</span>
+                <em>得分</em>
+                <span class="total">/0</span>
+                <em>总分</em>
+            </div>
+            <div class="static-data-right">
+                <p>
+                    <span class="tit titHig">最高分</span>
+                    <span class="score">年级：<em class="grade1">0</em>分</span>
+                    <span class="score">班级：<em class="class1">0</em>分</span>
+                </p>
+                <p>
+                    <span class="tit titAvg">平均分</span>
+                    <span class="score">年级：<em class="grade2">0</em>分</span>
+                    <span class="score">班级：<em class="class2">0</em>分</span>
+                </p>
+            </div>
+        </div>
+        <div id="scoreChart" class="static-chart"></div>
+
+        <!-- 考试总结 -->
+        <div class="static-tit">考试总结</div>
+        <div class="solution-item">
+            <div>
+                <p>成绩趋势</p>
+            </div>
+        </div>
+        <div class="solution-item">
+
+        </div>
+        
+        <!-- 学科趋势 -->
+        <div class="static-tit">学科趋势</div>
+        <div id="trendChart" class="trend-chart"></div>
+
+        <!-- 试卷组成及错题知识点总结 -->
+        <div class="static-tit">试卷组成及错题知识点总结</div>
+        <div class="static-score">
+            <p>试卷组成：</p>
+            <p><span class="total">0</span>（满分）=<span class="object">0</span>分（客观题）+<span class="subject">0</span>分（主观题）</p>
+        </div>
+        <table class="table-list">
+            <thead style="display:table-header-group;">
+                <tr>
+                    <th width="35%">知识点</th>
+                    <th width="35%">分值占比</th>
+                    <th width="30%">错题题号</th>
+                </tr>
+            </thead>
+            <tbody class="exam-paper-body">
+                <!-- <tr>
+                    <td>量筒的使⽤</td>
+                    <td>
+                        <div class="percent">
+                            <span style="width: 10%;"></span>
+                            <em>12%</em>
+                        </div>
+                    </td>
+                    <td>1、⼀.7</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="./js/math.js"></script>
+</body>
+</html>
