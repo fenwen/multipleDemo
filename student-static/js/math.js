@@ -4,29 +4,39 @@ var scoreChart = null, trendChart = null
 var isCompleteGrade = false, isCompleteKnowledge = false
 var subjectId = '', xuehao = '', className = '' // 数据信息
 
-// 窗口缩放
-// window.onresize = function () {
-//   scoreChart.resize()
-//   trendChart.resize()
-// }
+function getUrlVars() {
+  var vars = [],
+    hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+  for (var i = 0; i < hashes.length; i++) {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+  }
+
+  return vars;
+}
+var paramsdata = getUrlVars();
 
 $(function () {
-  var paramUrl = location.search.substring(1)
-  var paramArr = paramUrl.split('&')
-  paramArr.forEach(function(item){
-    if(item.indexOf('subjectId=')>=0){
-      subjectId = item.split('=')[1]
-    }
-    if(item.indexOf('xuehao=')>=0){
-      xuehao = item.split('=')[1]
-    }
-    if(item.indexOf('className=')>=0){
-      className = item.split('=')[1]
-    }
-  })
-
-  scoreChart = echarts.init(document.getElementById('scoreChart'));
-  trendChart = echarts.init(document.getElementById('trendChart'));
+  // var paramUrl = location.search.substring(1)
+  // var paramArr = paramUrl.split('&')
+  // paramArr.forEach(function(item){
+  //   if(item.indexOf('subjectId=')>=0){
+  //     subjectId = item.split('=')[1]
+  //   }
+  //   if(item.indexOf('xuehao=')>=0){
+  //     xuehao = item.split('=')[1]
+  //   }
+  //   if(item.indexOf('className=')>=0){
+  //     className = item.split('=')[1]
+  //   }
+  // })
+  
+  subjectId = paramsdata.subjectId
+  xuehao = paramsdata.xuehao
+  className = paramsdata.className
 
   initTrendEchart()
   getScoreData();
@@ -41,7 +51,7 @@ function getScoreData(){
     dataType: "json",
     async: false,
     contentType: 'application/json;charset=utf-8',
-    data: JSON.stringify({subjectId: '10000347',xuehao: '090205', className: '64'}), // subjectId: '10000347',xuehao: '090205', className: '64'
+    data: JSON.stringify({subjectId: subjectId, xuehao: xuehao, className: className}), // subjectId: '10000347',xuehao: '090205', className: '64'
     success: function (data) {
       if(data.success){
         const result = JSON.parse(data.message)
@@ -83,7 +93,7 @@ function getKnowledgeData(){
     dataType: "json",
     async: false,
     contentType: 'application/json;charset=utf-8',
-    data: JSON.stringify({subjectId: '10000251',xuehao: '252008'}), // subjectId: '10000251',xuehao: '252008'
+    data: JSON.stringify({subjectId: subjectId, xuehao: xuehao}), // subjectId: '10000251',xuehao: '252008'
     success: function (data) {
       if(data.success){
         const result = JSON.parse(data.message)
@@ -122,6 +132,7 @@ function getKnowledgeData(){
 
 // 分数段统计图表
 function initScoreEchart(score, list){
+  scoreChart = echarts.init(document.getElementById('scoreChart'));
   var xData = [], yData = [], dd = [], curPosition = [];
   var len = list.length
 
@@ -179,6 +190,7 @@ function initScoreEchart(score, list){
         type : 'shadow'
       }
     },
+    animation: false,
     grid: {
       left: '4%',
       right: '60',
@@ -228,6 +240,7 @@ function initScoreEchart(score, list){
 
 // 学科趋势图表
 function initTrendEchart(){
+  trendChart = echarts.init(document.getElementById('trendChart'));
   var xData = ['2019.10.11 月考', '2019.10.12 月考', '2019.10.13 月考']
   var yData = [
     {
@@ -244,6 +257,7 @@ function initTrendEchart(){
         type : 'shadow'
       }
     },
+    animation: false,
     grid: {
       left: '4%',
       right: '80',
