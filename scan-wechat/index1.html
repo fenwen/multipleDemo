@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/jweixin-1.2.0.js"></script>
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; }
+    </style>
+</head>
+
+<body>
+    <div>我是页面</div>
+    <input accept="image/*" type="file">
+    <!-- <input file="file" accept="image/*;capture=camera"> -->
+    <br />
+    <br />
+
+    <div id="scanQRCode">扫码扫码扫码扫码扫码</div>
+
+    <script>
+        $(function(){
+            $("#scanQRCode").on('click', function () {
+                alert('123')
+                wx.scanQRCode({
+                    desc: 'scanQRCode desc',
+                    needResult: 1, // 默认为0，扫描结果由企业微信处理，1则直接返回扫描结果，
+                    scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                    success: function (res) {
+                        alert('8888')
+                        // 回调
+                        // result = res.resultStr
+                        alert(res)
+
+                        var serialNumber = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                        var serial = serialNumber.split(",");
+                        serialNumber = serial[serial.length - 1];
+                        alert(serialNumber)
+
+                        // $('#queryStr').val(serialNumber);
+                        // query(pageNumber, true);
+                    },
+                    error: function (res) {
+                        if (res.errMsg.indexOf('function_not_exist') > 0) {
+                            alert('版本过低请升级')
+                        }
+                    }
+                });
+                });
+        })
+    
+    </script>
+</body>
+</html>

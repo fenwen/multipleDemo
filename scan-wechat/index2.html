@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name="Description" content="微信扫一扫简易调用接口，如有问题请联系QQ：171977759">
+<title>扫一扫</title>
+</head>
+<style>
+.spinner {
+  width: 60px;
+  height: 60px;
+ 
+  position: relative;
+  margin: 100px auto;
+  margin-bottom: 20px;
+}
+ 
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #67CF22;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+   
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+ 
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+ 
+@-webkit-keyframes bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+ 
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+.tip{text-align: center;}
+</style>
+<body>
+<div class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+<div class="tip">调整好姿势，准备扫咯...</div>
+
+
+<div style="color:red" id="jshref"></div>
+	<!-- <p>正在调用扫一扫 ..</p> -->
+<!-- <script src="../../js/jweixin-1.js"></script>
+<script src="../../js/jquery-1.8.3.min.js"></script> -->
+<script src="./js/jweixin-1.2.0.js"></script>
+<script src="./js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+// var url = "../getwxconfig/?key=a0cbc5a7&callback=?";
+var url = "http://sao315.com/w/api/getwxconfig/?key=a0cbc5a7&callback=?"
+// var url = "http://sao315.com/w/api/getwxconfig/?key=a0cbc5a7&callback=jQuery183003922983146630066_1576035056540&url=http%253A%252F%252Fsao315.com%252Fw%252Fapi%252Fsaoyisao%252F&_=1576035056547"
+// var data = { url: encodeURIComponent(window.location.href.split('#')[0])};
+var data = { url: encodeURIComponent(window.location.href)};
+$.getJSON(url, data, function (backdata){	
+	wx.config({
+	  debug: false,
+	  appId: backdata.appId,
+	  timestamp: backdata.timestamp,
+	  nonceStr: backdata.nonceStr,
+	  signature: backdata.signature,
+	  jsApiList: ['scanQRCode']
+	});
+
+	wx.ready(function () {
+		wx.scanQRCode({
+			needResult: 1,
+			desc: 'scanQRCode desc',
+			success: function (res) {
+				$("div").fadeOut();
+				if ("0"=="1"){
+					window.open(res.resultStr);
+				} else if ("1"=="1"){
+					window.open("http://www.jiujiujin.net/wuliu.htm?qrresult=" + encodeURIComponent(res.resultStr));
+				}
+			},
+			cancel:function(){
+				$("div").fadeOut();
+				if ("http://www.jiujiujin.net/wuliu.htm?"=="?"){
+					wx.closeWindow();
+				}else{
+					//window.open("qrcancel=1");
+					history.back();
+				}
+			}
+		});
+	});
+
+	wx.error(function (res) {
+		alert(res.errMsg);
+	});
+});
+</script>
+</body>
+</html>

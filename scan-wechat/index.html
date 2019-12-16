@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>测试</title>
+    <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./js/jSignature.min.js"></script>
+    <script type="text/javascript" src="./js/rem.js"></script>
+    <style>
+    body, html { height: 100%; overflow: hidden; font-size: 0.14rem; line-height: 1.6; background: #f8f8f8;}
+    * { margin: 0; padding: 0; }
+    .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+    em, i { font-style: normal; }
+    /* ea9520 */
+
+    .sign-wrapper { max-width: 640px; height: 100%; overflow-y: auto; }
+    .sign-wrapper.hidden { max-width: 640px; overflow-y: hidden; }
+    .sign-head { position: fixed; top: 0; left: 0; right: 0; width: 100%; height: 0.44rem; line-height: 0.44rem; background: #42ab9d; z-index: 100; }
+    .sign-head .title { color: #ffffff; font-size: 0.18rem; text-align: center; }
+    .sign-body { padding: 0.5rem 3% 0; background: #ffffff; }
+    .sign-body .title { color: #d6943d; font-size: 0.15rem; }
+    .sign-body .order { position: relative; color: #d6943d; }
+    .sign-body .order .cur-date { position: absolute; top: 0; right: 0; color: #888888; }
+    .sign-body .order p { margin-right: 0.9rem; }
+    .sign-body .tags span { display: inline-block; color: #d6943d; padding: 0 3px; font-size: 0.12rem; border-radius: 2px; border: 1px solid #d6943d; }
+    .sign-body .sign-cont { position: relative; margin-top: 0.1rem; }
+    .sign-body .sign-city { position: absolute; top: 0.24rem; }
+    .sign-body .sign-city.left { left: 0; }
+    .sign-body .sign-city.right { right: 0; text-align: right; }
+    .sign-body .sign-city p { font-size: 0.15rem; }
+    .sign-body .sign-des { position: relative; margin: 0 0.75rem; }
+    .sign-body .sign-des::before { content: ''; position: absolute; top: 0.45rem; left: 0; right: 0; height: 0.03rem; background: #dddddd; }
+    .sign-body .sign-des::after { content: ''; position: absolute; top: 0.39rem; right: -0.1rem; width: 0; height: 0; border-width: 0.08rem; border-style: solid; border-color:transparent transparent transparent #dddddd; }
+    .sign-body .sign-cricle { position: relative; width: 0.9rem; height: 0.9rem; border-radius: 50%; margin: 0 auto; border: 0.02rem solid #d6943d; background: #fff; }
+    .sign-body .sign-cricle::before { content: ''; position: absolute; top: -0; right: -0.1rem; bottom: 0; width: 0.08rem; background: #ffffff; }
+    .sign-body .sign-cricle::after { content: ''; position: absolute; top: -0; left: -0.1rem; bottom: 0; width: 0.08rem; background: #ffffff; }
+    .sign-body .vertical { text-align: center; position: relative; top: 50%; transform: translateY(-50%);}
+    .sign-body .sign-cricle p { font-size: 0.16rem; color: #d6943d; text-align: center; }
+    .sign-body .sign-cricle p.num { font-size: 0.2rem; }
+    .sign-body .order_det { text-align: center; margin-top: 0.1rem; color: #888888; }
+    .sign-body .sign-address { margin-top: 0.1rem; padding: 0.1rem 0; border-top: 1px solid #eeeeee; }
+    .sign-body .sign-address p { line-height: 1.8; }
+    .sign-body .sign-address p a { color: #d6943d; }
+    .sign-body .sign-address p img { width: 0.18rem; vertical-align: middle; margin: -0.03rem 0.03rem 0 0; }
+    .sign-btn { padding: 0.1rem 0; text-align: right; border-top: 1px solid #eeeeee; }
+    .sign-btn span { display: inline-block; height: 0.4rem; line-height: 0.4rem; padding: 0 0.2rem; margin-left: 0.1rem; color: #fff; font-size: 0.15rem; border-radius: 5px; background: #ea9520; }
+
+    .mask { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); }
+    .sign-pop { position: absolute; top: 30%; left: 0; padding-top: 0.4rem; right: 0; bottom: 0; background: #ffffff; }
+    .sign-pop-cont { height: 100%; overflow-y: auto; padding: 0 3%; }
+    .sign-pop-top { position: absolute; top: 0; left: 0; right: 0; }
+    .sign-pop-cont .pop-close { float: right; margin-right: 3%; padding: 0.1rem 0; width: 0.2rem; height: 0.2rem; }
+    .sign-pop-cont .pop-close img { width: 100%; }
+    .sign-pop-cont .pop_order { margin-left: 3%; line-height: 0.4rem; padding-right: 0.4rem; }
+    .sign_form p { margin: 0.1rem 0 0.16rem; }
+    .sign_form p input { display: block; width: 100%; border: none; background: #f3f3f3; padding: 0.06rem 0.08rem; line-height: 0.24rem; border-radius: 5px; box-sizing: border-box; }
+    .sign_form p select { width: 100%; border: none; background: #f3f3f3 !important; padding: 0 0.08rem; height: 0.36rem; line-height: 0.24rem; border-radius: 5px; box-sizing: border-box; }
+
+    .img_list .img_item { position: relative; float: left; width: 22%; padding-bottom: 22%; margin-right: 4%; background: #cccccc; }
+    .img_list .img_item:nth-child(4n) { margin-right: 0; }
+    .img_list .img_item div { position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; }
+    .img_list .img_item div img { width: 100%; }
+    .img_list .img_item .img_delete { position: absolute; top: -6px; right: -6px; width: 16px; height: 16px; border-radius: 50%; background: red; color: #ccc; text-align: center; line-height: 16px; font-size: 10px; }
+    .img_list .add-img { overflow: hidden; border: 1px dotted #eeeeee; box-sizing: border-box; background: url('./img/add.png')no-repeat center center; background-size: 40% 40%; }
+    .add-img input { position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; opacity: 0; }
+
+    .sign_group_btn { margin-top: 12px;}
+    .sign_group_btn span { display: block; height: 0.4rem; line-height: 0.4rem; padding: 0 0.2rem; margin: 0 0 0.1rem 0.1rem; color: #fff; font-size: 0.15rem; border-radius: 5px; background: #ea9520;}
+
+    .sign_panel { position: absolute; top: 0.44rem; left: 0; right: 0; bottom: 0; background: #f8f8f8; display: none; }
+    #signature { margin: 3% 3% 0; border: 1px solid #f0f0f0; background: #ffffff; }
+
+    </style>
+</head>
+
+<div class="sign-wrapper">
+    <div class="sign-head">
+        <p class="title">我要签收</p>
+    </div>
+
+    <div class="sign-body">
+        <h4 class="title">测试名称</h4>
+        <div class="order">
+            <span class="cur-date">2019/11/23</span>
+            <p>订单号/配载号：<span>pf9777278387744</span></p>
+        </div>
+        <p class="tags">
+            <span>默认客户</span>
+            <span>默认</span>
+        </p>
+
+        <div class="sign-cont">
+            <div class="sign-city left">
+                <span>沈阳市</span>
+                <p>仓库名</p>
+            </div>
+            <div class="sign-city right">
+                <span>沈阳市</span>
+                <p>仓库名</p>
+            </div>
+            <div class="sign-des">
+                <div class="sign-cricle">
+                    <div class="vertical">
+                        <p class="num">33</p>
+                        <p>待签收</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="order_det">件/重/体/托：90/0kg/0m³/0</p>
+        <div class="sign-address">
+            <p><img src="./img/ico_address.png">湖南省长沙市岳麓区路径路22号</p>
+            <p><img src="./img/ico_person.png">收：7仓库3名称 <a href="tel:15580019930">15580019930</a> </p>
+        </div>
+        <p>湖南省长沙市岳麓区路径路22号</p>
+        <div class="sign-btn">
+            <span id="signAll">整单签收</span>
+        </div>
+    </div>
+</div>
+
+<div class="mask"></div>
+<div class="sign-pop">
+    <div class="sign-pop-cont">
+        <div class="sign-pop-top">
+            <span class="pop-close"><img src="./img/ico_close.png"></span>
+            <span class="pop_order">件/重/体/托：90/0kg/0m³/0</span>
+        </div>
+        <div class="sign_form">
+            <p><input type="text" placeholder="拒收数量"></p>
+            <p><input type="text" placeholder="收货人二维码"></p>
+            <p><input type="text" placeholder="货损数据"></p>
+            <p><input type="text" placeholder="货差数据"></p>
+            <p>
+                <select id="">
+                    <option value="">请选项异常原因</option>
+                    <option value='12'>选项1</option>
+                </select>
+            </p>
+            <p><input type="text" placeholder="收款金额"></p>
+            <p><input type="text" placeholder="备注"></p>
+            <p><input type="text" placeholder="校验码"></p>
+            <div class="img_list clearfix">
+                <!-- <div class="img_item">
+                    <div>
+                        <img src="">
+                    </div>
+                    <span class="img_delete">X</span>
+                </div> -->
+                <div class="img_item add-img">
+                    <input id="changeImg" accept="image/*" type="file">
+                </div>
+            </div>
+            
+            <div class="sign_group_btn">
+                <span>签收</span>
+                <span>强制签收</span>
+                <span>获取校验码</span>
+                <span id="toSignature">电子签名</span>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="sign_panel">
+    <div id="signature"></div>
+    <div class="sign_operate">
+        <span id="clearSignature">清除</span>
+        <span id="saveSignature">保存</span>
+    </div>
+</div>
+</html>
+
+<script>
+$(function(){
+    var winW = $(window).width()
+    var winH = $(window).height()
+
+    // 选取图片
+    $('#changeImg').off('change').on('change', function(){
+        const file = document.getElementById('changeImg');
+        const fileObj = file.files[0];
+        const windowURL = window.URL || window.webkitURL;
+
+        if(file && fileObj) {
+            const dataURl = windowURL.createObjectURL(fileObj);
+            var html = '<div class="img_item"><div><img src="'+ dataURl +'" alt=""></div><span class="img_delete">X</span></div>'
+            $('.img_list').prepend(html)
+        }
+    })
+    
+    // 移除图片
+    $(".img_list").undelegate('.img_delete',"click").delegate(".img_delete","click",function(){
+        var index = $(this).index()
+        $(this).parents('.img_item').remove()
+    })
+
+    // 整单签收
+    $('#signAll').off('click').on('click', function(){
+        $('.sign-pop, .mask').show()
+        $('.sign-wrapper').addClass('hidden')
+        // document.body.style.overflow = "hidden";
+    })
+
+    // 关闭弹层
+    $('.pop-close').off('click').on('click', function(){
+        $('.sign-pop, .mask').hide()
+        $('.sign-wrapper').removeClass('hidden')
+        // document.body.style.overflow = "auto";
+    })
+
+    // 签名
+    $('#toSignature').off('click').on('click', function(){
+        var winW = $(window).width()
+        var winH = $(window).height()
+        $("#signature").html('')
+        $('.sign_panel, .mask').show()
+        $("#signature").jSignature({
+            "decor-color": "transparent",
+            'height': winH - 200,
+            'width': winW,
+            lineWidth: 2
+        })
+    })
+
+    // 清除
+    $("#clearSignature").off('click').on('click', function () {
+        $("#signature").jSignature("reset");
+    });
+
+    // 保存
+    $("#saveSignature").off('click').on('click', function () {
+        var datapair = $("#signature").jSignature("getData", "image");
+        var array = datapair.splice(",");
+
+        var formData = new FormData();
+        var imgbase64 = "data:" + array[0] + "," + array[1];
+
+        formData.append("myfile", dataURLtoFile(imgbase64, "123.png"));
+        formData.append("sex", '22');
+        console.log('22', formData)
+
+        $.ajax({ 
+            url: 'http://122.112.238.8:8080/api/v1/addface' , 
+            type: 'POST', 
+            data: formData, 
+            async: false, 
+            cache: false, 
+            contentType: false, 
+            processData: false, 
+            success: function (returndata) { 
+                console.log('data', returndata); 
+            }, 
+            error: function (returndata) { 
+            alert(returndata); 
+            } 
+        });
+    });
+
+})
+</script>
