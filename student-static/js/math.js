@@ -34,9 +34,10 @@ $(function () {
   //   }
   // })
   
-  subjectId = paramsdata.subjectId
-  xuehao = paramsdata.xuehao
-  className = paramsdata.className
+  subjectId = paramsdata['subjectId'] || ''
+  xuehao = paramsdata['xuehao'] || ''
+  className = paramsdata['className'] || ''
+  // console.log('subjectId', subjectId)
 
   initTrendEchart()
   getScoreData();
