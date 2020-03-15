@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>统计数据</title>
+
+        <style>
+        * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+        body { font-size: 12px; line-height: 1.5; font-family:Arial,'Times New Roman','simsun', 'Microsoft YaHei'; }
+        h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+        ul { list-style: none; }
+        img { border: 0; }
+        em { font-style: normal; }
+        .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+
+        /* 统计数据样式 */
+        .static-content { width: 86%; margin: 0 auto; padding: 6px 0; color: #333333; font-family:Arial,'Times New Roman','Microsoft YaHei'; }
+        .static-content .static-title { color: #000000; line-height: 40px; font-size: 18px; text-align: center; }
+        .static-content .static-tit { font-size: 14px; line-height: 32px; padding: 0 8px; margin-top: 6px; background: #f6f6f6;}
+        .static-content .static-tit .ico { margin-right: 6px; height: 16px; vertical-align: middle; margin-top: -3px;}
+
+        .static-data { padding: 24px 0; }
+        .static-data .static-data-left { float: left; margin-top: 12px; }
+        .static-data .static-data-left .score { font-size: 28px; }
+        .static-data .static-data-left .total { font-size: 20px; }
+        .static-data .static-data-right { margin-left: 150px; }
+        .static-data .static-data-right p:last-child { margin-top: 36px;}
+        .static-data .static-data-right span { display: inline-block; }
+        .static-data .static-data-right .tit { width: 25%; margin-left: 25%; }
+        .static-data .static-data-right .score { width: 22%; }
+
+        .static-content .static-error { font-size: 15px; line-height: 32px; margin-top: 20px; }
+        .static-content .table-list { width: 100%; margin-top: 20px; }
+        .static-content .table-list tr { padding: 20px; }
+        .static-content .table-list th { font-weight: normal; text-align: left; font-size: 14px; line-height: 24px; padding: 6px 3px; }
+        .static-content .table-list td { font-size: 13px; color: #666666; line-height: 24px; padding: 6px 3px; }
+        .static-content .table-list .percent span { display: inline-block; height: 20px; vertical-align: 
+        middle; background: orange; }
+        </style>
+    </head>
+<body>
+<div class="wrapper">
+    <div class="static-content">
+        <h3 class="static-title">2020届邵东三中第一次 月考理科-数学（理）</h3>
+
+        <!-- 成绩单 -->
+        <div class="static-tit"><img class="ico" src="./images/icon_static1.png">成绩单</div>
+        <div class="static-data clearfix">
+            <div class="static-data-left">
+                <span class="score">0</span>
+                <em>得分</em>
+                <span class="total">/150</span>
+                <em>总分</em>
+            </div>
+            <div class="static-data-right">
+                <p>
+                    <span class="tit titHig">最高分</span>
+                    <span class="score">年级：<em class="grade1">141</em>分</span>
+                    <span class="score">班级：<em class="class1">126</em>分</span>
+                </p>
+                <p>
+                    <span class="tit titAvg">平均分</span>
+                    <span class="score">年级：<em class="grade2">75.4</em>分</span>
+                    <span class="score">班级：<em class="class2">69.83</em>分</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- 错题及知识点 -->
+        <div class="static-error">错题及知识点</div>
+        <table class="table-list">
+            <thead style="display:table-header-group;">
+                <tr>
+                    <th width="25%">知识点</th>
+                    <th width="25%">总分</th>
+                    <th width="25%">考生得分</th>
+                    <th width="25%">题号</th>
+                </tr>
+            </thead>
+            <tbody class="exam-paper-body">
+                <tr>
+                    <td>三角函数</td>
+                    <td>10</td>
+                    <td>8</td>
+                    <td>三.1,四.2,五.3</td>
+                </tr>
+                <tr>
+                    <td>数列</td>
+                    <td>10</td>
+                    <td>6</td>
+                    <td>二.1,六.1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
