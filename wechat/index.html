@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1503,7 +1502,7 @@
                                 $("#getMoreFriendBtn").hide();
                             }
                             var friendHead = fdata.bigHeadPic;
-                            friendHead = friendHead ? friendHead : (basePath + "../static/img/defaultHeadPic.jpg");
+                            friendHead = friendHead ? friendHead : (basePath + "./static/img/defaultHeadPic.jpg");
                             var showName = (fdata.remarkName == null || fdata.remarkName == "") ? fdata.nickname : fdata.remarkName;
 
                             if (showName == null || showName == "") {
