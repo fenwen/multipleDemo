@@ -1,0 +1,860 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>math</title>
+    <!--<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+     <!--<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+    <!-- <script type="text/javascript" src="../static/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--<script type="text/javascript" src="/data/www/topic/static/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<style>
+* { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+body { font-size: 12px; line-height: 1.5;  font-family: Arial,'Times New Roman', 'SimHei'; }
+h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+ul { list-style: none; }
+img { border: 0; }
+em { font-style: normal; }
+.clearfix:after { display: block; height: 0; content: ""; clear: both; }
+.wrapper{padding:0 20px;}
+.wrapper img{max-width:100%;}
+.subject_content { border-bottom: 1px solid #b5b6b5; }
+.subject_content:last-child { border-bottom: none; }
+.subject_l { float: left; width: 100%; padding: 10px 20px;  }
+.subject_l .subject_l_top { font-size: 14px; line-height: 20px; }
+.subject_l .subject_l_top .topic { float: left; margin-left: -6px; }
+.subject_l .subject_l_top span { float: right; margin-left: 12px; }
+
+/* .subject_l .select { margin: 8px 0; } */
+/* .subject_l .select .option { float: left; min-width: 20%; margin-right: 20px; } */
+.subject_l .select { margin: 0; }
+.subject_l .select.inline { display: inline-block; width: 90%; }
+
+.subject_l .select .option { display: inline-block; min-width: 20%; margin: 0 20px 5px 0; line-height: 20px; }
+.subject_l .select.ul-1 .option { width: 100%; margin: 0 0 5px 0; }
+.subject_l .select.ul-2 .option { width: 48%; margin: 0 0 5px 0; }
+.subject_l .select.ul-4 .option { width: 24%; margin: 0 0 5px 0; }
+.subject_l .no_describle_tit { display: inline-block; vertical-align:top; line-height: 20px; min-width:40px;}
+
+
+
+.subject_l .select .option p { display: inline-block; }
+.evaluate_r { float: right; width: 18%; padding: 10px; line-height: 18px; }
+.evaluate_r .degree { margin-bottom: 10px; border-bottom: 1px dashed #cdcecd; }
+.evaluate_r .degree p { display: inline-block; min-width: 30%; text-align: left; }
+.evaluate_r .degree p span { display: block; text-align: left; }
+.evaluate_r .degree p em { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid #ccc; }
+.evaluate_r .note { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cdcecd; }
+
+.practice { margin-top: 40px; border-top: 1px dashed #cdcecd; }
+.practice h5 { font-size: 14px; padding: 10px 0; }
+.practice .topic_num { padding: 10px 0; }
+.answer_area { margin-top: 20px; min-height: 220px; }
+
+/* 页眉样式 */
+.divHeader { height: 48px; padding: 10px 24px; border-bottom: 1px solid #b5b6b5; }
+.divHeader .divHeader-l { float: left; font-size: 14px; line-height: 20px; }
+.divHeader .divHeader-l span { margin-right: 30px; }
+.divHeader .divHeader-r { float: right; }
+.divHeader .divHeader-r img { height: 28px; }
+/*.select span{padding:1%} */
+
+/* 参考答案样式 */
+.reference_result { padding: 0 20px; }
+.reference_result .result_title { font-size: 16px; text-align: center; line-height: 32px; }
+.result_item { padding: 6px 0; border-bottom: 1px dashed #cdcecd; }
+.result_item p { font-size: 12px; line-height: 18px; margin-top: 6px; }
+.result_item .topic { display: inline-block; min-width: 18px; color: #fff; text-align: center; padding: 0 3px; line-height: 18px; border-radius: 9px; background: #000; }
+.result_item .topic.sub { border-radius: 3px; }
+.result_item .bold { font-weight: bold; }
+</style>
+
+<style type="text/css" media="print">
+@page  {
+    size:  auto;   /* auto is the initial value */
+    margin: 5mm 0mm;  /* this affects the margin in the printer settings */
+}
+</style>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+  });
+</script>
+
+</head>
+<body>
+<div class="wrapper">
+    <!-- 页眉 
+    <div class="divHeader">
+        <div class="divHeader-l">
+            <span>高三第三次联考-数学(理)</span>
+            <span>255赵炼</span>
+        </div>
+        <div class="divHeader-r">
+            <img src="http://xgkj-logo.oss-cn-shenzhen.aliyuncs.com/%E6%95%99%E5%B8%88%E7%89%885.png">
+        </div>
+    </div>-->
+    <!-- 题目内容部分 -->
+     <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第一题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分5.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+    <div>
+        <div>设$z=$$\frac {1-i}{1+i}+2i$$(i为虚数单位)$,则$|z|$=</div>
+            <div class="select ul-4 clearfix">
+                <span class="option" >A.0</span>
+<span class="option" >B.$\frac{1}{2}$</span>
+<span class="option" >C.1</span>
+<span class="option" >D.$\sqrt{2}$</span>
+
+            </div>
+   </div>
+	
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p>D</p></span>
+        </div>
+
+			
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>C</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>&nbsp;</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+                    <p class="topic_num">1-1</p>
+     <div>
+                    <div>本题来源：长郡中学2020届高考模拟卷(一)第1题</p><p>在复平面内与复数$z=\frac{2i}{1+i}$所对应的点关羽实轴对称的点为$A$，则$A$对应的复数为</div>
+                    <div class="select clearfix">
+                        <span class="option" >A.$1+i$</span>
+<span class="option" >B.$1-i$</span>
+<span class="option" >C.$-1-i$</span>
+<span class="option" >D.$-1+i$</span>
+
+                    </div>
+    </div>
+
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第二题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分5.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+    <div>
+        <div>设置集合$A=\{y|y=\log{_2}x,0\lt x \le 4\}$,$B=\{x|e^x \gt 1\}$,则$A \cup B$=</div>
+            <div class="select clearfix">
+                <span class="option" >A.$(-\infty,2 ]$</span>
+<span class="option" >B.$(0,+\infty)$</span>
+<span class="option" >C.$(0,2]$</span>
+<span class="option" >D.$R$</span>
+
+            </div>
+   </div>
+	
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p>C</p></span>
+        </div>
+
+			
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>D</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>由对数函数的性质，当<font face="Microsoft YaHei, 微软雅黑, Arial, Tahoma, STHeiti, Helvetica, 宋体, sans-serif"><span style="white-space: nowrap;" data-mce-style="white-space: nowrap;">$x\gt 1$</span></font>时，有$y=\log_2x \gt 0$即<font face="Microsoft YaHei, 微软雅黑, Arial, Tahoma, STHeiti, Helvetica, 宋体, sans-serif"><span style="white-space: nowrap;" data-mce-style="white-space: nowrap;">$A=\{y|y\gt 0\}$</span></font>，</p><p>由指数函数的性质，当<font face="Microsoft YaHei, 微软雅黑, Arial, Tahoma, STHeiti, Helvetica, 宋体, sans-serif"><span style="white-space: nowrap;" data-mce-style="white-space: nowrap;">$x\lt 1$</span></font>时，有<font face="Microsoft YaHei, 微软雅黑, Arial, Tahoma, STHeiti, Helvetica, 宋体, sans-serif"><span style="white-space: nowrap;" data-mce-style="white-space: nowrap;">$0\lt (\frac{1}{2})^x \lt 1$</span></font>，即$B=\{y|0\lt y\lt1\}$；则<font face="Microsoft YaHei, 微软雅黑, Arial, Tahoma, STHeiti, Helvetica, 宋体, sans-serif"><span style="white-space: nowrap;" data-mce-style="white-space: nowrap;">$A\cup B=\{y|y\gt 0\}$</span></font>，<br>故选<span id="MathJax-Element-17-Frame" class="MathJax" style="margin: 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 14px; line-height: normal; vertical-align: baseline; font-family: 'Microsoft YaHei', '\微软雅黑', Arial, Tahoma, STHeiti, Helvetica, '\宋体', sans-serif; display: inline; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: 0px; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; color: #000000; orphans: 2; widows: 2; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial; position: relative;" role="presentation" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mi>B</mi></mrow></math>" data-mce-style="margin: 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 14px; line-height: normal; vertical-align: baseline; font-family: 'Microsoft YaHei', '\微软雅黑', Arial, Tahoma, STHeiti, Helvetica, '\宋体', sans-serif; display: inline; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: 0px; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; color: #000000; orphans: 2; widows: 2; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial; position: relative;" data-mce-tabindex="0"><span class="MJX_Assistive_MathML" role="presentation">B</span></span>．</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+                    <p class="topic_num">2-1</p>
+     <div>
+                    <div>本题来源：长郡中学2020届高考模拟卷(一)第2题</p><p>设集合$A=\{y|y=-e^x+4\}$，$B=\{x|y=\lg[(x+2)(3-x)]\}$，则下列关系正确的是<br><br></div>
+                    <div class="select clearfix">
+                        <span class="option" >A.$A\subseteq B$</span>
+<span class="option" >B.$A\cap B=\varnothing$</span>
+<span class="option" >C.$\complement _RA \subseteq \complement _RB$</span>
+<span class="option" >D.$\complement _RB\subseteq A$</span>
+
+                    </div>
+    </div>
+
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第三题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分5.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+    <div>
+        <div>已知双曲线$C:\frac{x^2}{a^2}-\frac{y^2}{b^2}(a\gt 0,b\gt 0)$的左、右焦点分别为$F_1,F_2$，点$P$是$C$的右支上一点，连接$PF_1$与$y$轴交于点$M$，若$|F_1O|=2|OM|$（$O$为坐标原点），$PF_2\bot PF_1$，则双曲线$C$的渐近线方程为</div>
+            <div class="select clearfix">
+                <span class="option" >A.$y=\pm 3x$</span>
+<span class="option" >B.$y=\pm \sqrt 3x$</span>
+<span class="option" >C.$y=\pm 2x$</span>
+<span class="option" >D.$y=\pm \sqrt 2x$</span>
+
+            </div>
+   </div>
+	
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p>B</p></span>
+        </div>
+
+			
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>C</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>&nbsp;</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+                    <p class="topic_num">3-1</p>
+     <div>
+                    <div>本题来源：长郡中学2020届高考模拟卷(一)第4题</p><p>$“\ln(a-2)-\ln(b-1)\gt 0”$是$“\frac{a}{b}\gt 1”$成立的</div>
+                    <div class="select clearfix">
+                        <span class="option" >A.充分不必要条件</span>
+<span class="option" >B.必要不充分条件</span>
+<span class="option" >C.充分必要条件</span>
+<span class="option" >D.既不充分也不必要条件</span>
+
+                    </div>
+    </div>
+
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第四题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分5.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+    <div>
+        <div>已知向量$a,b$，有下列命题：</p><p>①若$a//b$，则$a=b$ ;②若$\lvert a\rvert =\lvert b\rvert$,则$a=b$；③若$\lvert a\rvert =\lvert b\rvert$,则$a//b$；</p><p>④若$a=b$，则$\lvert a\rvert =\lvert b\rvert$；⑤若$\lvert a\rvert =\lvert b\rvert =1$，且$(a+\lambda b)\bot (\lambda a-b)$,则$\lambda = \pm 1$。</p><p>其中错误命题的个数是</div>
+            <div class="select clearfix">
+                <span class="option" >A.1</span>
+<span class="option" >B.2</span>
+<span class="option" >C.3</span>
+<span class="option" >D.4</span>
+
+            </div>
+   </div>
+	
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p>B</p></span>
+        </div>
+
+			
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>D</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>&nbsp;</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+                    <p class="topic_num">4-1</p>
+     <div>
+                    <div>本题来源：长郡中学2020届高考模拟卷(一)第7题</p><p>7. 2019年成都世界警察与消防员运动会期间，需安排甲、乙、丙、丁四名志愿者去$A,B,C$三个场馆参与服务工作,要求每个场馆至少一人，则甲、乙被安排到同一个场馆的概率为<br></div>
+                    <div class="select clearfix">
+                        <span class="option" >A.$\frac{1}{12}$</span>
+<span class="option" >B.$\frac{1}{8}$</span>
+<span class="option" >C.$\frac{1}{6}$</span>
+<span class="option" >D.$\frac{1}{4}$</span>
+
+                    </div>
+    </div>
+
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第五题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分5.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+    <div>
+        <div>已知椭圆$C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1(a\gt b\gt&gt;0)$的左、右焦点分别为$F_1,F_2$，$M$为椭圆上一点，$\overrightarrow {MF_1}·\overrightarrow {MF_2}=0$，线段$MF_2$的延长线交椭圆$C$于点$N$，若$\lvert MF_1 \rvert$，$\lvert MN \rvert$，$\lvert NF_1 \rvert$成等差数列，则椭圆$C$的离心率为</div>
+            <div class="select clearfix">
+                <span class="option" >A.&nbsp;$\frac{\sqrt{2}}{2}$</span>
+<span class="option" >B.&nbsp;$\frac{\sqrt{3}}{2}$</span>
+<span class="option" >C.&nbsp;$\frac{\sqrt{2}}{3}$</span>
+<span class="option" >D.&nbsp;$\frac{\sqrt{3}}{3}$</span>
+
+            </div>
+   </div>
+	
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p>C</p></span>
+        </div>
+
+			
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>A</span>
+            </p>
+
+
+			
+        
+            <p>
+                <span class="bold">【解析】：</span>
+                <span>&nbsp;&nbsp;</span>
+            </p>
+
+
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>&nbsp;</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+                    <p class="topic_num">5-1</p>
+     <div>
+                    <div>本题来源：长郡中学2020届高考模拟卷(一)第11题</p><p>过抛物线$C:x^2=4y$的准线上任意一点$P$做抛物线的切线$PA,PB$，切点分别为$A,B$，则点$A$到准线的距离与点$B$到准线的距离之和的最小值为</div>
+                    <div class="select clearfix">
+                        <span class="option" >A.6</span>
+<span class="option" >B.2</span>
+<span class="option" >C.4</span>
+<span class="option" >D.3</span>
+
+                    </div>
+    </div>
+
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第六题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分12.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+            <p>在$\Delta$ABC中，角A,B,C的对边分别是a,b,c,且$\sqrt 3bsinC$=$2ccos^2{A+C\over 2}.$</p><p>$(1)$求角B的大小；</p><p>$(2)$若b=7，求$\Delta$ABC面积的最大值。</p>
+            <div class="answer_area">作答区:</div>
+
+
+
+
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/090f80e5dff6404da7b81e2536e9a096.png?Expires=4085035041&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=HeSgUOHYd6m%2BlysNaxJYGyEwqcc%3D"><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/3667fa81e62141eca3f2c41fa8c6ff76.png?Expires=4085035042&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=%2BJl9AGav1iZiXIe0JAKDKtVYJsE%3D"></p></span>
+        </div>
+
+			
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>∵A+B+C=$\pi$，∴ $A+C\over 2$=$\pi \over 2$-$B\over 2$,∴$cos{A+C\over 2}$=$sin{B\over 2}$</p><p>由$\sqrt 3 bsinc=2c cos^2{A+C\over 2}$及正弦定理得，</p><p>$\sqrt 3 sinBsinC=2sinC sin^2{B\over 2}$.</p><p>∴sinC$\not=$0，∴$\sqrt 3 sinB=2sin^2{B\over 2}=1-cosB.$</p><p>∴$\sqrt 3sinB+cosB=1,$即$2sin(B+{\pi\over 6})=1$,即$sin(B+{\pi\over 6})={1\over 2}.$</p><p>∵0&lt;B&lt;$\pi$.∴${\pi \over 6}&lt;B+{\pi\over 6}&lt;{7\pi\over 6}$</p><p>∴B+${\pi\over 6}={5\pi\over 6}$ ∴$B={2\pi\over 3}.$</p><p>$(2)$由余弦定理得：$b^2=a^2+c^2-2accosB,$</p><p>∵b=7,B=${2\pi\over 3},$</p><p>∴$7^2=a^2+c^2+ac\geq 3ac,$</p><p>∴$ac\leq {49\over3}$$(当且仅当a=c={7\sqrt3\over 3}时取等号)，$</p><p>∴$S_{\Delta ABC}={1\over 2}acsinB={\sqrt 3\over 4}ac\leq{49\sqrt3\over 12}$$(当且仅当a=c={7\sqrt3\over 3}时取等号)，$</p><p>∴$\Delta ABC面积的最大值为{49\sqrt3\over 12}$</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+     
+                    <p class="topic_num">6-1</p>
+                    <p>本题来源：长郡中学2020届高考模拟卷(一)第17题</p><p>已知$\Delta ABC$内接于单位圆，且$(1+\tan A)(1+\tan B)=2$，</p><p>⑴求角$C$；</p><p>⑵求$\Delta ABC$面积的最大值</p>
+                    <div class="answer_area">作答区:</div>
+     
+ 
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第七题】</h4>
+				<span>班级平均分：6.0分</span>
+                <span>得分6分/总分12.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+            <p>在平面四边形ABCD中，AB=BC=2,$\angle$D=$60^。$，DA=DC=$2\sqrt 2$，如图$(四)$所示，将$\Delta$DAC沿AC边折起，连DB，使DB=DA，得三凌锥D-ABC.</p><p>$(1)$求三棱锥D-ABC得体积。</p><p>$(2)$若E为棱AB上一点，二面角E-DC-A的大小为$30^。$求$AE\over EB$的值。</p><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/5215a27e64ad4dce996b84befbccf263?Expires=4084878694&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=ebQtqdQYIuXbci%2B9vMrZN8SVNQk%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/5215a27e64ad4dce996b84befbccf263?Expires=4084878694&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=ebQtqdQYIuXbci%2B9vMrZN8SVNQk%3D"></p>
+            <div class="answer_area">作答区:</div>
+
+
+
+
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/588feaafc9e5486fb571e0053d9548c6.png?Expires=4085035042&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=l4FDYGb41%2Fci7zrhTSzLvxQ%2FUmU%3D"></p></span>
+        </div>
+
+			
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/0c88352b1e0744108d7a9e3d87950925?Expires=4084991251&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=zD2zN9jcLQ0bqK2YMR%2BIo391Aco%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/0c88352b1e0744108d7a9e3d87950925?Expires=4084991251&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=zD2zN9jcLQ0bqK2YMR%2BIo391Aco%3D" width="216" height="213"></p><p>$(1)\Delta DAC$中，DA=AC=$2\sqrt 2$,$\angle D=60^。$∴$\Delta$ADC为等边三角形且AC=$2\sqrt 2$.</p><p>又∵AB=BC=2,∴$\Delta ABC$为等腰直角三角形.</p><p>取AC中点O，连OB,OD,∴$OB\bot AC$,$OD\bot AC$.</p><p>$\Delta DOB中，$OB=$\sqrt2$,OD=$\sqrt 6$,DB=DA=$2\sqrt 2.$</p><p>∴$DB^2=OB^2+OD^2,∴OD\bot OB.$</p><p>又$OD\bot AC,OB\cap AC=0,$$OD\bot 平面ABC$</p><p>∴$V_{D-ABC}={1\over 3}S_{\Delta ABC} \cdot OD={1\over 3}\times{1\over 2}\times 2^2\times \sqrt 6={2\sqrt 6\over 3}.$</p><p>$(2)$建立如图所示的坐标系O-xyz,则</p><p>$A(0,-\sqrt 2,0),B(\sqrt2,0,0),C(0,\sqrt2,0),D(0,0,\sqrt6).$</p><p>$\vec&nbsp;{AE}=\lambda \vec{AB}=(\sqrt 2\lambda,\sqrt 2\lambda,0),0\le\lambda\le 1$∴$\vec{CE}=\vec{CA}+\vec{AE}=(\sqrt 2\lambda,\sqrt 2\lambda-2\sqrt 2,0).$</p><p>$\vec{CD}=(0,-\sqrt 2,\sqrt 6).$设平面EDC的一个法向量m=（x,y,z）.</p><p>∴$\begin{cases}m\cdot\vec{CE}=\sqrt2\lambda x+(\sqrt2\lambda-2\sqrt2)y=0,\\m\cdot\vec{CO}=-\sqrt2+\sqrt6z=0\end{cases}$</p><p>令$y=\lambda$,则$x=2-\lambda,z={\lambda\over \sqrt 3},$</p><p>∴$m=(2-\lambda,\lambda,{\lambda\over\sqrt 3})$</p><p>又面DCA的一个法向量$n=(1,0,0),$</p><p>∴$|cos(m,n)|={2-\lambda\over \sqrt{(2-\lambda)^2}+\lambda^2+{1\over 3}\lambda^2}$=$\sqrt 3\over 2,$</p><p>∴$3\lambda^2+4\lambda-4=0.$</p><p>解之得：$\lambda={2\over 3}或-2（舍）.$</p><p>∴${AE\over EB}=2.$</p><p><br></p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+     
+                    <p class="topic_num">7-1</p>
+                    <p><div>本题来源：长郡中学2020届高考模拟卷(一)第18题</div><div>如图，等腰梯形$ABCD$中,$AB//CD$,$AD=AB=BC=1$,$CD=2$,$E$为$CD$中点，以AE为折痕把$\Delta ADE$折起，使点$D$到达点$P$的位置$(p\notin 平面ABCE)$</div><div><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/55c3cb73419f4ef6a31f37a83deed4c4?Expires=4084960288&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=ZUixqlga%2BvopAgByp7cTdQ4lTMQ%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/55c3cb73419f4ef6a31f37a83deed4c4?Expires=4084960288&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=ZUixqlga%2BvopAgByp7cTdQ4lTMQ%3D"></div><div>(1)证明:$AE\bot PB$；</div><div>(2)若直线$PB$与平面$ABCE$所成的角为$\frac{\pi}{4}$，求二面角$A-PE-C$的余弦值.</div><p><br></p></p>
+                    <div class="answer_area">作答区:</div>
+     
+ 
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第八题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分12.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+            <p>已知抛物线C：$y^2=2px(p&gt;0)$上的一点M$(\sqrt 2,m)$到它的焦点的距离为$\sqrt 2+1$。</p><p>$(1)$求p的值。</p><p>$(2)$过点N$(-2，t)(t\in R)$作曲线C的切线，切点分别为P，Q，求证：直线PQ过顶点。</p>
+            <div class="answer_area">作答区:</div>
+
+
+
+
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/cd64ef673a294ca08cb30f3ede4681c4.png?Expires=4085035043&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=aZx%2BgPTHD%2FdgD7SMyc15aJDLsH4%3D"></p></span>
+        </div>
+
+			
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>$(1)$曲线C上点M到焦点的距离等于它到准线的距离.</p><p>∴$\sqrt 2+{p\over 2}=\sqrt 2+1,$∴${p\over 2}=1,$∴p=2.</p><p>$(2)$依题意，过点N的抛物线切线的斜率存在，故可设过N的直线：$y-t=k(x+2),$代入$y^2=4x得,$</p><p>$ky^2-4y+4t+8k=0.$</p><p>与曲线C相切，则$\begin{cases}k\neq 0.\\\Delta=0.\end{cases}$得$2k^2+tk-1=0.$</p><p>设NP,NQ的斜率分别为$k_1,k_2$,则$k_1k_2=-{1\over2}$.</p><p>且$P({1\over k^2_1}\cdot{2\over k_1}),Q({1\over k^2_2}\cdot{2\over k_2}).$</p><p>当$|k_1|\neq|k_2|时，$直线PQ的方程:$y-{2\over k_1}={{2\over k_1}-{2\over k_2}\over {1\over k^2_1}-{1\over k^2_2}}(x-{1\over k^2_1}).$</p><p>即：$y-{2\over k_1}={2k_1k_2\over k_1+k_2}(x-{1\over k^2_1}).$</p><p>=${-1\over k_1+k_2}(x-{1\over k^2_1}).$</p><p>即：y=${-1\over k_1+k_2}x+{1\over (k_1+k_2)k^2_1}+{2\over k_1}.$</p><p>=${-1\over k_1+k_2}x+{1+2k_1(k_1+k_2)\over (k_1+k_2)k^2_1}$</p><p>=${-1\over k_1+k_2}x+{2k^2_1\over (k_1+k_2)k^2_1}.$</p><p>=${-1\over k_1+k_2}x+{2\over k_1+k_2}=-{1\over k_1+k_2}(x-2).$</p><p>∴直线PQ过定点$(2,0)$.</p><p>当$|k_1|=|k_2|$时，即$|k_1|=|k_2|={\sqrt 2\over 2},$</p><p>则PQ所在的直线为x=2,过点(2,0)综上可得，直线PQ过定点(2,0)</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+     
+                    <p class="topic_num">8-1</p>
+                    <p><div>本题来源：长郡中学2020届高考模拟卷(一)第19题</div><div>某地区为贯彻习近平总书记关于“绿水青山就是金山银山”的精神，鼓励农户利用荒坡 种植果树.某农户考察三种不同的果树苗$A、B、C$,经引种试验后发现，引种树苗$A$的 自然成活率为0. 8,引种树苗$B、C$的自然成活率均为$p(0.7\le p\le 0.9)$.</div><div>（1） 任取树苗$A、B、C$各一棵，估计自然成活的棵数为$X$,求$X$的分布列及$E(X)$；</div><div>（2） 将（1）中的$E(X)$取得最大值时$p$的值作为$B$种树苗自然成活的概率.该农户决定引种$n$棵$B$种树苗，引种后没有自然成活的树苗中有75%的树苗可经过人工栽培 技术处理,处理后成活的概率为0. 8,其余的树苗不能成活.</div><div>① 求一棵$B$种树苗最终成活的概率；</div><div>② 若每棵树苗引种最终成活后可获利300元，不成活的每棵亏损50元，该农户为了 获利不低于20万元，问至少引种$B$种树苗多少棵？</div><p><br></p></p>
+                    <div class="answer_area">作答区:</div>
+     
+ 
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第九题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分12.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+            <p>在全面抗击新冠肺炎疫情这一特殊时期，某高三年级为响应“听课不停学”，鼓励学生进行线上学习，学生线上学习时间每天不超过4小时，为了解学生线上学习情况，年纪负责人统计了全体学生某天的数据，随机抽取10个学生的线上学习时间进行分析，绘制成下表。</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/86000f9d051b4ceaa55fbd7382da930b?Expires=4084879398&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=lGOfNSGbOCkpSU986GARsVweAQ0%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/86000f9d051b4ceaa55fbd7382da930b?Expires=4084879398&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=lGOfNSGbOCkpSU986GARsVweAQ0%3D"></p><p>$(1)$若从这10个学生中任意选取3人，设选到的3人中线上学习时间不少于3小时的人数为X，求X的分布列和数学期望；</p><p>$(2)$以表中选取的10人当天线上学习时间作为样本，估计该校高三年级全体学生当天线上学习时间的情况.从全部高三年级学生中随机抽取6人，若抽到k人的当天线上学习时间小于3小时的可能性最大，求<em>k</em>的值.</p>
+            <div class="answer_area">作答区:</div>
+
+
+
+
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/349819cb8c21413d914b6ab935cdd79d.png?Expires=4085035043&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=KOb5oSWSvGa4KjB8DGas4MUGIhw%3D"></p></span>
+        </div>
+
+			
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>$(1)$由题意10个学生中，线上学习时间不少于3小时的有4人，则X=0,1,2,3,</p><p>$P(X=0)={C^3_6\over C^3_{10}}={1\over 6},$$P(X=1)={C_6^2C_4^1\over C_{10}^3}={1\over 2},$</p><p>$P(X=2)$=$c_6^1C_4^2\over C_{10}^3$=${3\over 10},$$P(X=3)$=${C_4^3}\over C_{10}^3$=$1\over 30,$</p><p>∴X的分布列：</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/b0660704d3224d9b98aaabe4d0186c0d?Expires=4084993802&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=BjSvTU341OU547s4Gn34lALOsn4%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/b0660704d3224d9b98aaabe4d0186c0d?Expires=4084993802&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=BjSvTU341OU547s4Gn34lALOsn4%3D" width="401" height="68"></p><p>∴$EX=0\times{1\over 6}+1\times{1\over 2}+2\times{3\over10}+3\times{1\over {30}}={6\over5}.$</p><p>$(2)$一样本估计总体的线上学习时间少于3小时的概率$3\over 5$.</p><p>记Y为从6人中抽取的线上学习时间少于3小时的人数，则$Y\sim B(6,{3\over 5})$.</p><p>$P(Y=K)=C_6^K({3\over 5})^K({2\over 5})^{6-K},$K=0,1,2,...,6.</p><p>要使$P(Y=K)$最大，则$\begin{cases}C_6^K({3\over 5})^K({2\over 5})^{6-K}\geq C_6^{K-1}({3\over 5})^{K-1}({2\over 5})^{7-K},\\C_6^K({3\over 5})^K({2\over 5})^{6-K}\geq C_6^{K+1}({3\over 5})^{K+1}({2\over 5})^{5-K}\end{cases},$</p><p>解之得${16\over 5}\leq K\leq {21\over 5},$又$K\in N$∴K=4.</p><p><br data-mce-bogus="1"></p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+     
+                    <p class="topic_num">9-1</p>
+                    <p>本题来源：长郡中学2020届高考模拟卷(一)第20题</p><p>已知椭圆$E:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1(a\gt b\gt 0)$的离心率为$\frac{\sqrt{2}}{2}$，且与抛物线$y^2=x$交于$M,N$两点，$\Delta OMN$（O为坐标原点）的面积为$2\sqrt{2}$。</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/16bf70a2adaf40ca989a8f460a0e92bf?Expires=4084959446&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=HEDo%2F8BGv5eLUwSYxjq8bwO5xxM%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/16bf70a2adaf40ca989a8f460a0e92bf?Expires=4084959446&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=HEDo%2F8BGv5eLUwSYxjq8bwO5xxM%3D"></p><p>⑴求椭圆$E$的方程；</p><p>⑵如图，点$A$为椭圆上一动点（非长轴端点），$F_1,F_2$为左、右焦点，$AF_2$的延长线与椭圆交于$B$点，$AO$的延长线与椭圆交于$C$点，求$\Delta ABC$面积的最大值</p>
+                    <div class="answer_area">作答区:</div>
+     
+ 
+
+            </div>
+            
+        </div>
+    </div> <div class="subject_content clearfix">
+        <!-- 左边题目 -->
+        <div class="subject_l">
+            <div class="subject_l_top clearfix">
+                <h4 class="topic">【第十题】</h4>
+				<span>班级平均分：0.0分</span>
+                <span>得分0分/总分12.0分</span> 
+            </div>
+            <div class="practice_item clearfix">
+
+            <p>已知函数$f(x)=2x^3+3ax^2+6(a-1)x(a\in R)$.</p><p>$(1)$讨论函数$f(x)$的单调性；</p><p>$(2)$若$f(1)=5$，m&lt;4,求证：当x&gt;1时，$mx^2(lnx+1)\le f(x).$</p>
+            <div class="answer_area">作答区:</div>
+
+
+
+
+
+		    <h4 class="middle_title"> 考试作答</h4>
+		 <div class="exam_answer_cont">
+            <span><p><img src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/answerImage/ec77160c87644b79b72526d027895740.png?Expires=4085035044&OSSAccessKeyId=LTAIdtD1NhXOD3i6&Signature=qgJ%2BTvs1aKCs4N3Vdz9ZvMp4WQI%3D"></p></span>
+        </div>
+
+			
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>解$(1)$函数$f(x)$定义域为$(-\infty,+\infty),$且</p><p>$f'(x)=6x^2+6ax+6(a-1)=6(x+1)[x+(a-1)]$.</p><p>①若a=2,则$f'(x)\geq 0,$因而$f(x)在(-\infty,+\infty)$上单调递增.</p><p>②若$a&lt;2,$则当$x\in (-\infty,-1)$及$x\in (1-a,+\infty)$时$f'(x)&gt;0$</p><p>当$x\in(-1,1-a)时，f'(x)&lt;0,f(x)$单调递减</p><p>③若a&gt;2,则当$x\in (-\infty,1-a)$及$x\in (-1,+\infty)$时$f'(x&gt;0)，f(x)$单调递减.</p><p>当$x\in(1-a,-1)$时，$f'(x)&lt;0,f(x)$单调递减.</p><p>综上，当a=2时，$f(x)在(-\infty,+\infty)$上单调递增；当a&lt;2是，$f(x)$在$(-\infty,-1),(1-a,+\infty)$</p><p>上单调递增；在$(-1,1-a)$上单调递减；当$a&gt;2$时，$f(x)在$$(-\infty,1-a),$$(-1,+\infty)$上单调递增，在$(1-a,-1)$上单调递减.</p><p>$(2)$有题意知$f(1)=2+3a+6(a-1)=5$,∴a=1,故$f(x)=2x^3+3x^2.$</p><p>欲证当$x&gt;1$时，$mx^2(lnx+1)\leq f(x).$</p><p>∵当$x&gt;1$时，$x^2&gt;1,$lnx+1&gt;1.</p><p>∴只需证:$m\leq {f(x)\over x^2(lnx+1)},$即$m\leq {2x+3\over lnx+1}$在$(1,+\infty)$上恒成立。</p><p>设$h(x)={2x+3\over lnx+1}(x\in(1,+\infty)),$则$h'(x)={2(lnx+1)-(2x+3)\times{1\over x}\over (lnx+1)^2}$=$2lnx-{3\over x}\over (lnx+1)^2$.</p><p>设$\gamma(x)=2lnx-{3\over x},$则$\gamma'(x)={2\over x}+{3\over x^2}$.</p><p>故当$x\in (1,+\infty)$时，$\gamma'(x)&gt;0,\gamma(x)$单调递增</p><p>又$\gamma(2)=2ln2-{3\over 2}={ln16-3\over 2}&lt;0,$$\gamma(e)=2-{3\over e}&gt;0.$</p><p>∴$h'(x)=0$有且只有一个根$x_0$,且$2&lt;x_0&lt;e$,$2lnx_0={3\over x_0}$.</p><p>∴在$(1,x_0)$上$h'(x)&lt;0$,$h(x)$单调递减，在$(x_0,+\infty)$上$h'(x)&gt;0,h(x)$单调递增。</p><p>∴函数$h(x)$得最小值$h(x_0)={2x_0+3\over lnx_0+1}={2x_0+3\over {3\over 2x_0}+1}$=$2x_0&gt;4.$</p><p>又∵m&lt;4.</p><p>∴$m\leq {2x+3\over lnx+1}在(1,+\infty)$上恒成立.</p><p>故$mx^2(lnx+1)\leq f(x)成立.$</p></span>
+            </p>
+
+
+          </div>
+            <!-- 推荐练习 -->
+            <div class="practice">
+                <h5>推荐练习</h5>
+                
+     
+                    <p class="topic_num">10-1</p>
+                    <p>本题来源：长郡中学2020届高考模拟卷(一)第21题</p><p>设函数$f(x)=e^x\cos x$，$g(x)$为$f(x)$的导数函数。</p><p>⑴求$f(x)$的单调区间；</p><p>⑵当$x\in [\frac{\pi}{4},\frac{\pi}{2}]$时，证明：$f(x)+g(x)(\frac{\pi}{2}-x)\ge 0$；</p><p>⑶设$x_n$为函数$u(x)=f(x)-1$在区间$(2n\pi +\frac{\pi}{4},2n\pi +\frac{\pi}{2})$内的零点，其中$n\in N$，证明$2n\pi +\frac{\pi}{2}-x_n\lt \frac{e^{-2n\pi}}{\sin x_0-\cos x_0}$。</p>
+                    <div class="answer_area">作答区:</div>
+     
+ 
+
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 分页
+    <div style="page-break-after: always;"></div> -->
+    <!-- 页眉 
+    <div class="divHeader">
+        <div class="divHeader-l">高三第三次联考-数学(理)&nbsp;&nbsp;&nbsp;&nbsp;255赵炼</div>
+        <div class="divHeader-r"><img src="http://xgkj-logo.oss-cn-shenzhen.aliyuncs.com/%E6%95%99%E5%B8%88%E7%89%885.png"></div>
+    </div>-->
+	<!-- 学生作答部分 -->
+	
+    <!-- 分页 -->
+    <div style="page-break-after: always;"></div>
+    <!-- 参考答案 -->
+    
+    <!-- 分页 -->
+    <!-- 推荐练习 参考答案 -->
+    <!-- 分页 -->
+    <div style="page-break-after: always;"></div>
+    <!-- 推荐练习 参考答案 -->
+    <div class="reference_result">
+        <h4 class="result_title">拓展题 参考答案</h4>
+        
+
+        <div class="result_item">
+            <p class="topic sub">1-1</p>
+           
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>B</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>$\because $复数$z=\frac{2i}{1+i}=\frac{2i(1-i)}{(1+i)(1-i)}=1+i$,</p><p>$\therefore$复数$z$的共轭复数是$1-i$，就是复数$z=\frac{2i}{1+i}$所对应的点关于实轴对称的点为$A$对应的复数，故选B</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">2-1</p>
+           
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>C</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>由题意$A=\{y|y\lt 4\},B=\{x|(x+2)(3-x)\gt 0=\}\{x|-2\lt x\lt 3\}$，$\therefore B\subseteq A$只有 C正确。</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">3-1</p>
+           
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>A</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>由$\ln(a-2)-\ln(b-1)\gt 0$,得 $\begin{cases} a-2\gt 0 \\b-1\gt 0 \\ a-2 \gt b-1\end{cases}$,得$a\gt b\gt 1$,$\therefore \frac{a}{b}\gt 1$;反之$\frac{a}{b}\gt 1$,不一定有$\ln(a-2)-\ln(b-1)\gt 0$，如$a=-2,b=-1$,$\therefore “\ln(a-2)-\ln(b-1)\gt 0”$是$“\frac{a}{b}\gt 1”$成立的充分不必要条件，故选A</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">4-1</p>
+           
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>C</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>由题意将甲、乙看成一个整体，满足要求的安排方式种类有$m=A_3^3=6$.总的安排方式的种类有$n=C_1^2 \times A_3^3=36$所以甲、乙被安排到同一个场馆的概率为$P=\frac{m}{n}=\frac{1}{6}$.故选C.</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">5-1</p>
+           
+            <p>
+                <span class="bold">【参考答案】：</span>
+                <span>C</span>
+            </p>
+
+
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>设$A(x_1,y_1),B(x_2,y_2)$,则直线$PA,PB$的方程分别$y=\frac{x_1}{2}x-\frac{x_1^2}{4},y=\frac{x_2}{2}x-\frac{x_2^2}{4}$，联立解得$x_p=\frac{x_1+x_2}{2},y_p=\frac{x_1·x_2}{4}$.又直线$PA,PB$的方程分别可表示为$y=\frac{x_1}{2}x-y_1,y=\frac{x_2}{2}x-y_2$，将$P$点坐标带入两方程，得$\begin{cases}y_p=\frac{x_1·x_p}{2}-y_1,\\ y_p=\frac{x_2·x_p}{2}-y_2,\end{cases}$,所以直线$AB$的方程为$\frac{x·x_p}{2}-y=-1$，即$y=\frac{x·x_p}{2}+1$，所以$A$点到准线的距离与$B$点到准线的距离之和为$y_1+y_2+2=(\frac{x_p}{2}x_1+1)+(\frac{x_p}{2}x_2+1)+2=\frac{x_p}{2}(x_1+x_2)+4=\frac{(x_1+x_2)^2}{4}+4\ge 4$.故答案为C.<br></p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">6-1</p>
+           
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>⑴$\because (1+\tan A)(1+\tan B)=2$,$\therefore \tan A+\tan B=1-\tan A·\tan B$,$\therefore \tan C=-\tan(A+B)=-\frac{\tan A+\tan B}{1-\tan A·\tan B}=-1$,$\because C\in(0,\pi),\therefore C=\frac{3\pi}{4}$</p><p>⑵$\because \Delta ABC$的外接圆为单位圆，$\therefore$其半径$R=1$，由正弦定理可得$c=2R\sin C=\sqrt{2}$，由余弦定理可得$c^2=a^2+b^2-2ab\cos C$，代入数据可得$2=a^2+b^2+\sqrt{2}ab\ge 2ab+\sqrt{2}ab=(2+\sqrt{2})ab$，当且仅当$a=b$时，“=”成立，$\therefore ab\le \frac{2}{2+\sqrt{2}}$,$\therefore \Delta ABC$的面积$S=\frac{1}{2}ab\sin C\le \frac{1}{2+\sqrt{2}}·\frac{\sqrt{2}}{2}=\frac{\sqrt{2}-1}{2}$，</p><p>$\Delta ABC$面积的最大值为$\frac{\sqrt{2}-1}{2}$</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">7-1</p>
+           
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>⑴证明：在等腰梯形$ABCD$中，连接$BD$，交$AE$于点$O$，</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/e920d186c22f4a0fb49235585775f51a?Expires=4084965265&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=GzGoV15WF19IkVxZuwKICX1VtZg%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/e920d186c22f4a0fb49235585775f51a?Expires=4084965265&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=GzGoV15WF19IkVxZuwKICX1VtZg%3D"></p><p>$\because AB//CE,AB=CE$,$\therefore $四边形$ABCE$为平行四边形，$\therefore AE=BC=AD=DE$，$\Delta ADE$为等边三角形，$\therefore$在等腰梯形$ABCD$中,$\angle C=\angle ADE =\frac{\pi}{3},BD\bot BC$,$\therefore BD\bot AE$</p><p>翻折后可得：$OP\bot AE,OB\bot AE$。</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/343fede5ba744073a703b106e82cbea2?Expires=4084965767&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=VqXoEI8TX9ItIMnWWi3NxKix3Is%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/343fede5ba744073a703b106e82cbea2?Expires=4084965767&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=VqXoEI8TX9ItIMnWWi3NxKix3Is%3D"></p><p>又$\because OP\subset$平面$POB$，$\because OB\subset$平面$POB$，$OP\bigcap OB=O$，$\therefore AE\bot$平面$POB$。</p><p>$\because PB\subset $平面$POB$,$\therefore AE\bot PB$</p><p>⑵解：在平面$POB$内作$PQ\bot OB$，垂足为$Q$，$\because AE \bot$平面$POB$,$\therefore AE\bot PQ$,$\because OB \subset$平面$ABCE$,$AE\subset$平面$ABCE$,$AE \bigcap OB=O$,$\therefore PQ\bot$平面$ABCE$,$\therefore$直线$PB$与平面$ABCE$夹角为$\angle PBQ =\frac{\pi}{4}$,又$\because OP=OB$,$\therefore OP\bot OB$,$\therefore O,Q$两点重合，即$OP\bot $平面$ABCE$,</p><p>以$O$为原点，$OE$为$x$轴，$OB$为$y$轴，$OP$为$z$轴，建立空间直角坐标系，</p><p>由题意得，各点坐标为$P(0,0,\frac{\sqrt{3}}{2}),E(\frac{1}{2},0,0),C(1,\frac{\sqrt{3}}{2},0)$，$\therefore \overrightarrow {PE}=(\frac{1}{2},0,-\frac{\sqrt{3}}{2})$,$\overrightarrow {EC}=(\frac{1}{2},\frac{\sqrt{3}}{2},0)$</p><p>设平面$PCE$的一个向量为$n_1=(x,y,z)$，则$\begin{cases}\ \overrightarrow{PE}·n_1=0,\\\overrightarrow {EC}·n_1=0,\end{cases}$,</p><p>$\therefore \begin{cases} \frac{1}{2}x-\frac{\sqrt{3}}{2}z=0,\\\frac{1}{2}x+\frac{\sqrt{3}}{2}y=0\end{cases}$</p><p>设$x=\sqrt{3}$，则$y=-1,z=1,\therefore n_1=(\sqrt{3},-1,1)$，由题意得平面$PAE$的一个法向量$n_2=(0,1,0)$，</p><p>设二面角$A-EP-C$为$a，|\cos a|=\frac{|n_1·n_2|}{|n_1||n_2|}=\frac{1}{\sqrt{5}}=\frac{\sqrt{5}}{5}$</p><p>易知二面角$A-EP-C$为钝角，所以$\cos a=-\frac{\sqrt{5}}{5}$</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/3d1b4c569d6546229c2cc5c299e38b51?Expires=4084970178&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=DiESHbdIQZKhJAmdp2%2FWOX4G1HE%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/3d1b4c569d6546229c2cc5c299e38b51?Expires=4084970178&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=DiESHbdIQZKhJAmdp2%2FWOX4G1HE%3D"></p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">8-1</p>
+           
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>⑴依题意，$X$的所有可能值为0，1，2，3，</p><p>则$P(X=0)=0.2(1-P)^2$;</p><p>$P(X=1)=0.8(1-P)^2+0.2\times C_2^1\times p\times (1-p)=0.8(1-p)^2+0.4p()$1-p,</p><p>即$P(X=1)=0.4p^2-1.2p+0.8$;</p><p>$P(X=2)=0.2p^2+0.8\times C_2^1 \times p\times (1-p)=0.2p^2+1.6p(1-p)=-1.4p^2+1.6p$</p><p>$P(X=3)=0.8P^2$</p><p>X的分布列为：</p><p><img class="wscnph" src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/73fb7582ce1545c2ad21399ea668bbd2?Expires=4084970708&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=r%2BF4CxziQawVqZ3kOS7Xqt4ru8c%3D" data-mce-src="http://quest-image.oss-cn-shenzhen.aliyuncs.com/ctImage/73fb7582ce1545c2ad21399ea668bbd2?Expires=4084970708&amp;OSSAccessKeyId=LTAIdtD1NhXOD3i6&amp;Signature=r%2BF4CxziQawVqZ3kOS7Xqt4ru8c%3D"></p><p>所以$E(X)=1\times (0.4p^2-1.2p+0.8)+2\times (-1.4p^2+1.6p)+3\times(0.8p^2)=2p+0.8$</p><p>⑵当$p=0.9$时，$E(X)$取得最大值，</p><p>①一棵$B$种树苗最终成活的概率为$0.9+0.1\times 0.75\times 0.8=0.96$，</p><p>②记$Y$为$n$棵树苗的成活棵树，$M(n)$为$n$棵树苗的利润，</p><p>则$Y-B(n,0.96)$，$E(Y)=0.96n$,$M(n)=300Y-50(n-Y)=350Y-50n$</p><p>$E(M(N))=350E(Y)-50n=286n,$</p><p>要使$E(M(n))\ge 200000$,则有$n\ge 699.3$，</p><p>所以该农户至少种植700棵树苗，就可获利不低于20万元</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">9-1</p>
+           
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>⑴椭圆$E:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1(a\gt b\gt 0)$与抛物线$y^2=x$交于两点，</p><p>可设$M(x,\sqrt{x}),N(x,-\sqrt{x})$,</p><p>$\because \Delta OMN$的面积为$2\sqrt{2}$,</p><p>$\therefore x\sqrt{x}=2\sqrt{2}$,解得$x=2$,$\therefore M(2,\sqrt{2}),N(2,-\sqrt{2})$,</p><p>由已知得$\begin{cases} \frac{c}{a}=\frac{\sqrt{2}}{2},\\\frac{4}{a^2}+\frac{2}{b^2}=1,\\a^2=b^2+c^2\end{cases}$，解得$a=2\sqrt{2},b+2,c+2$</p><p>$\therefore$椭圆$E$的方程为$\frac{x^2}{8}+\frac{y^2}{4}=1$</p><p>⑵①当直线$AB$的斜率不存在时，不妨取$A(2,\sqrt{2})B(2,-\sqrt{x})C(-2,-\sqrt{2})$，故</p><p>$\Delta ABC=\frac{1}{2}\times 2\sqrt{2}\times 4=4\sqrt{2}$；</p><p>②当直线$AB$的斜率存在时，设直线$AB$的方程为$y=k(x-2),A(x_1,y_1),B(x_2,y_2)$，</p><p>联立方程$\begin{cases}y=k(x-2),\\\frac{x^2}{8}+\frac{y^2}{4}=1,\end{cases}$，化简得$(2k^2-8)x^2-8k^2x+8k^2-8=0$,</p><p>则$\Delta =64k^4-4(2k^2+1)(8k^2-8)=32(k^2+1)\gt 0$，</p><p>$x_1+x_2=\frac{8k^2}{2k^2+1},x_1·x_2=\frac{8k^2-8}{2k^2+1}$</p><p>$|AB|=\sqrt{(1+k)^{2}·[(x_1+x_2)^{2}-4x_1·x_2]}$</p><p>$=\sqrt{(1+k)^{2}·[(\frac{8k^2}{2k^2+1})^{2}-4·\frac{8k^2-8}{2k^2+1}]}$</p><p>$=4\sqrt{2}·\frac{k^2+1}{2k^2+1}$</p><p>点$O$到直线$kx-y-2k=0$的距离$d=\frac{|-2k|}{\sqrt{k^2+1}}$=$\frac{2|k|}{\sqrt{k^2+1}}$，</p><p>因为$O$是线段$AC$的中点，所以点$C$到直线$AB$的距离为$2d=\frac{4|k|}{\sqrt{k^2+1}}$，</p><p>$\therefore S_{\Delta ABC}=\frac{1}{2}|AB|·2d=$</p><p>$\frac{1}{2}·(4\sqrt{2}·\frac{k^2+1}{2k^2+1})·\frac{4|k|}{\sqrt{k^2+1}}$</p><p>$=8\sqrt{2}·\sqrt{\frac{k^{2}(k^2+1)}{(2k^2+1)^2}}$</p><p>$\because \frac{k^{2}(k^2+1)}{(2k^2+1)^2}=\frac{k^{2}(k^2+1)}{[k^2+(k^2+1)]^2}\le \frac{k^{2}(k^2+1)}{4k^{2}(k^2+1)}=\frac{1}{4}$,</p><p>又$k^{2}\neq k^2+1 $，所以等号不成立，</p><p>$\therefore S_{\Delta ABC}=8\sqrt{2}·\sqrt{\frac{k^{2}(k^2+1)}{(2k^2+1)^2}}\lt 4\sqrt{2}$</p><p>综上，$S_{\Delta ABC}$面积最大值为$4\sqrt{2}$</p></span>
+            </p>
+
+        </div>
+
+
+        <div class="result_item">
+            <p class="topic sub">10-1</p>
+           
+			
+			
+
+            <p>
+                <span class="bold">【解答】：</span>
+                <span><p>⑴由已知，有$f^{'}(x)=e^{x}(\cos x-\sin x)$，</p><p>当$x\in (2k\pi +\frac{\pi}{4},2k\pi+\frac{5\pi}{4})(k\in Z)$时，有$\sin x\gt \cos x$，得$f^{'}(x)\lt 0$，则$f(x)$单调递减；</p><p>当$x\in (2k\pi -\frac{3\pi}{4},2k\pi+\frac{\pi}{4})(k\in Z)$时，有$\sin x\lt \cos x$，得$f^{'}(x)\gt 0$，则$f(x)$单调递增.</p><p>所以，$f(x)$的单调递增区间为$(2k\pi -\frac{3\pi}{4},2k\pi+\frac{\pi}{4})(k\in Z)$，</p><p>$f(x)$的单调递减区间为$(2k\pi +\frac{\pi}{4},2k\pi+\frac{5\pi}{4})(k\in Z)$。</p><p>⑵记$h(x)=f(x)+g(x)(\frac{\pi}{2}-x)$，依题意及⑴有$g(x)=e^{x}(\cos x-\sin x)$，</p><p>从而$g^{'}(x)=-2e^{x}\sin x$，当$x\in (\frac{\pi}{4},\frac{\pi}{2})$时，$g^{'}(x)\lt 0$，</p><p>故$h^{'}(x)=f^{'}(x)+g^{'}(x)(\frac{\pi}{2}-x)+g(x)(-1)=g^{'}(x)(\frac{\pi}{2}-x)\lt 0$，</p><p>因此$h(x)$，在区间$[\frac{\pi}{4},\frac{\pi}{2}]$上单调递减，进而$h(x)\ge h(\frac{\pi}{2})=f(\frac{\pi}{2})=0$。</p><p>所以,当$x\in [\frac{\pi}{4},\frac{\pi}{2}]$时，$f(x)+g(x)(\frac{\pi}{2}-x)\ge 0$。</p><p>⑶依题意$u(x_n)=f(x_n)-1=0$，即$e^{x_n}\cos x_n=1$，记$y_n=x_n-2nx$，则$y_\in (\frac{\pi}{4},\frac{\pi}{2})$。</p><p>且$f(y_n)=e^{y_n}\cos y_n=e^{x_n-2nx}\cos (x_n-2nx)=e^{-2nx}(n\in N)$，</p><p>由$f(y_n)=e^{-2nx}\ge 1=f(y_0)$及⑴得$y_n\ge y_0$.</p><p>由⑵知，当$x\in (\frac{\pi}{4},\frac{\pi}{2})$时，$g^{'}(x)\lt $所以$g^{'}(x)$在$[\frac{\pi}{4},\frac{\pi}{2}]$上为减函数，</p><p>因此$g(y_n)\le g(y_0)\lt g(\frac{\pi}{4})=0$.</p><p>又由⑵知$f(y_n)+g(y_n)(\frac{\pi}{2}-y_n)\ge 0$，</p><p>故：$\frac{\pi}{2}-y_n\le -\frac{f(y_n)}{g(y_n)}=-\frac{e^{-2nx}}{g(y_n)}\le -\frac{e^{-2nx}}{g(y_0)}$</p><p>=$\frac{e^{-2nx}}{e^{y_0}(\sin y_0-\cos y_0)}\lt \frac{e^{-2nx}}{\sin x_0-\cos x_0}$.</p><p>所以$2n\pi + \frac{\pi}{2}-x_n\lt \frac{e^{-2nx}}{\sin x_0-\cos x_0}$</p></span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
