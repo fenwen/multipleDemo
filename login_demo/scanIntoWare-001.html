@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>扫码入库</title>
+        <script src="./js/template-web.min.js"></script>
+        <style>
+            * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+            body { font-size: 12px; line-height: 1.5; font-family: '微软雅黑'; }
+            h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+            ul { list-style: none; }
+            img { border: 0; }
+            em { font-style: normal; }
+            .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+
+            .scan_container { padding: 10px 20px; }
+            .scan_container .scan_header { padding: 20px 10px; font-size: 14px; line-height: 30px; border: 1px solid #dcdcdc; border-radius: 5px; }
+            .scan_container .scan_header .scan_item { display: inline-block; margin-right: 10px; }
+            .scan_container .scan_header .scan_item input { width: 200px; padding: 3px 8px; line-height: 20px; border-radius: 3px; border: 1px solid #dcdcdc; }
+            .scan_container .scan_header .scan_item #scan_complete { cursor: pointer; padding: 0 12px; background: none; line-height: 26px; border-radius: 3px; border: 1px solid #dcdcdc; }
+            .scan_container .scan_header .scan_item #scan_complete:hover { opacity: 0.8; }
+
+            .scan_container .data_info { display: flex; padding: 20px 10px; margin-top: 30px; font-size: 14px; line-height: 30px; border: 1px solid #dcdcdc; border-radius: 5px; }
+            .scan_container .data_info .info_row { flex: 1; }
+
+            .scan_container .table_list { width: 100%; overflow: auto; padding: 20px; margin-top: 30px; font-size: 14px; line-height: 24px; border: 1px solid #1989fa; border-radius: 5px; }
+            .scan_container .table_list #orderTable { width:100%; white-space: nowrap; border: 1px solid #dcdcdc; }
+            .scan_container .table_list #orderTable th { padding: 3px; border-right: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; }
+            .scan_container .table_list #orderTable td { padding: 3px; text-align: center; border-right: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; }
+            .scan_container .table_list .no_data { text-align: center; padding: 20px; }
+        </style>
+    </head>
+
+    <body onload="init()">
+        <div class="scan_container clearfix">
+            <div class="scan_header">
+                <div class="scan_item">
+                    <span>入库单号：</span>
+                    <input type="text" id="barCode" disabled>
+                </div>
+                <div class="scan_item">
+                    <span>条码：</span>
+                    <input type="text" id="scanInput">
+                </div>
+                <div class="scan_item">
+                    <button id="scan_complete">扫描完成</button>
+                </div>
+            </div>
+
+            <div class="data_info">
+                <div class="info_row">入库单号：</div>
+                <div class="info_row">计划/实收数量：</div>
+                <div class="info_row">收货人编码：</div>
+                <div class="info_row">收货人：</div>
+            </div>
+
+            <div class="table_list">
+                <table id="orderTable" border="0" cellspacing="0" cellpadding="0"></table>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!-- 数据信息模板 -->
+<script id="dataInfoHtml" type="text/html">
+    <div class="info_row">入库单号：<%=data.asnCode%></div>
+    <div class="info_row">计划/实收数量：<%=data.qtyStr%></div>
+    <div class="info_row">收货人编码：<%=data.receiveCode%></div>
+    <div class="info_row">收货人：<%=data.receiveName%></div>
+</script>
+
+<!-- 表格模板 -->
+<script id="tableListHtml" type="text/html">
+    <%if(list.length) {%>
+    <thead>
+        <tr>
+            <th>条码</th>
+            <th>货品代码</th>
+            <th>货品描述</th>
+            <th>批次属性</th>
+            <th>OK/NG</th>
+            <th>异常原因</th>
+        </tr>
+    </thead>
+    <%}%>
+    <%for(var i = 0; i < list.length; i++) {%>
+    <tr>
+        <td class=""><%=list[i].barCode%></td>
+        <td><%=list[i].itemCode%></td>
+        <td><%=list[i].description%></td>
+        <td><%=list[i].dot%></td>
+        <td><%=list[i].resCode%></td>
+        <td><%=list[i].error%></td>
+    </tr>
+    <%}%>
+
+    <%if(!list.length) {%>
+        <div class="no_data">暂无数据</div>
+    <%}%>
+</script>
+
+<script>
+    let tableList = []
+    function init(){
+        // 表格数据初始化
+        document.getElementById('orderTable').innerHTML = template('tableListHtml', {list: tableList})
+
+        // 扫描
+        document.getElementById('scanInput').addEventListener('keypress', function(event){
+            if(event.keyCode == "13"){
+                let code = document.getElementById('scanInput').value
+                // if(code){
+                //     let url = "http://localhost:8088/wms/receive.receive?action=getAsnInfo&asnCode="+ code
+                //     var request = new XMLHttpRequest();
+                //     request.open("GET",url);
+                //     request.send();
+                //     request.onload = function() {
+                //         if(request.status == 200) {
+                            let result = {
+                                "asnInfo":{
+                                    "receiveName":"张三", // 收货人名称
+                                    "qtyStr":"13.0/1.0",// 计划/实收
+                                    "receiveCode":"WK001",// 收货人编码
+                                    "asnCode":"59"// 收货单编号
+                                },
+                                "code":"0",// 0成功 -1失败
+                                "msg":"查询成功"
+                            }
+
+                            document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: result.asnInfo})
+                            document.getElementById('barCode').innerHTML = result.asnCode
+                //         }
+                //     }
+                // }
+            }
+        })
+
+        // 扫描完成
+        document.getElementById('scan_complete').addEventListener('click', function(){
+            let code = document.getElementById('scanInput').value
+            let barCode = document.getElementById('barCode').value
+            // if(code && barCode){
+            //     let url = "http://localhost:8088/wms/receive.receive?action=receive&asnCode="+ code +"&barCode="+ barCode
+            //     var request = new XMLHttpRequest();
+            //     request.open("GET",url);
+            //     request.send();
+            //     request.onload = function() {
+            //         if(request.status == 200) {
+                        let result = {
+                            "asnInfo":{
+                                "receiveName":"张三",
+                                "qtyStr":"13.0/2.0",
+                                "receiveCode":"WK001",
+                                "asnCode":"59"
+                            },
+                            "barCodeInfo":{
+                                "barCode":"2222222", // 条码
+                                "itemCode":"PSR09671",// 货品代码
+                                "description":"215/45/17R",// 货品描述
+                                "dot":"20201213"// 批次属性
+                            },
+                            "code":"0",
+                            "msg":"收货成功!"
+                        }
+
+                        document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: result.asnInfo})
+                        document.getElementById('barCode').innerHTML = result.asnCode
+
+                        tableList.push({
+                            barCode: result.barCodeInfo.barCode,
+                            itemCode: result.barCodeInfo.itemCode,
+                            description: result.barCodeInfo.description,
+                            dot: result.barCodeInfo.dot,
+                            resCode: result.code,
+                            error: result.msg
+                        })
+                        document.getElementById('orderTable').innerHTML = template('tableListHtml', {list: tableList})
+            //         }
+            //     }
+            // }
+        })
+        
+    }
+</script>

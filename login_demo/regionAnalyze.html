@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>仓库</title>
+        <script src="./js/template-web.min.js"></script>
+
+        <style>
+        * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+        body { font-size: 12px; line-height: 1.5; font-family:Arial,'Times New Roman','simsun', 'Microsoft YaHei'; }
+        h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+        ul { list-style: none; }
+        img { border: 0; }
+        em { font-style: normal; }
+        .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+
+        .region_container { padding: 10px 20px; }
+        .region_left { float: left; width: 59%; }
+        .region_container .region_header { display: flex; }
+        .region_container .region_header span { flex: 3; font-size: 16px; text-align: center; }
+        .region_container .region_header span.aisle { flex: 1; }
+        .region_container .region_header span.gap { flex: none; width: 16px; }
+        .region_l_tab { border: 1px solid #666666; }
+        .region_l_tab .region_top_tit { display: flex; }
+        .region_l_tab .region_top_tit span { flex: 1; line-height: 20px; }
+        .region_l_tab .region_top_tit span.aisle { text-align: center; background: #f2f2f2; }
+        .region_l_tab .region_top_tit span.gap { flex: none; width: 16px; }
+        .region_l_tab .region_top_tit span.total { text-align: center; }
+        .region_l_tab .region_top_tit span.tnum { text-align: right; }
+        .region_l_tab .region_data { display: flex; }
+        .region_l_tab .region_data #region_a, .region_data #region_b, .region_data #region_c, .region_data #region_d, .region_data #region_e { flex: 3; }
+        .region_l_tab .region_data .aisle { flex: 1; background: #f2f2f2; }
+        .region_l_tab .region_data .gap { flex: none; width: 16px; }
+        .region_item { display: flex; margin-bottom: 10px; }
+        .region_item:last-child { margin-bottom: 0; }
+        .region_item .item_l { flex: 2; line-height: 20px; }
+        .region_item .item_l .code { background: #b4c6e7; height: 20px; text-align: center; }
+        .region_item .item_l .info { display: flex; height: 20px; }
+        .region_item .item_l .info span { display: block; flex: 1; text-align: center; }
+        .region_item .item_l .info span.lot { background: #f2f2f2; }
+        .region_item .item_l .info span.qty { background: #d9d9d9; }
+        .region_item .item_r { flex: 1; border: 1px solid #666666; color: #ffffff; font-size: 15px; height: 40px; line-height: 40px; text-align: center; background: #0070c0; }
+        
+        .region_right { float: left; width: 39%; margin-left: 2%; }
+        </style>
+    </head>
+
+    <body onload="init()">
+        <div class="region_container clearfix">
+            <div class="region_left clearfix">
+                <div class="region_header">
+                    <span>A-Region</span>
+                    <span class="aisle">&nbsp;</span>
+                    <span>B-Region</span>
+                    <span class="gap">&nbsp;</span>
+                    <span>C-Region</span>
+                </div>
+                <div class="region_l_tab">
+                    <div class="region_top_tit">
+                        <span>A-Region</span>
+                        <span class="total">Total</span>
+                        <span class="tnum numA">0</span>
+                        <span class="aisle">aisle</span>
+                        <span>B-Region</span>
+                        <span class="total">Total</span>
+                        <span class="tnum numB">0</span>
+                        <span class="gap">&nbsp;</span>
+                        <span>C-Region</span>
+                        <span class="total">Total</span>
+                        <span class="tnum numC">0</span>
+                    </div>
+                    <div class="region_data">
+                        <div id="region_a"></div>
+                        <div class="aisle"></div>
+                        <div id="region_b"></div>
+                        <div class="gap"></div>
+                        <div id="region_c"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="region_right clearfix">
+                <div class="region_header">
+                    <span>D-Region</span>
+                    <span class="aisle">&nbsp;</span>
+                    <span>E-Region</span>
+                </div>
+                <div class="region_l_tab">
+                    <div class="region_top_tit">
+                        <span>D-Region</span>
+                        <span class="total">Total</span>
+                        <span class="tnum numD">0</span>
+                        <span class="aisle">aisle</span>
+                        <span>E-Region</span>
+                        <span class="total">Total</span>
+                        <span class="tnum numE">0</span>
+                    </div>
+                    <div class="region_data">
+                        <div id="region_d"></div>
+                        <div class="aisle"></div>
+                        <div id="region_e"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!-- 左边显示模板 -->
+<script id="regionLeftHtml" type="text/html">
+    <%for(var i = 0; i < list.length; i++) {%>
+    <div class="region_item">
+        <div class="item_r"><%=list[i].locationCode%></div>
+        <div class="item_l">
+            <p class="code"><%=list[i].itemCode%></p>
+            <p class="info">
+                <span class="lot"><%=list[i].lot%></span>
+                <span class="qty"><%=list[i].quantity%></span>
+            </p>
+        </div>
+    </div>
+    <%}%>
+</script>
+
+<!-- 右边显示模板 -->
+<script id="regionRightHtml" type="text/html">
+    <%for(var i = 0; i < list.length; i++) {%>
+    <div class="region_item">
+        <div class="item_l">
+            <p class="code"><%=list[i].itemCode%></p>
+            <p class="info">
+                <span class="lot"><%=list[i].lot%></span>
+                <span class="qty"><%=list[i].quantity%></span>
+            </p>
+        </div>
+        <div class="item_r"><%=list[i].locationCode%></div>
+    </div>
+    <%}%>
+</script>
+
+<script>
+    let aList = ['A001', 'A002', 'A003', 'A004', 'A005', 'A006', 'A007', 'A008', 'A009', 'A010', 'A011', 'A012', 'A013', 'A014', 'A015']
+    let bList = ['B001', 'B002', 'B003', 'B004', 'B005', 'B006', 'B007', 'B008', 'B009', 'B010', 'B011', 'B012', 'B013', 'B014', 'B015']
+    let cList = ['C001', 'C002', 'C003', 'C004', 'C005', 'C006', 'C007', 'C008', 'C009', 'C010', 'C011', 'C012', 'C013', 'C014', 'C015']
+    let dList = ['D001', 'D002', 'D003', 'D004', 'D005', 'D006', 'D007', 'D008', 'D009']
+    let eList = ['E001', 'E002', 'E003', 'E004', 'E005', 'E006', 'E007', 'E008', 'E009']
+
+    function init(){
+        var url = "http://localhost:8088/wms/visualInventoryService.visualInventory"
+        var request = new XMLHttpRequest();
+        request.open("GET",url);
+        request.send(null);
+        request.onload = function() {
+            if(request.status == 200) {
+                let result = [{"locationCode":"A001","itemName":"225/45R19 92W RSC","col":"3","lot":"20D11","line":"1","queuedQuantity":"0.0","quantity":"416.0","row":"1","zoneCode":"A","itemCode":"3285610"},{"locationCode":"A002","itemName":"245/45R18 100Y XL RSC","col":"3","lot":"20D11","line":"2","queuedQuantity":"0.0","quantity":"137.0","row":"1","zoneCode":"A","itemCode":"2478510"},{"locationCode":"A003","itemName":"245/45R18 100Y XL RSC","col":"3","lot":"20D11","line":"3","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"A","itemCode":"2478510"},{"locationCode":"A004","itemName":"225/45R19 92W RSC","col":"3","lot":"20D10","line":"4","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"A","itemCode":"3285610"},{"locationCode":"A005","itemName":"225/45R19 92W RSC","col":"3","lot":"20D10","line":"5","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"A","itemCode":"3285610"},{"locationCode":"A006","itemName":"225/45R19 92W RSC","col":"3","lot":"20D10","line":"6","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"A","itemCode":"3285610"},{"locationCode":"A007","itemName":"225/45R18 95Y XL RSC","col":"3","lot":"20D11","line":"7","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"A","itemCode":"3140910"},{"locationCode":"A008","itemName":"225/45R18 95Y XL RSC","col":"3","lot":"20D11","line":"8","queuedQuantity":"0.0","quantity":"393.0","row":"1","zoneCode":"A","itemCode":"3140910"},{"locationCode":"A009","itemName":"225/45R19 92W RSC","col":"3","lot":"20D11","line":"9","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"A","itemCode":"3285610"},{"locationCode":"A010","itemName":"275/35R19 100Y RSC","col":"3","lot":"20D11","line":"10","queuedQuantity":"0.0","quantity":"318.0","row":"1","zoneCode":"A","itemCode":"2478310"},{"locationCode":"A011","itemName":"275/35R19 100Y RSC","col":"3","lot":"20D11","line":"11","queuedQuantity":"0.0","quantity":"512.0","row":"1","zoneCode":"A","itemCode":"2478310"},{"locationCode":"A012","itemName":"245/50R19 105W RSC","col":"3","lot":"20D11","line":"12","queuedQuantity":"0.0","quantity":"540.0","row":"1","zoneCode":"A","itemCode":"2752410"},{"locationCode":"A013","itemName":"245/40R19 98Y XL RSC","col":"3","lot":"20D11","line":"13","queuedQuantity":"0.0","quantity":"448.0","row":"1","zoneCode":"A","itemCode":"2478410"},{"locationCode":"B001","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"1","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"2752410"},{"locationCode":"B002","itemName":"225/45R18 95Y XL RSC","col":"1","lot":"20D11","line":"2","queuedQuantity":"0.0","quantity":"148.0","row":"1","zoneCode":"B","itemCode":"3140910"},{"locationCode":"B003","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"3","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"2478410"},{"locationCode":"B004","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"4","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"2478410"},{"locationCode":"B005","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"5","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"2478410"},{"locationCode":"B006","itemName":"255/40R18 99Y XL RSC","col":"1","lot":"20D11","line":"6","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"3146210"},{"locationCode":"B007","itemName":"255/40R18 99Y XL RSC","col":"1","lot":"20D11","line":"7","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"3146210"},{"locationCode":"B008","itemName":"255/40R18 99Y XL RSC","col":"1","lot":"20D11","line":"8","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"3146210"},{"locationCode":"B009","itemName":"255/35R19 98Y RSC","col":"1","lot":"20D07","line":"9","queuedQuantity":"0.0","quantity":"158.0","row":"1","zoneCode":"B","itemCode":"2750811"},{"locationCode":"B010","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"10","queuedQuantity":"0.0","quantity":"256.0","row":"1","zoneCode":"B","itemCode":"2752410"},{"locationCode":"B011","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"11","queuedQuantity":"0.0","quantity":"256.0","row":"1","zoneCode":"B","itemCode":"2752410"},{"locationCode":"B012","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"12","queuedQuantity":"0.0","quantity":"256.0","row":"1","zoneCode":"B","itemCode":"2752410"},{"locationCode":"B013","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D12","line":"13","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"B","itemCode":"2478410"},{"locationCode":"C001","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"1","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"C","itemCode":"2752410"},{"locationCode":"C002","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"2","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"C","itemCode":"2478410"},{"locationCode":"C003","itemName":"245/45R18 100Y XL RSC","col":"1","lot":"20D11","line":"3","queuedQuantity":"0.0","quantity":"192.0","row":"1","zoneCode":"C","itemCode":"2478510"},{"locationCode":"C004","itemName":"245/45R18 100Y XL RSC","col":"1","lot":"20D11","line":"4","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"C","itemCode":"2478510"},{"locationCode":"C005","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"5","queuedQuantity":"0.0","quantity":"288.0","row":"1","zoneCode":"C","itemCode":"2478410"},{"locationCode":"C006","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"6","queuedQuantity":"0.0","quantity":"256.0","row":"1","zoneCode":"C","itemCode":"2752410"},{"locationCode":"C007","itemName":"245/50R19 105W RSC","col":"1","lot":"20D11","line":"7","queuedQuantity":"0.0","quantity":"256.0","row":"1","zoneCode":"C","itemCode":"2752410"},{"locationCode":"C008","itemName":"225/45R18 95Y XL RSC","col":"1","lot":"20D11","line":"8","queuedQuantity":"0.0","quantity":"306.0","row":"1","zoneCode":"C","itemCode":"3140910"},{"locationCode":"C009","itemName":"225/40R19 93Y RSC","col":"1","lot":"20D08","line":"9","queuedQuantity":"0.0","quantity":"166.0","row":"1","zoneCode":"C","itemCode":"2750911"},{"locationCode":"C010","itemName":"245/40R19 98Y XL RSC","col":"1","lot":"20D11","line":"10","queuedQuantity":"0.0","quantity":"128.0","row":"1","zoneCode":"C","itemCode":"2478410"},{"locationCode":"C012","itemName":"225/45R18 95Y XL RSC","col":"1","lot":"20D11","line":"12","queuedQuantity":"0.0","quantity":"324.0","row":"1","zoneCode":"C","itemCode":"3140910"},{"locationCode":"C013","itemName":"225/40R18 92Y RSC","col":"1","lot":"20D11","line":"13","queuedQuantity":"0.0","quantity":"305.0","row":"1","zoneCode":"C","itemCode":"3255710"},{"locationCode":"D001","itemName":"225/45R18 95Y XL RSC","col":"4","lot":"20D11","line":"1","queuedQuantity":"0.0","quantity":"324.0","row":"0","zoneCode":"D","itemCode":"3140910"},{"locationCode":"D002","itemName":"245/40R19 98Y XL RSC","col":"4","lot":"20D11","line":"2","queuedQuantity":"0.0","quantity":"165.0","row":"0","zoneCode":"D","itemCode":"2478410"},{"locationCode":"D004","itemName":"225/50R18 95W RSC","col":"4","lot":"20D11","line":"4","queuedQuantity":"0.0","quantity":"90.0","row":"0","zoneCode":"D","itemCode":"3285510"},{"locationCode":"D008","itemName":"225/45R18 95Y XL RSC","col":"4","lot":"20D11","line":"8","queuedQuantity":"0.0","quantity":"146.0","row":"0","zoneCode":"D","itemCode":"3140910"},{"locationCode":"D009","itemName":"225/40R19 93Y RSC","col":"4","lot":"20D07","line":"9","queuedQuantity":"0.0","quantity":"252.0","row":"0","zoneCode":"D","itemCode":"2750911"},{"locationCode":"D010","itemName":"255/35R19 98Y RSC","col":"4","lot":"20D07","line":"10","queuedQuantity":"0.0","quantity":"200.0","row":"3","zoneCode":"D","itemCode":"2750811"},{"locationCode":"D011","itemName":"225/45R18 95Y XL RSC","col":"4","lot":"20D11","line":"11","queuedQuantity":"0.0","quantity":"127.0","row":"3","zoneCode":"D","itemCode":"3140910"},{"locationCode":"D012","itemName":"225/45R19 92W RSC","col":"4","lot":"20D10","line":"12","queuedQuantity":"0.0","quantity":"15.0","row":"3","zoneCode":"D","itemCode":"3285610"},{"locationCode":"E001","itemName":"225/45R18 95Y XL RSC","col":"5","lot":"20D11","line":"1","queuedQuantity":"0.0","quantity":"648.0","row":"1","zoneCode":"E","itemCode":"3140910"},{"locationCode":"E007","itemName":"245/50R19 105W RSC","col":"5","lot":"20D11","line":"7","queuedQuantity":"0.0","quantity":"408.0","row":"1","zoneCode":"E","itemCode":"2752410"},{"locationCode":"E008","itemName":"245/50R19 105W RSC","col":"5","lot":"20D11","line":"8","queuedQuantity":"0.0","quantity":"576.0","row":"1","zoneCode":"E","itemCode":"2752410"},{"locationCode":"E012","itemName":"245/45R18 100Y STD","col":"5","lot":"20D11","line":"12","queuedQuantity":"0.0","quantity":"208.0","row":"3","zoneCode":"E","itemCode":"3642110"}]
+
+                let regionA = setRegionData(result, aList, 'A')
+                let regionB = setRegionData(result, bList, 'B')
+                let regionC = setRegionData(result, cList, 'C')
+                let regionD = setRegionData(result, dList, 'D')
+                let regionE = setRegionData(result, eList, 'E')
+
+                document.getElementById('region_a').innerHTML = template('regionRightHtml', {list: regionA})
+                document.getElementById('region_b').innerHTML = template('regionLeftHtml', {list: regionB})
+                document.getElementById('region_c').innerHTML = template('regionRightHtml', {list: regionC})
+                document.getElementById('region_d').innerHTML = template('regionRightHtml', {list: regionD})
+                document.getElementById('region_e').innerHTML = template('regionLeftHtml', {list: regionE})
+            }
+        }
+    }
+
+    // 设置区域数据
+    function setRegionData(list, defaultList, zone){
+        let arr = list.filter(item => { return item.zoneCode == zone})
+        let total = 0
+        let curList = arr.map(item => { return item.locationCode})
+        
+        for(let i=0; i<defaultList.length; i++){
+            if(curList.indexOf(defaultList[i]) < 0){
+                arr.push({
+                    zoneCode: zone,
+                    locationCode: defaultList[i],
+                    lot: '',
+                    itemCode: '',
+                    quantity: '',
+                })
+            }
+        }
+
+        arr = arr.sort(function(a, b){ return a.locationCode.substring(1) - b.locationCode.substring(1); });
+
+        // 总数量
+        arr.forEach(item => {
+            total += item.quantity - 0
+        })
+        document.getElementsByClassName('num'+zone)[0].innerHTML = total
+
+        return arr
+    }
+</script>

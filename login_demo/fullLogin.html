@@ -1,0 +1,238 @@
+<!-- saved from url=(0043)http://39.98.166.64:8888/wms/fullLogin.html -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>TMS管理系统</title>
+	<style type="text/css">
+		<!--
+		* { margin: 0; padding: 0; }
+		img { border: none; }
+		.left { float: left; }
+		.right { float: right; }
+		.clearfix:after {
+			visibility: hidden;
+			display: block;
+			font-size: 0;
+			content: " ";
+			clear: both;
+			height: 0;
+		}
+
+		body {
+			background: linear-gradient(0deg, #f5f5f5, #A0A0A0);
+			font-family: arial, sans-serif;
+			font-size: 12px;
+		}
+
+		.login_container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 500px;
+			height: 380px;
+			transform: translate(-50%, -50%);
+			border-radius: 44px 44px 0 0;
+			background: linear-gradient(180deg, #ffffff 20%, #b7b7b7);
+			overflow: hidden;
+		}
+		.login_container .content {
+			padding: 30px 20px 0;
+		}
+		.login_container .content .top .left {
+			float: left;
+			width: 50%;
+		}
+		.login_container .content .top .left img {
+			height: 78px;
+		}
+		.login_container .content .top .right {
+			float: left;
+			width: 50%;
+		}
+		.login_container .content .top .right img {
+			height: 50px;
+			margin-top: 35px;
+		}
+
+		.login_form {
+			padding: 0 40px;
+		}
+		.login_form .login_item {
+			margin-top: 20px;
+			border-bottom: 1px solid #999999;
+		}
+		.login_form .login_item input {
+			width: 100%;
+			line-height: 40px;
+			font-size: 14px;
+			padding: 0 8px;
+			color: #24262B;
+			border: none;
+			background: none;
+			outline: none;
+		}
+
+		.short_div {
+			margin-top: 50px;
+			float: left;
+			width: 100%;
+			line-height: 24px;
+		}
+		.short_div .lang_left {
+			float: left;
+			width: 50%;
+			font-size: 13px;
+			color: #666666;
+		}
+		.short_div .lang_left select {
+			width: 140px;
+			margin-left: 8px;
+			outline: none;
+			border: none;
+			height: 24px;
+		}
+		.short_div .btn_right {
+			float: left;
+			width: 50%;
+			text-align: center;
+		}
+		.short_div .btn_right .button {
+			width: 90px;
+			color: #fff;
+			background-color: #0070c0;
+			line-height: 26px;
+			border: none;
+			border-radius: 12px;
+			cursor: pointer;
+			box-shadow: 2px 2px 2px #999999;
+		}
+		.short_div .btn_right .button:hover {
+			opacity: 0.8;
+		}
+		-->
+	</style>
+	<script type="text/JavaScript">
+function waitLoginFinish() {
+	if (waitLogin == "true") {
+		return;
+	}
+	else {
+		waitLogin = "true";
+		doLogin();
+	}
+}
+function callGwt() {
+	if (parent.gwtState==false)
+	{
+		setTimeout("callGwt()", 500);
+	}
+	else {
+		parent.conn.foo();
+	}
+}
+function doLogin() {
+	var login_name = document.getElementById("login_name");
+	var password = document.getElementById("password");
+	var locale = document.getElementById("locale");
+	var localeValue = locale.options[locale.selectedIndex].value;
+	var url = "*.login?login_name=" + login_name.value + "&password=" + password.value + "&locale=" 
+	+ localeValue + "&referenceModel=origen";
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.open("POST",url,true);
+	xmlHttp.onreadystatechange=function() {
+		if (xmlHttp.readyState==4 && xmlHttp.status==200) {
+			if (xmlHttp.responseText=="success") {
+				callGwt();
+			}
+			else {
+				finishLogin(xmlHttp.responseText);
+			}
+		}
+	}
+	xmlHttp.send(null);
+}
+function finishLogin(errorMsg) {
+	waitLogin = "false";
+	document.getElementById("slider").style.display = "none";
+	alert(errorMsg);
+}
+
+function init() {
+	waitLogin = "false";
+	if (window.ActiveXObject && !window.XMLHttpRequest) {
+		window.XMLHttpRequest = function() {
+			var msxmls = ['Msxml2.XMLHTTP.5.0','Msxml2.XMLHTTP.4.0','Msxml2.XMLHTTP.3.0','Msxml2.XMLHTTP','Microsoft.XMLHTTP'];
+			for (var i = 0 ; i < msxmls.length ; i ++) {
+				try {
+					return new ActiveXObject(msxmls[i]);
+				}
+				catch(e) {}
+			}
+			return null;
+		};
+	}
+}
+function checkEnterKey(evt) {
+	evt = evt ? evt : (window.event ? window.event : null);
+	if(evt.keyCode==13) {
+		checkLoginInput();
+	}
+}
+function checkLoginInput() {	
+	var login_name = document.getElementById('login_name');
+	if(login_name.value == '') {
+		alert('请输入用户名');
+		login_name.focus();
+		return;
+	}
+	var password = document.getElementById('password');
+	if(password == '') {
+		alert('请输入密码');
+		password.focus();
+		return;
+	}
+	waitLoginFinish();	  
+	document.getElementById("slider").style.display = "block";
+}
+</script>
+	<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script>
+</head>
+
+<body onload="init()" onkeyup="checkEnterKey(event)" width="100%" height="100%" data-new-gr-c-s-check-loaded="14.984.0" data-gr-ext-installed="">
+	<div class="login_container">
+		<div class="content">
+			<div class="top clearfix">
+				<div class="left">
+					<img src="./images/login/logo.png" />
+				</div>
+				<div class="right">
+					<img src="./images/login/wms_logo.png" />
+				</div>
+			</div>
+
+			<div class="login_form">
+				<div class="login_item">
+					<input class="input" type="text" name="login_name" id="login_name" placeholder="用户账号" />
+				</div>
+				<div class="login_item">
+					<input class="input" type="password" name="password" id="password" placeholder="登录密码" />
+				</div>
+				<div class="short_div clearfix">
+					<div class="lang_left">
+						<span class="label_name">语言</span>
+						<select name="locale" id="locale">
+							<option value="zh">中文</option>
+							<option value="en">英文</option>
+						</select>
+					</div>
+					<div class="btn_right">
+						<input class="button" type="submit" value="Login" onclick="checkLoginInput();"></input>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

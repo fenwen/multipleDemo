@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>扫码入库</title>
+        <script src="./js/template-web.min.js"></script>
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/foundation-datepicker.js"></script>
+        <link rel="stylesheet" href="./css/foundation-datepicker.css">
+
+        <style>
+            * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+            body { font-size: 12px; line-height: 1.5; font-family: '微软雅黑'; }
+            h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+            ul { list-style: none; }
+            img { border: 0; }
+            em { font-style: normal; }
+            .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+
+            .scan_container { padding: 20px; font-size: 14px; }
+            .scan_container .form_row { display: flex; margin-bottom: 16px; }
+            .scan_container .form_row .scan_item.col2 { flex: 2; }
+            .scan_container .form_row .scan_item.col3 { flex: 3; }
+            .scan_container .form_row .scan_item.col4 { flex: 4; }
+            .scan_container .form_row .scan_item .label_lf { float: left; width: 100px; text-align: right; line-height: 16px; }
+            .scan_container .form_row .scan_item .label_lf p { text-align: right; }
+            .scan_container .form_row .scan_item .label_lf span { font-size: 12px; line-height: 1; }
+            .scan_container .form_row .scan_item .text_rt { margin-left: 108px; }
+            .scan_container .form_row .scan_item .text_rt input { display: block; width: 100%; padding: 3px 8px; line-height: 24px; border-radius: 3px; border: 1px solid #dcdcdc; }
+
+            .scan_container .data_info { display: flex; padding: 20px 10px; margin-top: 30px; font-size: 14px; line-height: 30px; border: 1px solid #dcdcdc; border-radius: 5px; }
+            .scan_container .data_info .info_row { flex: 1; }
+
+            .scan_container .scan_operate { display: flex; line-height: 28px; margin-top: 30px; }
+            .scan_container .scan_operate .operate_item { flex: 2; text-align: center; }
+            .scan_container .scan_operate .operate_item.modu5 { flex: 1; }
+            .scan_container .scan_operate .operate_item.modu1 { border-right: 1px solid #dcdcdc; }
+            .scan_container .scan_operate .operate_item.modu1 p { padding-left: 20px; }
+            .scan_container .scan_operate .operate_item.modu2 .status { text-align: center; }
+            .scan_container .scan_operate .operate_item.modu2 .status span { display: inline-block; min-width: 80px; font-size: 20px; font-weight: bold; }
+            .scan_container .scan_operate .operate_item.modu2 .status em { display: inline-block; min-width: 80px; font-size: 16px; color: #fff; }
+            .scan_container .scan_operate .operate_item.modu2 .status.red span { color: red; }
+            .scan_container .scan_operate .operate_item.modu2 .status.red em { background: red; }
+            .scan_container .scan_operate .operate_item.modu2 .status.green span { color: green; }
+            .scan_container .scan_operate .operate_item.modu2 .status.green em { background: green; }
+            .scan_container .scan_operate .operate_item .btn { width: 80%; line-height: 44px; cursor: pointer; margin-top: 8px; font-size: 18px; }
+
+            .scan_container .table_list { margin-top: 30px; }
+
+            .scan_container .table_list #orderTable { width:100%; white-space: nowrap; border: 1px solid #dcdcdc; }
+            .scan_container .table_list #orderTable th { padding: 3px; border-right: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; background: #d8ebff; }
+            .scan_container .table_list #orderTable th span { font-weight: normal; font-size: 12px; }
+            .scan_container .table_list #orderTable td { padding: 3px; text-align: center; border-right: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; }
+            .scan_container .table_list #orderTable td.red { color: #ffffff; background: red; }
+            .scan_container .table_list #orderTable td.green { color: #ffffff; background: green; }
+            .scan_container .table_list .no_data { text-align: center; padding: 20px; }
+        </style>
+    </head>
+
+    <body>
+        <div class="scan_container clearfix">
+            <div class="form_row">
+                <div class="scan_item col3">
+                    <div class="label_lf">
+                        <p>入库单号</p>
+                        <span>Delivery Nomber</span>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" id="asnCode">
+                    </div>
+                </div>
+                <div class="scan_item col4">
+                    <div class="label_lf">
+                        <p>渠道去向</p>
+                        <span>Ship-to</span>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" id="shipTo">
+                    </div>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="scan_item col3">
+                    <div class="label_lf">
+                        <p>条形码</p>
+                        <span>BarCode</span>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" id="barCode">
+                    </div>
+                </div>
+                <div class="scan_item col2">
+                    <div class="label_lf">
+                        <p>计划<br />入库日期</p>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" value="" id="plan_date">
+                    </div>
+                </div>
+                <div class="scan_item col2">
+                    <div class="label_lf">
+                        <p>实际<br />入库日期</p>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" value="" id="real_date">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作 -->
+            <div class="scan_operate">
+                <div class="operate_item modu1">
+                    <p>计划数量：<span>0</span></p>
+                    <p>实际数量：<span>0</span></p>
+                </div>
+                <div class="operate_item modu2">
+                    <p class="status red">
+                        <span>NG</span>
+                        <em>0</em>
+                    </p>
+                    <p class="status green">
+                        <span>OK</span>
+                        <em>0</em>
+                    </p>
+                </div>
+                <div class="operate_item modu3">
+                    <button class="btn" id="scan_start">开始</button>
+                </div>
+                <div class="operate_item modu4">
+                    <button class="btn" id="scan_complete">完成</button>
+                </div>
+                <div class="operate_item modu5">
+                    <button class="btn" id="scan_cancel">取消</button>
+                </div>
+            </div>
+
+            <div class="table_list">
+                <table id="orderTable" border="0" cellspacing="0" cellpadding="0"></table>
+            </div>
+        </div>
+    </body>
+</html>
+
+<!-- 数据信息模板 -->
+<script id="dataInfoHtml" type="text/html">
+    <div class="info_row">入库单号：<%=data.asnCode%></div>
+    <div class="info_row">计划/实收数量：<%=data.qtyStr%></div>
+    <div class="info_row">收货人编码：<%=data.receiveCode%></div>
+    <div class="info_row">收货人：<%=data.receiveName%></div>
+</script>
+
+<!-- 表格模板 -->
+<script id="tableListHtml" type="text/html">
+    <%if(list.length) {%>
+    <thead>
+        <tr>
+            <th>
+                <p>条形码</p>
+                <span>BarCode</span>
+            </th>
+            <th>
+                <p>货品代码</p>
+                <span>IPCode</span>
+            </th>
+            <th>
+                <p>货品描述</p>
+                <span>Discripation</span>
+            </th>
+            <th>
+                <p>批次</p>
+                <span>DOT</span>
+            </th>
+            <th>
+                <p>NG/OK</p>
+            </th>
+            <th>
+                <p>异常原因</p>
+            </th>
+        </tr>
+    </thead>
+    <%}%>
+    <%for(var i = 0; i < list.length; i++) {%>
+    <tr>
+        <td><%=list[i].barCode%></td>
+        <td><%=list[i].itemCode%></td>
+        <td><%=list[i].description%></td>
+        <td><%=list[i].dot%></td>
+        <%if(list[i].resCode=="OK") {%>
+        <td class="red"><%=list[i].resCode%></td>
+        <%}else{%>
+        <td class="green"><%=list[i].resCode%></td>
+        <%}%>
+        <td><%=list[i].error%></td>
+    </tr>
+    <%}%>
+
+    <%if(!list.length) {%>
+        <div class="no_data">暂无数据</div>
+    <%}%>
+</script>
+
+<script>
+(function(){
+    let tableList = []
+
+    $('#plan_date').fdatepicker({ format: 'yyyy-mm-dd' });
+    $('#real_date').fdatepicker({ format: 'yyyy-mm-dd' });
+    $('#orderTable').html(template('tableListHtml', {list: tableList})) // 表格数据初始化
+
+    document.getElementById('asnCode').addEventListener('keypress', function(event){
+        if(event.keyCode == "13"){
+            let code = document.getElementById('asnCode').value
+            if(code){
+                let url = "/wms/receive.receive?action=getAsnInfo&asnCode="+ code
+                var request = new XMLHttpRequest();
+                request.open("GET",url);
+                request.send();
+                request.onload = function() {
+                    if(request.status == 200) {
+                        let result =  eval('(' + request.responseText + ')')
+                        //查询成功才显示
+                        if(result.code=="NG"){
+                            //填充收货单信息
+                            document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: result.asnInfo})
+                            //document.getElementsByClassName('asnCode').innerHTML = result.asnCode
+                        }else{
+                            alert(result.msg);
+                            document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: {}})
+                        } 
+                    }
+                }
+            }
+        }
+    })
+
+    // 扫描
+    document.getElementById('barCode').addEventListener('keypress', function(event){
+        if(event.keyCode == "13"){
+        let asnCode = document.getElementById('asnCode').value
+        let barCode = document.getElementById('barCode').value                
+        if(asnCode && barCode){
+                    let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode +"&barCode="+ barCode
+                var request = new XMLHttpRequest();
+                request.open("GET",url);
+                request.send();
+                request.onload = function() {
+                    if(request.status == 200) {
+                        /* {
+                            "asnInfo":{
+                                "receiveName":"张三",
+                                "qtyStr":"13.0/3.0",
+                                "receiveCode":"WK001",
+                                "asnCode":"59"
+                            },
+                            "barCodeInfo":{
+                                "itemCode":"PSR11031",
+                                "dot":"",
+                                "barCode":"234510029",
+                                "errorMsg":"条码状态不为初始化"
+                            },
+                            "code":"-1",
+                            "msg":"条码状态不为初始化"
+                        } */
+                        let result =  eval('(' + request.responseText + ')')
+                        //填充asn单信息
+                        document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: result.asnInfo})
+                        //注意下 这里是追加这条信息，而不是把返回的barCodeInfo对象直接塞进去 需要判断返回的result.code!=0 则将插入的记录标红
+                        //document.getElementById('orderTable').innerHTML = template('tableListHtml', {list: result.barCodeInfo})
+                    
+
+                    tableList.push({
+                        barCode: result.barCodeInfo.barCode,
+                        itemCode: result.barCodeInfo.itemCode,
+                        description: result.barCodeInfo.description,
+                        dot: result.barCodeInfo.dot,
+                        resCode: result.code,
+                        error: result.barCodeInfo.errorMsg
+                    })
+                    document.getElementById('orderTable').innerHTML = template('tableListHtml', {list: tableList})
+                    }
+                }
+            }
+        }
+    })
+
+    // 扫描完成
+    document.getElementById('scan_complete').addEventListener('click', function(){
+        // 清空表格数据
+        document.getElementsByClassName('data_info')[0].innerHTML = template('dataInfoHtml', {data: ""})
+        document.getElementById('orderTable').innerHTML = template('tableListHtml', {list: []})
+        document.getElementById('barCode').value = ''
+        document.getElementById('asnCode').value = ''
+    })
+})()
+</script>
