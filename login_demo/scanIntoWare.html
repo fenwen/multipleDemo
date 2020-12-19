@@ -234,12 +234,14 @@
         let code = $('#asnCode').val()
         if(code){
             let url = "/wms/receive.receive?action=getAsnInfo&asnCode="+ code
-            var request = new XMLHttpRequest();
-            request.open("GET",url);
-            request.send();
-            request.onload = function() {
-                if(request.status == 200) {
-                    let result =  eval('(' + request.responseText + ')')
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(data){
+                    console.log(data)
+                    let result = JSON.parse(data)
+                    console.log(result)
                     // let result = {
                     //     "asnInfo":{
                     //         "shipTo":"XXXXX", // 去向
@@ -266,8 +268,11 @@
                     }else{
                         alert(result.msg);
                     }
+                },
+                error: function(err){
+                    alert('fail'+ err);
                 }
-            }
+            })
         }
     }
 
@@ -278,12 +283,12 @@
 
         if(asnCode && barCode){
             let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode +"&barCode="+ barCode
-            var request = new XMLHttpRequest();
-            request.open("GET",url);
-            request.send();
-            request.onload = function() {
-                if(request.status == 200) {
-                    let result = eval('(' + request.responseText + ')')
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(data){
+                    let result = JSON.parse(data)
                     // let result = {
                     //     "asnInfo":{
                     //         "shipTo":"XXXXX",
@@ -325,39 +330,52 @@
                         $('#real_qty').text(result.asnInfo.receivedQty)                    }
                     
                     //注意下 这里是追加这条信息，而不是把返回的barCodeInfo对象直接塞进去 需要判断返回的result.code!=0 则将插入的记录标红
-                    tableList.push({
-                        barCode: result.barCodeInfo.barCode,
-                        itemCode: result.barCodeInfo.itemCode,
-                        description: result.barCodeInfo.description,
-                        dot: result.barCodeInfo.dot,
-                        resCode: result.code == '0' ? 'OK' : 'NG',
-                        error: result.barCodeInfo.errorMsg
-                    })
+                    let idx = tableList.findIndex(item => { return item.barCode == result.barCodeInfo.barCode})
+                    if(idx >= 0 && tableList.length > 0){
+                        let oldData = tableList[idx]
+                        oldData.error = result.barCodeInfo.errorMsg
+
+                        tableList.splice(idx, 1)
+                        tableList.unshift(oldData)
+                    }else{
+                        tableList.unshift({
+                            barCode: result.barCodeInfo.barCode,
+                            itemCode: result.barCodeInfo.itemCode,
+                            description: result.barCodeInfo.description,
+                            dot: result.barCodeInfo.dot,
+                            resCode: result.code == '0' ? 'OK' : 'NG',
+                            error: result.barCodeInfo.errorMsg
+                        })
+                    }
                     $('#orderTable').html(template('tableListHtml', {list: tableList}))
+                },
+                error: function(err){
+                    alert('fail'+ err);
                 }
-            }
+            })
         }
     }
     
     // 完成
     function asnCodeData(){
-        /* let asnCode = $('#asnCode').val()
-        let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode
-        var request = new XMLHttpRequest();
-        request.open("GET",url);
-        request.send();
-        request.onload = function() {
-            if(request.status == 200) {
-                let result = eval('(' + request.responseText + ')')
-                if(result.code=="0"){
-                    reset()
-                }else{
-                    alert(result.msg);
-                }
-            }
-        } */
-        
-    	reset();
+        // let asnCode = $('#asnCode').val()
+        // let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode
+        // $.ajax({
+        //     url: url,
+        //     type: 'get',
+        //     dataType: 'json',
+        //     success: function(data){
+        //         let result = JSON.parse(data)
+        //         if(result.code=="0"){
+        //             reset()
+        //         }else{
+        //             alert(result.msg);
+        //         }
+        //     },
+        //     error: function(err){
+        //         alert('fail'+ err);
+        //     }
+        // })
     }
 
     // 重置数据
@@ -373,8 +391,8 @@
         $('#shipTo').val('')
         $('#plan_date').val('')
         $('#real_date').val('')
-        $('#plan_qty').val('')
-        $('#real_qty').val('')
+        $('#plan_qty').text(0)
+        $('#real_qty').text(0)
 
         $('#scan_start').attr('disabled', false)
         $('#asnCode').attr('disabled', false).val('')
