@@ -29,6 +29,7 @@
             .scan_container .form_row .scan_item .label_lf span { font-size: 12px; line-height: 1; }
             .scan_container .form_row .scan_item .text_rt { margin-left: 108px; }
             .scan_container .form_row .scan_item .text_rt input { display: block; width: 100%; padding: 3px 8px; line-height: 24px; border-radius: 3px; border: 1px solid #dcdcdc; }
+            .scan_container .form_row .scan_item .text_rt select { display: block; width: 100%; height: 32px; padding: 3px 8px; line-height: 24px; border-radius: 3px; border: 1px solid #dcdcdc; }
 
             .scan_container .data_info { display: flex; padding: 20px 10px; margin-top: 30px; font-size: 14px; line-height: 30px; border: 1px solid #dcdcdc; border-radius: 5px; }
             .scan_container .data_info .info_row { flex: 1; }
@@ -78,6 +79,26 @@
                     </div>
                     <div class="text_rt">
                         <input type="text" id="shipTo" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="scan_item col3">
+                    <div class="label_lf">
+                        <p>货品</p>
+                        <span>Produce</span>
+                    </div>
+                    <div class="text_rt">
+                        <select id="produceCode"></select>
+                    </div>
+                </div>
+                <div class="scan_item col4">
+                    <div class="label_lf">
+                        <p>货品描述</p>
+                        <span>Produce-des</span>
+                    </div>
+                    <div class="text_rt">
+                        <input type="text" id="produceDes" disabled>
                     </div>
                 </div>
             </div>
@@ -192,6 +213,7 @@
 <script>
 (function(){
     let tableList = [],
+        produceList = [],
         okNum = 0,
         ngNum = 0;
 
@@ -199,6 +221,8 @@
     $('#asnCode').focus()
     // $('#plan_date').fdatepicker({ format: 'yyyy-mm-dd' });
     // $('#real_date').fdatepicker({ format: 'yyyy-mm-dd' });
+
+    getProduceData()
 
     // 入库单号回车
     $('#asnCode').keypress(function(event){
@@ -221,13 +245,53 @@
 
     // 扫描完成
     $('#scan_complete').off('click').on('click', function(){
-        asnCodeData()
+        scanComplete()
     })
 
     // 取消
     $('#scan_cancel').off('click').on('click', function(){
         reset()
     })
+
+    // 货品数据
+    function getProduceData(){
+        $.ajax({
+            url: "/wms/receive.receive?action=getItem",
+            type: 'get',
+            dataType: 'json',
+            success: function(data){
+                produceList = data || []
+                // produceList = [
+                //     { "code":"LVR0H035", "name":"145 R12 R600 080N", "id":"4285" },
+                //     { "code":"LVR0H034", "name":"155 R12 R600B 083N", "id":"4286" },
+                //     { "code":"LVR0H036", "name":"185 R14 R623 102P", "id":"4287" },
+                //     { "code":"LVR0H025", "name":"155 R13 R623 090Q", "id":"4288" },
+                //     { "code":"LVR0H038", "name":"31X1050 R15 A/T 694 109S", "id":"4289" },
+                // ]
+
+                let $produceCode = $('#produceCode')
+
+                $produceCode.html('<option value="">--请选择货品--</option>')
+                produceList.forEach(function(item){
+                    $produceCode.append('<option value="'+ item.id +'">'+ item.code +'</option>')
+                })
+
+                // change
+                $produceCode.change(function(){
+                    let id = $produceCode.val()
+                    if(id){
+                        let n = produceList.findIndex(function(item){ return item.id == id})
+                        $('#produceDes').val(produceList[n].name)
+                    }else{
+                        $('#produceDes').val('')
+                    }
+                });
+            },
+            error: function(err){
+                alert('fail'+ err);
+            }
+        })
+    }
 
     // 入库单号回车/开始--获取数据
     function getCodeData(){
@@ -239,9 +303,7 @@
                 type: 'get',
                 dataType: 'json',
                 success: function(data){
-                    console.log(data)
-                    let result = JSON.parse(data)
-                    console.log(result)
+                    let result = data
                     // let result = {
                     //     "asnInfo":{
                     //         "shipTo":"XXXXX", // 去向
@@ -288,7 +350,7 @@
                 type: 'get',
                 dataType: 'json',
                 success: function(data){
-                    let result = JSON.parse(data)
+                    let result = data
                     // let result = {
                     //     "asnInfo":{
                     //         "shipTo":"XXXXX",
@@ -357,7 +419,7 @@
     }
     
     // 完成
-    function asnCodeData(){
+    function scanComplete(){
         // let asnCode = $('#asnCode').val()
         // let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode
         // $.ajax({
@@ -365,7 +427,7 @@
         //     type: 'get',
         //     dataType: 'json',
         //     success: function(data){
-        //         let result = JSON.parse(data)
+        //         let result = data
         //         if(result.code=="0"){
         //             reset()
         //         }else{
@@ -376,6 +438,7 @@
         //         alert('fail'+ err);
         //     }
         // })
+    	reset()
     }
 
     // 重置数据
