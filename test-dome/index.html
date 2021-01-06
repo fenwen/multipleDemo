@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        我是测试页面222<span onclick="aaa()">我是按钮</span>
+        <audio id="audioSuccess" src="./success.wav"/>
+        <audio id="audioError" src="./error.wav"/>
+        
+    </div>
+    
+<script language="JavaScript">
+    function aaa(){
+        let audioSuccess = document.getElementById('audioSuccess')
+        audioSuccess.play()
+    }
+</script>
+</body>
+</html>
+<!-- 参考：http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6 -->

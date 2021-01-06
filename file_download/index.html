@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>测试</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery.fileDownload/1.4.2/jquery.fileDownload.min.js"></script>
+    <style>
+    body, html { height: 100%; overflow: hidden; font-size: 0.14rem; line-height: 1.6; background: #f8f8f8;}
+    * { margin: 0; padding: 0; }
+    .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+    em, i { font-style: normal; }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <!-- <a class="myClass1" href="http://myServer:6024/sites/abc/TechDocs/CSE/111.zip">Download Here</a> -->
+        <!-- <a class="eee" href="https://test.56linked.com/images/login/login_bg.jpg">我是我是我是我是我是我是我是</a> -->
+        <a class="myClass1" href="http://localhost:8092/56linked_web/pages/WlOrderTrack/getOrderAttachmentImgNew.56linked?id=324272597867666244693736637a686c4576584e65704253726171326344695778387766716676343031673d">23123123</a>
+    </div>
+</body>
+</html>
+
+<script>
+$(function(){
+    $(document).on("click", "a.myClass1", function () {
+        $.fileDownload($(this).prop('href'), {
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        });
+        return false; //this is critical
+    });
+
+    // $(document).on("click", "a.eee", function () {
+    //     $.fileDownload($(this).prop('href'), {
+    //         preparingMessageHtml: "We are preparing your report, please wait...",
+    //         failMessageHtml: "There was a problem generating your report, please try again."
+    //     });
+    //     return false; //this is critical
+    // });
+})
+</script>

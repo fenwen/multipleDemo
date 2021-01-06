@@ -69,7 +69,7 @@ ul li{
     background: #fff;
     box-shadow: 0 0 8px rgba(0,0,0,.1);
     border-radius:4px;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .sidestrip{
@@ -540,12 +540,11 @@ ul.am-dropdown-content>li>a:focus, ul.am-dropdown-content>li>a:hover{
 	display: inline-block;
 	height: 20px;
 	width: 24px;
-	color: #858585;
 	margin-top:11px;
 	margin-right:8px;
 }
 
-/* .input_icon a:nth-child(1){
+.input_icon a:nth-child(1){
 	background: url(../images/icon/icon13.png) no-repeat center center;
 }
 
@@ -600,7 +599,7 @@ ul.am-dropdown-content>li>a:focus, ul.am-dropdown-content>li>a:hover{
 	left: 50%;
  	top: 50%;
  	transform:translate(-50%,-50%);
-} */
+}
 
 .input_box textarea{
 	width:calc(100% - 56px);

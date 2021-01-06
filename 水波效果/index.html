@@ -8,8 +8,18 @@
     <style>
         .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
     </style>
+    <script src="./jquery.min.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- <script src="https://optanon.blob.core.windows.net/consent/dc00c6e9-1697-4005-8463-4950098436e2.js" type="text/javascript" charset="UTF-8"></script> -->
+    <script src="./mars_optanon.core.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script>
+        function OptanonWrapper(){}
+    </script>
 </head>
 <body>
+    <div>
+        <a class="optanon-show-settings">Cookie 设置</a>
+        <div id="optanon-cookie-policy"></div>
+    </div>
 <svg id="fillgauge1" width="97%" height="250" onclick="gauge1.update(NewValue());"></svg>
 <svg id="fillgauge2" width="19%" height="200" onclick="gauge2.update(NewValue());"></svg>
 <svg id="fillgauge3" width="19%" height="200" onclick="gauge3.update(NewValue());"></svg>

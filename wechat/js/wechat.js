@@ -254,6 +254,14 @@ $(function () {
 		if (message.from == friend.wxid)
 			html += '<li class="other"><img class="msg_head" src="'+friend.head+'" title="'+friend.nick_name+'"><span>'+message_content+'</span></li>';
 		$('#chatbox').append(html);
+		
+		// 聊天记录一直保持在底部
+		var boxH = $('.message_content').height()
+		var chatH = $('#chatbox').height()+20
+
+		if(chatH > boxH){
+			$('#chatbox').css('top', boxH-chatH+'px')
+		}
 	}
 
 	// ==========================================
@@ -291,51 +299,111 @@ $(function () {
 
 	// ===========================================
 	// emoji 操作
-	var emoji_box = 0;
-	$('.emoji').click(function () {
-		if (emoji_box == 0)
-		{
-			emoji_box = 1;
-			$('.emoji_box').show();
-			msg_file_box = 0;
-			$('.msg_file_box').hide();
-		}
-		else
-		{
-			emoji_box = 0;
-			$('.emoji_box').hide();
-		}
-	});
-	$('.emoji_box a').click(function () {
-		var v = $(this).attr('val');
-		emoji_box = 0;
-		$('.emoji_box').hide();
-		$('#input_box').insertAtCaret(v);
+	$('.emoji').qqFace({
+		id: 'facebox',
+		assign: 'input_box',
+		path: './static/img',	//表情存放的路径
 	});
 	// ------------------------------------------------
 	// 图片、语音、视频 操作
-	var msg_file_box = 0;
-	$('.msg_file').click(function () {
-		if (msg_file_box == 0)
-		{
-			msg_file_box = 1;
-			$('.msg_file_box').show();
-			emoji_box = 0;
-			$('.emoji_box').hide();
-		}
-		else
-		{
-			msg_file_box = 0;
-			$('.msg_file_box').hide();
+	// 消息框输入消息
+	var imgFile = {};
+	$("#msg_file_content").change(function(){
+		if($(this)[0].files[0] != null && $(this)[0].files[0] != undefined) {
+				var imgid = guid();
+				imgFile.imgid = $(this)[0].files[0];
+				var freader = new FileReader();
+				freader.readAsDataURL($(this)[0].files[0]);
+				freader.onload = function(e){
+						$("#input_box").append('<img data-id="'+imgid+'" class="customImg" style="max-height:200px;max-width:200px;" src="'+e.target.result+'">');
+						$("#input_box").focus();
+				};
+				$(this).val("");
 		}
 	});
-	$('#msg_file_content').change(function () {
+
+	$("#input_box").off('keydown').on('keydown', function(event){
+		keySend()
 	});
+
+	//语音对象
+	var audio = document.getElementById('audioPart');
+	audio.addEventListener('ended', function () {
+			//播放结束
+			$(".voicePlay").removeClass("voicePlay");
+	}, false);
+
+	//上传语音
+	$("#send_voice_input").change(function(){
+		if($(this)[0].files[0] != null && $(this)[0].files[0] != undefined) {
+			var uuid = guid();
+			var sourceFile = $(this)[0].files[0];
+			var localUrl = getObjectURL(sourceFile);
+			$("#audioPart").attr("src", localUrl);
+			checkVoice(this, uuid, localUrl);
+		}
+	});
+
+	// 检查声音60秒内
+	function checkVoice(doc, uuid, localUrl) {
+		setTimeout(function () {
+			var duration = audio.duration;
+			if(isNaN(duration)){
+					checkVoice(doc, uuid, localUrl);
+			} else{
+					var time = parseInt(audio.duration);
+					if (time > 60) {
+							alert("语音最长为60秒");
+					} else {
+							//执行发送语音操作
+							// var timeLength = time * 20;
+							// timeLength = timeLength > 240 ? 240 : timeLength;
+							// timeLength = timeLength < 30 ? 30 : timeLength;
+
+							console.log('显示时间')
+							// showSendMsg(selectedWechat, selectedFriend, 3, 1, localUrl, uuid);
+							sendMessage({'msg_tp': 34, 'from': wechat.wxid, 'to': friend.wxid, content: {'file': localUrl, ms: ''}})
+							
+							//显示时间
+							// $("#" + uuid).after("<i>" + time + "\'\'</i>")
+							// sendVoiceMsg(doc, uuid);
+					}
+			}
+		}, 10);
+	}
+
+	// 把文件转换成可读URL
+	function getObjectURL(file) {
+			var url = null;
+			if (window.createObjectURL != undefined) { // basic
+					url = window.createObjectURL(file);
+			} else if (window.URL != undefined) { // mozilla(firefox)
+					url = window.URL.createObjectURL(file);
+			} else if (window.webkitURL != undefined) { // webkit or chrome
+					url = window.webkitURL.createObjectURL(file);
+			}
+			return url;
+	}
+
+	//生成uuid
+	function guid() {
+			function S4() {
+					return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+			}
+			return (S4()+S4()+S4()+S4()+S4()+S4()+S4()+S4());
+	}
 
 	// ======================================
 	// 发送消息动作
-	$('#send').click(function () {
-		var content = $('#input_box').val();
+	$('#send').off('click').on('click', function () {
+		sender()
+	});
+
+	// 发送消息
+	function sender(){
+		var content = $('#input_box').html();
+		message_tp = 1;
+
 		switch (message_tp) {
 			case 1:
 				if (content == '')
@@ -344,22 +412,74 @@ $(function () {
 				}
 				else
 				{
-					$('#input_box').val('');
-					$('#chatbox').append('<li class="me"><img class="msg_head" title="'+wechat.nick_name+'" src="'+wechat.head1+'"><span>'+content+'</span></li>');
-					sendFriendMessages(0, {}, message_tp, friend_id, content);
+					$('#input_box').html('');
+					// $('#chatbox').append('<li class="me"><img class="msg_head" title="'+wechat.nick_name+'" src="'+wechat.head+'"><span>'+content+'</span></li>');
+					// sendFriendMessages(0, {}, message_tp, friend_id, content);
+					sendMessage({'msg_tp': message_tp, 'from': wechat.wxid, 'to': friend.wxid, 'content': content})
 				}
 				break;
 			case 0:
 				sendFileMessage();
 				break;
 		}
-		message_tp = 1;
-		msg_file_box = 0;
-		emoji_box = 0;
-		$('.emoji_box').hide();
-		$('.msg_file_box').hide();
+	}
+
+	// ---------------------------------------
+	// 消息框输入消息
+	$("#input_box").off('keydown').on('keydown', function(event){
+		keySend()
 	});
 
+	// 发送快捷键
+	function keySend(evt){
+			if(!event.shiftKey && event.keyCode == 13){
+					event.preventDefault();
+					sender();
+			}
+			if(event.shiftKey && event.keyCode == 13){
+					event.preventDefault();
+
+					add();
+					$("#inputBox").focus();
+			}
+	}
+
+	function add(){
+			//添加换行
+			insertHTML("<div><br/></div>");
+	}
+
+	function insertHTML(html)
+	{
+			var sel, range;
+			if (window.getSelection)
+			{
+					sel = window.getSelection();
+					if (sel.getRangeAt && sel.rangeCount) {
+							range = sel.getRangeAt(0);
+							range.deleteContents();
+							var el = document.createElement('div');
+							el.innerHTML = html;
+							var frag = document.createDocumentFragment(), node, lastNode;
+							while ( (node = el.firstChild) ) {
+									lastNode = frag.appendChild(node);
+							}
+							range.insertNode(frag);
+							if (lastNode) {
+									range = range.cloneRange();
+									range.setStartAfter(lastNode);
+									range.collapse(true);
+									sel.removeAllRanges();
+									sel.addRange(range);
+							}
+					}
+			}
+			else if (document.selection && document.selection.type !='Control')
+			{
+					var ierange= document.selection.createRange();//获取光标位置    
+					ierange.pasteHTML(html);    //在光标位置插入html 如果只是插入text 则就是fus.text="..."    
+			}
+	}
 
 
 

@@ -11,7 +11,7 @@
 <!--<script type="text/javascript" src="/data/www/topic/static/MathJax-master/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
 <style>
 * { padding: 0; margin: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-body { font-size: 12px; line-height: 1.5;  font-family: Arial,'Times New Roman', 'SimHei'; }
+body { font-size: 14px; line-height: 1.8;  font-family: Arial,'Times New Roman', 'SimHei'; }
 h1,h2,h3,h4,h5,h6 { font-weight: normal; }
 ul { list-style: none; }
 img { border: 0; }
@@ -25,6 +25,10 @@ em { font-style: normal; }
 .subject_l .subject_l_top { font-size: 14px; line-height: 20px; }
 .subject_l .subject_l_top .topic { float: left; margin-left: -6px; }
 .subject_l .subject_l_top span { float: right; margin-left: 12px; }
+.subject_l_subtit { position: relative; width: 80px; padding: 10px 0; font-size: 16px; line-height: 30px; margin: 0 auto; text-align: center; }
+.subject_l_subtit .tit { font-size: 16px!important;}
+.subject_l_subtit .left { position: absolute; left: -100%; height: 14px; top: 18px; }
+.subject_l_subtit .right { position: absolute; right: -100%; height: 14px; top: 18px; }
 
 /* .subject_l .select { margin: 8px 0; } */
 /* .subject_l .select .option { float: left; min-width: 20%; margin-right: 20px; } */
@@ -101,6 +105,11 @@ em { font-style: normal; }
         <!-- 左边题目 -->
         <div class="subject_l">
             <div class="subject_l_top clearfix">
+                <div class="subject_l_subtit">
+                    <em class="tit">错题回顾</em>
+                    <img class="left" src="./images/comet_left.jpg" alt="">
+                    <img class="right" src="./images/comet_right.jpg" alt="">
+                </div>
                 <h4 class="topic">【第一题】</h4>
 				<span>班级平均分：0.0分</span>
                 <span>得分0分/总分5.0分</span> 
@@ -143,7 +152,12 @@ em { font-style: normal; }
           </div>
             <!-- 推荐练习 -->
             <div class="practice">
-                <h5>推荐练习</h5>
+                <div class="subject_l_subtit">
+                    <em class="tit">推荐练习</em>
+                    <img class="left" src="./images/comet_left.jpg" alt="">
+                    <img class="right" src="./images/comet_right.jpg" alt="">
+                </div>
+                <!-- <h5>推荐练习</h5> --> 
                 
                     <p class="topic_num">1-1</p>
      <div>
