@@ -44,23 +44,23 @@
             .minitor_content .minitor_bottom .bar_wrap #chartBarLeft { flex: 1; height: 100%; margin-right: 10px; background: #004882; }
             .minitor_content .minitor_bottom .bar_wrap #chartBarRight { flex: 1; margin-left: 10px; background: #004882;}
 
-            .panel_content .plan_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
-            .panel_content .plan_table th { line-height: 36px; font-weight: normal; border-top: 2px solid #004882; border-right: 2px solid #004882; background: #003c6e; }
-            .panel_content .plan_table th:last-child { border-right: none;}
-            .panel_content .plan_table td { text-align: center; border-top: 2px solid #003c6e; border-right: 2px solid #003c6e; }
-            .panel_content .plan_table td:last-child { border-right: none;}
-            .panel_content .plan_table td .number { font-size: 18px; line-height: 1.5; font-weight: bold; }
-            .panel_content .plan_table td .number.green { color: #01f2c7; }
-            .panel_content .plan_table td .number.yellow { color: #fcca0b; }
-            .panel_content .plan_table td .number.blue { color: #04c1e7; }
+            .plan_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
+            .plan_table th { height: 36px; line-height: 36px; font-weight: normal; border-top: 2px solid #004882; border-right: 2px solid #004882; background: #003c6e; }
+            .plan_table th:last-child { border-right: none;}
+            .plan_table td { text-align: center; border-top: 2px solid #003c6e; border-right: 2px solid #003c6e; }
+            .plan_table td:last-child { border-right: none;}
+            .plan_table td .number { font-size: 18px; line-height: 1.5; font-weight: bold; }
+            .plan_table td .number.green { color: #01f2c7; }
+            .plan_table td .number.yellow { color: #fcca0b; }
+            .plan_table td .number.blue { color: #04c1e7; }
 
-            .panel_content .ware_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
-            .panel_content .ware_table th { line-height: 28px; font-weight: normal; border-top: 2px solid #004882; background: #003c6e; }
-            .panel_content .ware_table td { display: table-cell; vertical-align: middle; text-align: center; border-top: 2px solid #003c6e; }
-            .panel_content .ware_table .red { font-weight: bold; color: #f95280; }
-            .panel_content .ware_table .green { font-weight: bold; color: #01f2c7; }
-            .panel_content .ware_table .yellow { font-weight: bold; color: #fcca0b; }
-        
+            .ware_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
+            .ware_table th { height: 36px; line-height: 36px; font-weight: normal; border-top: 2px solid #004882; background: #003c6e; }
+            .ware_table td { display: table-cell; vertical-align: middle; text-align: center; border-top: 2px solid #003c6e; }
+            .ware_table .red { font-weight: bold; color: #f95280; }
+            .ware_table .green { font-weight: bold; color: #01f2c7; }
+            .ware_table .yellow { font-weight: bold; color: #fcca0b; }
+
         </style>
     </head>
 
@@ -254,7 +254,7 @@
                     </div>
                     <div class="minitor_b_r">
                         <div class="panel_title">TOP5仓库库存情况</div>
-                        <div class="panel_content">
+                        <div class="panel_content panel_ware">
                             <table class="ware_table">
                                 <thead>
                                     <tr>
@@ -305,6 +305,8 @@
         let mapChart = null
         let barChartLeft = null
         let barChartRight = null
+        $('.plan_table').height($('.panel_content').eq(0).height())
+        $('.ware_table').height($('.panel_ware').eq(0).height())
 
         getMapData()
         getBarData()
@@ -568,7 +570,7 @@
                     {
                         name: legendData[0],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
@@ -584,7 +586,7 @@
                     {
                         name: legendData[1],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
@@ -657,7 +659,7 @@
                     {
                         name: legendData[0],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
@@ -673,7 +675,7 @@
                     {
                         name: legendData[1],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,

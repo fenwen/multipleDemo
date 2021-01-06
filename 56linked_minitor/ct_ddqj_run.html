@@ -31,43 +31,25 @@
             .minitor_content { position: relative; padding: 0 20px; height: calc(100% - 72px); }
             .minitor_content .panel_title { line-height: 40px; padding: 0px 12px; font-size: 14px; background: #003c6e; }
             .minitor_content .panel_content { height: calc(100% - 40px); }
-            .minitor_content .minitor_top { height: calc(66% - 20px); display: flex; }
-            .minitor_content .minitor_top .minitor_item { flex: 2; background: #004882; }
-            .minitor_content .minitor_top .minitor_t_c { flex: 5; }
-            .minitor_content .minitor_top .minitor_t_c .map_ct { height: 100%; margin: 0 20px; background: #004882; }
-            .minitor_content .minitor_top #chartMap { width: 100%; height: 100%; }
-            .minitor_content .minitor_bottom { display: flex; height: 34%; margin-top: 20px; }
-            .minitor_content .minitor_bottom .minitor_b_l { flex: 7; }
-            .minitor_content .minitor_bottom .minitor_b_l .bar_ct { height: 100%; margin-right: 20px; }
-            .minitor_content .minitor_bottom .minitor_b_r { flex: 2; background: #004882; }
-            .minitor_content .minitor_bottom .bar_wrap { display: flex; }
-            .minitor_content .minitor_bottom .bar_wrap #chartBarLeft { flex: 1; height: 100%; margin-right: 10px; background: #004882; }
-            .minitor_content .minitor_bottom .bar_wrap #chartBarRight { flex: 1; margin-left: 10px; background: #004882;}
+            .minitor_content .minitor_top { height: calc(40% - 20px); display: flex; }
+            .minitor_content .minitor_top .minitor_t_l { flex: 3; margin-right: 20px; background: #004882; }
+            .minitor_content .minitor_top .minitor_t_r { flex: 2; background: #004882; }
+            .minitor_content .minitor_top .minitor_t_r .panel_pie { display: flex; }
+            .minitor_content .minitor_top .minitor_t_r .pie_item { flex: 1; height: 100%; }
+            .minitor_content .minitor_top #chartBarT { width: 100%; height: 100%; }
+            .minitor_content .minitor_bottom { display: flex; height: 60%; margin-top: 20px; }
+            .minitor_content .minitor_bottom .minitor_b_l { flex: 3; background: #004882; }
+            .minitor_content .minitor_bottom .minitor_b_c { flex: 7; margin: 0 20px; background: #004882; }
+            .minitor_content .minitor_bottom .minitor_b_r { flex: 4; background: #004882; }
+            .minitor_content .minitor_bottom #chartLine, .minitor_content .minitor_bottom #chartMap, .minitor_content .minitor_bottom #chartBarB { width: 100%; height: 100%; }
 
-            .panel_content .plan_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
-            .panel_content .plan_table th { line-height: 36px; font-weight: normal; border-top: 2px solid #004882; border-right: 2px solid #004882; background: #003c6e; }
-            .panel_content .plan_table th:last-child { border-right: none;}
-            .panel_content .plan_table td { text-align: center; border-top: 2px solid #003c6e; border-right: 2px solid #003c6e; }
-            .panel_content .plan_table td:last-child { border-right: none;}
-            .panel_content .plan_table td .number { font-size: 18px; line-height: 1.5; font-weight: bold; }
-            .panel_content .plan_table td .number.green { color: #01f2c7; }
-            .panel_content .plan_table td .number.yellow { color: #fcca0b; }
-            .panel_content .plan_table td .number.blue { color: #04c1e7; }
-
-            .panel_content .ware_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
-            .panel_content .ware_table th { line-height: 28px; font-weight: normal; border-top: 2px solid #004882; background: #003c6e; }
-            .panel_content .ware_table td { display: table-cell; vertical-align: middle; text-align: center; border-top: 2px solid #003c6e; }
-            .panel_content .ware_table .red { font-weight: bold; color: #f95280; }
-            .panel_content .ware_table .green { font-weight: bold; color: #01f2c7; }
-            .panel_content .ware_table .yellow { font-weight: bold; color: #fcca0b; }
-        
         </style>
     </head>
 
     <body>
         <div class="minitor_wrapper">
             <div class="minitor_head">
-                <h4 class="minitor_title">滴滴青桔物流计划监控中心</h4>
+                <h4 class="minitor_title">滴滴青桔物流执行控制塔</h4>
                 <div class="minitor_h_l">
                     <img src="./images/qingju_logo.png">
                 </div>
@@ -82,215 +64,39 @@
     
             <div class="minitor_content clearfix">
                 <div class="minitor_top">
-                    <div class="minitor_item minitor_t_l">
-                        <div class="panel_title">本月单车发运概况</div>
+                    <div class="minitor_t_l">
+                        <div class="panel_title">近15天内收货情况</div>
                         <div class="panel_content">
-                            <table class="plan_table">
-                                <thead>
-                                    <tr>
-                                        <th>新车发运</th>
-                                        <th>旧车调拨</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p class="number green">23443</p>
-                                            <p>累计计划</p>
-                                        </td>
-                                        <td>
-                                            <p class="number green">3000</p>
-                                            <p>累计计划</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number blue">6289</p>
-                                            <p>累计发运</p>
-                                        </td>
-                                        <td>
-                                            <p class="number blue">2980</p>
-                                            <p>累计发运</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number yellow">28999</p>
-                                            <p>累计签收</p>
-                                        </td>
-                                        <td>
-                                            <p class="number yellow">1900</p>
-                                            <p>累计签收</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number blue">30291</p>
-                                            <p>当前在途</p>
-                                        </td>
-                                        <td>
-                                            <p class="number blue">1180</p>
-                                            <p>当前在途</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number green">4368</p>
-                                            <p>累计投放</p>
-                                        </td>
-                                        <td>
-                                            <p class="number green">1350</p>
-                                            <p>累计投放</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number yellow">2000</p>
-                                            <p>待投放量</p>
-                                        </td>
-                                        <td>
-                                            <p class="number yellow">450</p>
-                                            <p>待投放量</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div id="chartBarT"></div>
                         </div>
                     </div>
-                    <div class="minitor_t_c">
-                        <div class="map_ct">
-                            <div class="panel_title">本月各省份订单收发货情况</div>
-                            <div class="panel_content">
-                                <div id="chartMap"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="minitor_item minitor_t_r">
-                        <div class="panel_title">本月电单发运概况</div>
-                        <div class="panel_content">
-                            <table class="plan_table">
-                                <thead>
-                                    <tr>
-                                        <th>新车发运</th>
-                                        <th>旧车调拨</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p class="number green">23443</p>
-                                            <p>累计计划</p>
-                                        </td>
-                                        <td>
-                                            <p class="number green">3000</p>
-                                            <p>累计计划</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number blue">6289</p>
-                                            <p>累计发运</p>
-                                        </td>
-                                        <td>
-                                            <p class="number blue">2980</p>
-                                            <p>累计发运</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number yellow">28999</p>
-                                            <p>累计签收</p>
-                                        </td>
-                                        <td>
-                                            <p class="number yellow">1900</p>
-                                            <p>累计签收</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number blue">30291</p>
-                                            <p>当前在途</p>
-                                        </td>
-                                        <td>
-                                            <p class="number blue">1180</p>
-                                            <p>当前在途</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number green">4368</p>
-                                            <p>累计投放</p>
-                                        </td>
-                                        <td>
-                                            <p class="number green">1350</p>
-                                            <p>累计投放</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="number yellow">2000</p>
-                                            <p>待投放量</p>
-                                        </td>
-                                        <td>
-                                            <p class="number yellow">450</p>
-                                            <p>待投放量</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="minitor_t_r">
+                        <div class="panel_title">本月车辆发运总览</div>
+                        <div class="panel_content panel_pie">
+                            <div class="pie_item" id="chartPieL"></div>
+                            <div class="pie_item" id="chartPieC"></div>
+                            <div class="pie_item" id="chartPieR"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="minitor_bottom">
                     <div class="minitor_b_l">
-                        <div class="bar_ct">
-                            <div class="panel_title">本月工厂新车发货情况</div>
-                            <div class="panel_content bar_wrap">
-                                <div id="chartBarLeft"></div>
-                                <div id="chartBarRight"></div>
-                            </div>
+                        <div class="panel_title">各承运商提货执行率</div>
+                        <div class="panel_content">
+                            <div id="chartLine"></div>
+                        </div>
+                    </div>
+                    <div class="minitor_b_c">
+                        <div class="panel_title">各承运商提货执行率</div>
+                        <div class="panel_content map_div">
+                            <div id="chartMap"></div>
                         </div>
                     </div>
                     <div class="minitor_b_r">
-                        <div class="panel_title">TOP5仓库库存情况</div>
+                        <div class="panel_title">本月各承运商实际发运量</div>
                         <div class="panel_content">
-                            <table class="ware_table">
-                                <thead>
-                                    <tr>
-                                        <th>仓库</th>
-                                        <th>货品类型</th>
-                                        <th>当前库存</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="red">
-                                        <td>淄博综合仓</td>
-                                        <td>单车</td>
-                                        <td>12433</td>
-                                    </tr>
-                                    <tr class="yellow">
-                                        <td>淄博综合仓</td>
-                                        <td>单车</td>
-                                        <td>12433</td>
-                                    </tr>
-                                    <tr class="green">
-                                        <td>淄博综合仓</td>
-                                        <td>单车</td>
-                                        <td>12433</td>
-                                    </tr>
-                                    <tr>
-                                        <td>淄博综合仓</td>
-                                        <td>单车</td>
-                                        <td>12433</td>
-                                    </tr>
-                                    <tr>
-                                        <td>淄博综合仓</td>
-                                        <td>单车</td>
-                                        <td>12433</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div id="chartBarB"></div>
                         </div>
                     </div>
                 </div>
@@ -301,25 +107,25 @@
 
 <script>
     $(document).ready(function(){
-        let maxNums = 0
         let mapChart = null
-        let barChartLeft = null
+        let lineChart = null
+        let barChartTop = null
+        let barChartBottom = null
+        
+        let pieChartL = null
+        let pieChartC = null
+        let pieChartR = null
 
         getMapData()
         getBarData()
+        getPieData()
         
         function getMapData(){
             var result = {
                 "message" : "",
                 "status" : "success",
-                "data" : [[{"nums":0,"province":"四川","lng":"104.426228","type":0,"lat":"30.799394","city":"成都"},{"nums":3847,"province":"云南","lng":"98.852993","type":1,"lat":"24.706629"},{"nums":1,"province":"北京","lng":"116.4133836971231","type":1,"lat":"39.910924547299565"},{"nums":18431,"province":"四川","lng":"104.0932","type":1,"lat":"30.84"},{"nums":1,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":147,"province":"浙江","lng":"120.684224","type":1,"lat":"30.522888"},{"nums":175,"province":"西藏","lng":"80.1","type":1,"lat":"32.5"},{"nums":3507,"province":"贵州","lng":"104.19668","type":1,"lat":"24.703785"},{"nums":3442,"province":"重庆","lng":"108.1956","type":1,"lat":"29.2953"}],[{"nums":0,"province":"新疆","lng":"87.998127","type":0,"lat":"43.777722","city":"乌鲁木齐"},{"nums":192,"province":"新疆","lng":"87.568824","type":1,"lat":"44.069617"}],[{"nums":0,"province":"云南","lng":"101.218874","type":0,"lat":"24.169871","city":"昆明"},{"nums":420,"province":"云南","lng":"98.852993","type":1,"lat":"24.706629"},{"nums":46,"province":"四川","lng":"104.0932","type":1,"lat":"30.84"},{"nums":164,"province":"贵州","lng":"104.19668","type":1,"lat":"24.703785"}],[{"nums":0,"province":"辽宁","lng":"122.907108","type":0,"lat":"42.1731","city":"沈阳"},{"nums":250,"province":"内蒙古","lng":"105.67","type":1,"lat":"38.83"},{"nums":3215,"province":"吉林","lng":"126.401373","type":1,"lat":"41.86797"},{"nums":12766,"province":"辽宁","lng":"122.849346","type":1,"lat":"41.055943"},{"nums":4990,"province":"黑龙江","lng":"131.004478","type":1,"lat":"46.764372"}],[{"nums":0,"province":"河南","lng":"113.752975","type":0,"lat":"35.049053","city":"郑州"},{"nums":772,"province":"山东","lng":"116.108135","type":1,"lat":"36.476352"},{"nums":597,"province":"河南","lng":"114.206754","type":1,"lat":"34.911145"}],[{"nums":0,"province":"上海","lng":"121.288294","type":0,"lat":"30.939584","city":"上海"},{"nums":742,"province":"上海","lng":"121.288294","type":1,"lat":"30.939584"},{"nums":2,"province":"北京","lng":"116.4133836971231","type":1,"lat":"39.910924547299565"},{"nums":1,"province":"四川","lng":"104.0932","type":1,"lat":"30.84"},{"nums":1,"province":"天津","lng":"117.25586","type":1,"lat":"39.051146"},{"nums":427,"province":"安徽","lng":"117.435186","type":1,"lat":"30.449093"},{"nums":2,"province":"广东","lng":"113.283174","type":1,"lat":"23.117217"},{"nums":1405,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":439,"province":"江西","lng":"113.785439","type":1,"lat":"27.920866"},{"nums":960,"province":"浙江","lng":"120.684224","type":1,"lat":"30.522888"},{"nums":12,"province":"湖北","lng":"112.135927","type":1,"lat":"32.421647"},{"nums":6,"province":"福建","lng":"118.5352","type":1,"lat":"24.4545"},{"nums":1,"province":"辽宁","lng":"122.849346","type":1,"lat":"41.055943"},{"nums":1,"province":"陕西","lng":"107.586136","type":1,"lat":"34.733695"}],[{"nums":0,"province":"广东","lng":"112.713313","type":0,"lat":"23.586384","city":"广州"},{"nums":13,"province":"上海","lng":"121.288294","type":1,"lat":"30.939584"},{"nums":13916,"province":"广东","lng":"113.283174","type":1,"lat":"23.117217"},{"nums":1087,"province":"广西","lng":"106.633871","type":1,"lat":"23.889264"},{"nums":1,"province":"江西","lng":"113.785439","type":1,"lat":"27.920866"},{"nums":276,"province":"海南","lng":"109.34","type":1,"lat":"18.78"},{"nums":742,"province":"湖南","lng":"111.530321","type":1,"lat":"26.572496"},{"nums":341,"province":"福建","lng":"118.5352","type":1,"lat":"24.4545"}],[{"nums":0,"province":"湖北","lng":"114.461609","type":0,"lat":"30.794199","city":"武汉"},{"nums":1,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":1776,"province":"江西","lng":"113.785439","type":1,"lat":"27.920866"},{"nums":2,"province":"浙江","lng":"120.684224","type":1,"lat":"30.522888"},{"nums":2663,"province":"湖北","lng":"112.135927","type":1,"lat":"32.421647"},{"nums":2363,"province":"湖南","lng":"111.530321","type":1,"lat":"26.572496"}],[{"nums":0,"province":"北京","lng":"116.4133836971231","type":0,"lat":"39.910924547299565","city":"北京"},{"nums":1,"province":"上海","lng":"121.288294","type":1,"lat":"30.939584"},{"nums":7,"province":"北京","lng":"116.4133836971231","type":1,"lat":"39.910924547299565"},{"nums":15,"province":"天津","lng":"117.25586","type":1,"lat":"39.051146"},{"nums":6,"province":"山东","lng":"116.108135","type":1,"lat":"36.476352"},{"nums":3,"province":"新疆","lng":"87.568824","type":1,"lat":"44.069617"},{"nums":9,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":1,"province":"河北","lng":"114.518616","type":1,"lat":"38.040239"}],[{"nums":0,"province":"天津","lng":"117.25586","type":0,"lat":"39.051146","city":"天津"},{"nums":1,"province":"上海","lng":"121.288294","type":1,"lat":"30.939584"},{"nums":297,"province":"内蒙古","lng":"105.67","type":1,"lat":"38.83"},{"nums":1970,"province":"北京","lng":"116.4133836971231","type":1,"lat":"39.910924547299565"},{"nums":1416,"province":"天津","lng":"117.25586","type":1,"lat":"39.051146"},{"nums":205,"province":"宁夏","lng":"106.26667","type":1,"lat":"38.46667"},{"nums":1766,"province":"山东","lng":"116.108135","type":1,"lat":"36.476352"},{"nums":1044,"province":"山西","lng":"110.805569","type":1,"lat":"35.124738"},{"nums":15,"province":"广东","lng":"113.283174","type":1,"lat":"23.117217"},{"nums":278,"province":"新疆","lng":"87.568824","type":1,"lat":"44.069617"},{"nums":1866,"province":"河北","lng":"114.518616","type":1,"lat":"38.040239"},{"nums":2298,"province":"河南","lng":"114.206754","type":1,"lat":"34.911145"},{"nums":313,"province":"甘肃","lng":"103.744763","type":1,"lat":"36.417752"},{"nums":20,"province":"辽宁","lng":"122.849346","type":1,"lat":"41.055943"},{"nums":1511,"province":"陕西","lng":"107.586136","type":1,"lat":"34.733695"},{"nums":113,"province":"青海","lng":"100.644182","type":1,"lat":"36.270199"}],[{"nums":0,"province":"陕西","lng":"109.701045","type":0,"lat":"34.882084","city":"西安"},{"nums":10,"province":"内蒙古","lng":"105.67","type":1,"lat":"38.83"},{"nums":68,"province":"宁夏","lng":"106.26667","type":1,"lat":"38.46667"},{"nums":119,"province":"甘肃","lng":"103.744763","type":1,"lat":"36.417752"},{"nums":20,"province":"西藏","lng":"80.1","type":1,"lat":"32.5"},{"nums":1142,"province":"陕西","lng":"107.586136","type":1,"lat":"34.733695"},{"nums":63,"province":"青海","lng":"100.644182","type":1,"lat":"36.270199"}],[{"nums":0,"province":"浙江","lng":"120.845951","type":0,"lat":"30.801561","city":"嘉兴"},{"nums":43315,"province":"上海","lng":"121.288294","type":1,"lat":"30.939584"},{"nums":18131,"province":"安徽","lng":"117.435186","type":1,"lat":"30.449093"},{"nums":46987,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":33,"province":"江西","lng":"113.785439","type":1,"lat":"27.920866"},{"nums":35870,"province":"浙江","lng":"120.684224","type":1,"lat":"30.522888"},{"nums":12493,"province":"福建","lng":"118.5352","type":1,"lat":"24.4545"}]]
+                data: [{"nums":20,"province":"四川","lng":"104.426228","type":0,"lat":"30.799394","city":"成都"},{"nums":3847,"province":"云南","lng":"98.852993","type":1,"lat":"24.706629"},{"nums":1,"province":"北京","lng":"116.4133836971231","type":1,"lat":"39.910924547299565"},{"nums":18431,"province":"四川","lng":"104.0932","type":1,"lat":"30.84"},{"nums":1,"province":"江苏","lng":"118.964902","type":1,"lat":"32.098264"},{"nums":147,"province":"浙江","lng":"120.684224","type":1,"lat":"30.522888"},{"nums":175,"province":"西藏","lng":"80.1","type":1,"lat":"32.5"},{"nums":3507,"province":"贵州","lng":"104.19668","type":1,"lat":"24.703785"},{"nums":3442,"province":"重庆","lng":"108.1956","type":1,"lat":"29.2953"}]
             }
-
-            result.data.forEach(function(item){
-                item.forEach(function(ele){
-                    if(ele.nums > maxNums) maxNums = ele.nums // 获取最大值
-                })
-            })
 
             mapChart && mapChart.clear()
             initMapChart(result.data)
@@ -327,162 +133,38 @@
 
         function initMapChart(data){
             $('.map_div').html('<div id="chartMap"></div>')
-            
             mapChart = echarts.init(document.getElementById('chartMap'));
-
-            var planePath = 'path://M.6,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705';
+            
             var convertData = function (data) {
                 var res = [];
-                for (var i = 1; i < data.length; i++) {
-                    var dataItem = data[i];
-                    var fromCoord = [data[0].lng, data[0].lat];
-                    var toCoord = [data[i].lng, data[i].lat];
-                    if (fromCoord && toCoord) {
-                        res.push({
-                            city: data[0].city,
-                            province: dataItem.province,
-                            coords: [fromCoord, toCoord],
-                            value: dataItem.nums
-                        });
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].lng && data[i].lat ) {
+                        res.push([data[i].lng, data[i].lat, data[i].nums]);
                     }
                 }
                 return res;
             };
 
-            // var color = ['#3ed4ff', '#ffa022', '#a6c84c', '#a6c84c', '#ffa022', '#46bee9'];
-            var series = [], legendData = [];
-            data.forEach(function (item, i) {
-                legendData.push(item[0].city)
-                series.push({
-                    name: item[0].city,
-                    type: 'lines',
-                    zlevel: 1,
-                    effect: {
-                        show: true,
-                        period: 6,
-                        trailLength: 0.7,
-                        color: '#fff',   //arrow箭头的颜色
-                        symbolSize: 2
-                    },
-                    lineStyle: {
-                        normal: {
-                            // color: color[i],
-                            width: 0,
-                            curveness: 0.2
-                        }
-                    },
-                    data: convertData(item)
-                },
-                {
-                    name: item[0].city,
-                    type: 'lines',
-                    zlevel: 2,
-                    symbol: ['none', 'arrow'],
-                    symbolSize: 4,
-                    effect: {
-                        show: true,
-                        period: 6,
-                        trailLength: 0,
-                        symbol: planePath,
-                        symbolSize: 15
-                    },
-                    lineStyle: {
-                        normal: {
-                            // color: color[i],
-                            width: 1,
-                            opacity: 0.6,
-                            curveness: 0.2
-                        }
-                    },
-                    data: convertData(item)
-                },
-                {
-                    name: item[0].city,
-                    type: 'effectScatter',
-                    coordinateSystem: 'geo',
-                    zlevel: 2,
-                    rippleEffect: {
-                        brushType: 'stroke'
-                    },
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'top',
-                            formatter: function(params, ticket, callback){
-                              return params.data.value[2]
-                            } 
-                        }
-                    },
-                    // symbolSize: function (val) {
-                    //     return val[2] / 8;
-                    // },
-                    // symbolSize: 6,
-                    symbolSize : function (v){
-                        return v[2] ? 6 + parseInt(((v[2]-0)/(maxNums/10)).toFixed(0)) : 6
-                    },
-                    itemStyle: {
-                        normal: {
-                            // color: color[i]
-                        }
-                    },
-                    data: (function () {
-                        var dd = [];
-                        for (var i = 0; i < item.length; i++) {
-                            var dataItem = item[i]
-                            if(i==0){
-                                dd.push({
-                                    name: dataItem.city,
-                                    value: [dataItem.lng, dataItem.lat].concat([dataItem.nums])
-                                })
-                            }else{
-                                dd.push({
-                                    name: dataItem.province,
-                                    value: [dataItem.lng, dataItem.lat].concat([dataItem.nums])
-                                })
-                            }
-                        }
-                        return dd;
-                    })()
-                });
-            });
-
             var option = {
-                color: ['#ffd700', '#00ffff', '#0ff', '#ff7f50', '#87cefa', '#da70d6', '#4472c4', '#61a0a8', '#8e9c9d'],
+                visualMap: {
+                    show: false,
+                    min: 0,
+                    max: 20,
+                    inRange: {
+                        color: ['#02f1c7', '#0da9a6', '#f6f449', '#ffc80b', '#ef1140']
+                    }
+                },
                 tooltip: {
-                    trigger: 'item', 
-                    formatter:function(params, ticket, callback){
-                        if(params.seriesType=="effectScatter") {
-                            return "线路："+params.data.name+""+params.data.value[2];
-                        }else if(params.seriesType=="lines"){
-                            return params.data.city+">"+params.data.province+"<br />"+params.data.value;
-                        }else{
-                            return params.name;
-                        }
-                    } 
+                    show: true,
                 },
                 legend: {
                     show: false,
-                    orient: 'vertical',
-                    top: 'top',
-                    left: 'left',
-                    type: 'scroll',
-                    data: legendData,
-                    textStyle: {
-                        color: '#fff'
-                    },
-                    pageTextStyle: {
-                        color: '#ffffff'
-                    },
-                    // selectedMode: 'single',
-                    selected: {},
                 },
                 geo: {
                     map: 'china',
                     zoom: 1.4,
                     label: {
-                        emphasis: {
-                            show: false
-                        }
+                        emphasis: { show: false }
                     },
                     roam: true,
                     itemStyle: {
@@ -495,7 +177,14 @@
                         }
                     }
                 },
-                series: series
+                series: [{
+                    name: '热力图',
+                    type: 'heatmap',
+                    coordinateSystem: 'geo',
+                    // blurSize: 10,
+					// pointSize: 8,
+                    data: convertData(data)
+                }]
             };
             mapChart.setOption(option, true);
         }
@@ -503,20 +192,36 @@
         // 柱状图表数据-左上
         function getBarData(){
             barData = [
-                {name: '丹阳凤凰', arrived: '23', noarrived: '9'},
-                {name: '常州永琪', arrived: '23', noarrived: '9'},
-                {name: '天津艾玛', arrived: '23', noarrived: '9'},
-                {name: '天津富士达', arrived: '23', noarrived: '9'},
+                {name: '很长名字的集团', arrived: '23', noarrived: '9'},
+                {name: '2', arrived: '23', noarrived: '9'},
+                {name: '3', arrived: '230', noarrived: '9'},
+                {name: '4', arrived: '23', noarrived: '9'},
+                {name: '5', arrived: '23', noarrived: '9'},
+                {name: '6', arrived: '23', noarrived: '9'},
+                {name: '7', arrived: '232', noarrived: '9'},
+                {name: '8', arrived: '23', noarrived: '9'},
+                {name: '9', arrived: '23', noarrived: '9'},
+                {name: '10', arrived: '23', noarrived: '90'},
+                {name: '11', arrived: '23', noarrived: '9'},
+                {name: '12', arrived: '23', noarrived: '9'},
+                {name: '13', arrived: '23', noarrived: '490'},
+                {name: '14', arrived: '23', noarrived: '9'},
+                {name: '15', arrived: '23', noarrived: '9'},
             ]
-            initBarChartLeft()
-            initBarChartRight()
+            lineChart && lineChart.clear()
+            barChartTop && barChartTop.clear()
+            barChartBottom && barChartBottom.clear()
+
+            initBarChartTop()
+            initBarChartBottom()
+            initLineChart()
         }
 
         // 柱状图表-左上
-        function initBarChartLeft() {
+        function initBarChartTop() {
             let that = this
             let xData = [], yData = [], yData1 = [], yData2 = [], legendData = ['累计计划','累计发运']
-            barChartLeft = echarts.init(document.getElementById('chartBarLeft'));
+            barChartTop = echarts.init(document.getElementById('chartBarT'));
 
             barData.forEach(function(item){
                 xData.push(item.name)
@@ -525,7 +230,6 @@
             })
 
             var option = {
-                color: ['#37a2da', '#ffd85c'],
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -533,17 +237,12 @@
                     }
                 },
                 legend: {
-                    data: legendData,
-                    left: 'right',
-                    top: 'top',
-                    textStyle: { color: '#ffffff' },
-                    top: 6,
-                    bottom: 20,
+                    show: false,
                 },
                 grid: {
-                    top: '36',
+                    top: '20',
                     left: '3%',
-                    right: '2%',
+                    right: '3%',
                     bottom: '12',
                     containLabel: true
                 },
@@ -554,20 +253,27 @@
                     axisLabel: { textStyle: { color: '#ffffff' }, rotate: 0 },
                     data: xData
                 },
-                yAxis: {
-                    name: '单车',
-                    type: 'value',
-                    splitLine: { show: true, lineStyle: { color:'#006098'} },
-                    axisLine: { onZero: true, lineStyle: { color: '#006098' } },
-                    axisLabel: { textStyle: { color: '#ffffff' } },
-                    nameGap: 12,
-                    nameTextStyle: { color: '#ffffff', fontSize: 14, fontWeight: 'bold' }
-                },
+                yAxis: [
+                    {
+                        type: 'value',
+                        // name: '水量',
+                        splitLine: { show: true, lineStyle: { color:'#006098'} },
+                        axisLine: { onZero: true, lineStyle: { color: '#006098' } },
+                        axisLabel: { textStyle: { color: '#ffffff' } },
+                    },
+                    {
+                        type: 'value',
+                        // name: '温度',
+                        splitLine: { show: true, lineStyle: { color:'#006098'} },
+                        axisLine: { onZero: true, lineStyle: { color: '#006098' } },
+                        axisLabel: { textStyle: { color: '#ffffff' } },
+                    }
+                ],
                 series: [
                     {
                         name: legendData[0],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
@@ -583,7 +289,8 @@
                     {
                         name: legendData[1],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
+                        yAxisIndex: 1,
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1,
@@ -599,13 +306,13 @@
                 ]
             };
 
-            barChartLeft.setOption(option, true);
+            barChartTop.setOption(option, true);
         }
         
-        function initBarChartRight(){
+        function initBarChartBottom(){
             let that = this
             let xData = [], yData = [], yData1 = [], yData2 = [], legendData = ['累计计划','累计发运']
-            chartBarRight = echarts.init(document.getElementById('chartBarRight'));
+            barChartBottom = echarts.init(document.getElementById('chartBarB'));
 
             barData.forEach(function(item){
                 xData.push(item.name)
@@ -622,48 +329,41 @@
                     }
                 },
                 legend: {
-                    data: legendData,
-                    left: 'right',
-                    top: 'top',
-                    textStyle: { color: '#ffffff' },
-                    top: 6,
-                    bottom: 20,
+                    show: false
                 },
                 grid: {
-                    top: '36',
+                    top: '20',
                     left: '3%',
-                    right: '2%',
+                    right: '4%',
                     bottom: '12',
                     containLabel: true
                 },
                 xAxis: {
+                    type: 'value',
+                    splitLine: { show: true, lineStyle: { color:'#006098'} },
+                    axisLine: { onZero: true, lineStyle: { color: '#006098' } },
+                    axisLabel: { textStyle: { color: '#ffffff' } },
+                },
+                yAxis: {
                     type: 'category',
                     splitLine: { show: false },
                     axisLine: { onZero: true, lineStyle: { color: '#006098' } },
                     axisLabel: { textStyle: { color: '#ffffff' }, rotate: 0 },
                     data: xData
                 },
-                yAxis: {
-                    name: '电单',
-                    type: 'value',
-                    splitLine: { show: true, lineStyle: { color:'#006098'} },
-                    axisLine: { onZero: true, lineStyle: { color: '#006098' } },
-                    axisLabel: { textStyle: { color: '#ffffff' } },
-                    nameGap: 12,
-                    nameTextStyle: { color: '#ffffff', fontSize: 14, fontWeight: 'bold' }
-                },
                 series: [
                     {
                         name: legendData[0],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
+                        stack: '总量',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1,
+                                1, 0, 0, 0,
                                 [
-                                    {offset: 0, color: '#02f1c7'},
+                                    {offset: 0, color: '#0da9a6'},
                                     {offset: 0.5, color: '#08ceb7'},
-                                    {offset: 1, color: '#0da9a6'}
+                                    {offset: 1, color: '#02f1c7'}
                                 ]
                             )
                         },
@@ -672,10 +372,11 @@
                     {
                         name: legendData[1],
                         type: 'bar',
-                        barMaxWidth: '40%',
+                        barMaxWidth: '30',
+                        stack: '总量',
                         itemStyle: {
                             color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1,
+                                1, 0, 0, 0,
                                 [
                                     {offset: 0, color: '#ffc80b'},
                                     {offset: 0.5, color: '#f9de2b'},
@@ -688,7 +389,266 @@
                 ]
             };
 
-            chartBarRight.setOption(option, true);
+            barChartBottom.setOption(option, true);
         }
+    
+        function initLineChart(){
+            let that = this
+            let xData = [], yData = [], yData1 = [], yData2 = [], legendData = ['累计计划','累计发运']
+            lineChart = echarts.init(document.getElementById('chartLine'));
+
+            barData.forEach(function(item){
+                xData.push(item.name)
+                yData1.push(item.arrived)
+                yData2.push(item.noarrived)
+            })
+
+            var option = {
+                color: ['#37a2da', '#ffd85c'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    top: '20',
+                    left: '3%',
+                    right: '4%',
+                    bottom: '12',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    splitLine: { show: false, lineStyle: { color:'#006098'} },
+                    axisLine: { onZero: true, lineStyle: { color: '#006098' } },
+                    axisLabel: { textStyle: { color: '#ffffff' } },
+                },
+                yAxis: {
+                    type: 'category',
+                    splitLine: { show: false },
+                    axisLine: { onZero: true, lineStyle: { color: '#006098' } },
+                    axisLabel: { textStyle: { color: '#ffffff' }, rotate: 0 },
+                    data: xData
+                },
+                series: [
+                    {
+                        name: legendData[0],
+                        type: 'line',
+                        smooth: true,
+                        showSymbol: false,
+                        lineStyle: {
+                            width: 5,
+                            color: new echarts.graphic.LinearGradient(
+                                1, 0, 0, 0,
+                                [
+                                    {offset: 0, color: '#fcb71b'},
+                                    {offset: 1, color: '#fa6271'}
+                                ]
+                            )
+                        },
+                        markLine: {
+                            silent: true,
+                            data: [
+                                {xAxis: 100}
+                            ],
+                            lineStyle: {
+                                normal: {
+                                type: 'solid',
+                                }
+                            },
+                        },
+                        data: yData1
+                    },
+                ]
+            };
+
+            lineChart.setOption(option, true);
+        }
+        
+        // 饼图图表数据-右上
+        function getPieData(){
+            var result =  {
+                "message" : "",
+                "status" : "success",
+                "data" : {
+                  "waitShip" : 0,
+                  "WAIT_SHIP" : 30,
+                  "AVAILABLE" : 1679,
+                  "ONROAD" : 2654,
+                  "ARRIVED" : 19423,
+                  "allOrders" : 25192
+                }
+            }
+            pieChartL && pieChartL.clear()
+            initPieChartLeft(result.data)
+            initPieChartCenter(result.data)
+            initPieChartRight(result.data)
+        }
+
+        // 饼图图表1
+        function initPieChartLeft(data) {
+            pieChartL = echarts.init(document.getElementById('chartPieL'));
+            var yData = []
+
+            yData = [
+                { value: data.AVAILABLE, name: '新车发运\n'+data.AVAILABLE, itemStyle: {color: '#fdc70d'} },
+                { value: data.WAIT_SHIP, name: '旧车调拨\n'+data.WAIT_SHIP, itemStyle: {color: '#02f2c5'} },
+                // { value: data.ONROAD, name: '旧车调拨\n'+data.ONROAD, itemStyle: {color: '#37a2da'} }
+                // { value: data.ARRIVED, name: '旧车调拨\n'+data.ARRIVED, itemStyle: {color: '#37a2da'} }
+            ]
+
+            var option = {
+                color: ['#f16871', '#11b4b0', '#ffa358', '#a6c84c'],
+                title: {
+                    text: '新车发运/旧车调拨',
+                    left: 'center',
+                    bottom: '8',
+                    textStyle: {
+                        color: '#ffffff',
+                        fontSize: 12
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}<br/>: {c} ({d}%)'
+                },
+                series: [{
+                    name: '',
+                    type: 'pie',
+                    radius: ['35%', '50%'],
+                    label: {
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '12',
+                                fontWeight: 'bold',
+                                shadowBlur: 8,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        // length: 3,
+                        length2: 5
+                    },
+                    data: yData
+                }]
+            };
+
+            pieChartL.setOption(option, true);
+        }
+
+        // 饼图图表2
+        function initPieChartCenter(data) {
+            pieChartC = echarts.init(document.getElementById('chartPieC'));
+            var yData = []
+
+            yData = [
+                { value: data.AVAILABLE, name: '电单H\n'+data.AVAILABLE, itemStyle: {color: '#f95182'} },
+                { value: data.WAIT_SHIP, name: '电单V1\n'+data.WAIT_SHIP, itemStyle: {color: '#02f2c5'} },
+                { value: data.ONROAD, name: '电单V2\n'+data.ONROAD, itemStyle: {color: '#007cde'} },
+                { value: data.ARRIVED, name: '单车\n'+data.ARRIVED, itemStyle: {color: '#fdc70d'} }
+            ]
+
+            var option = {
+                color: ['#f16871', '#11b4b0', '#ffa358', '#a6c84c'],
+                title: {
+                    text: '车辆类型',
+                    left: 'center',
+                    bottom: '8',
+                    textStyle: {
+                        color: '#ffffff',
+                        fontSize: 12
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}<br/>: {c} ({d}%)'
+                },
+                series: [{
+                    name: '',
+                    type: 'pie',
+                    radius: ['0', '50%'],
+                    label: {
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '12',
+                                fontWeight: 'bold',
+                                shadowBlur: 8,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        // length: 3,
+                        length2: 5
+                    },
+                    data: yData
+                }]
+            };
+
+            pieChartC.setOption(option, true);
+        }
+        
+        // 饼图图表1
+        function initPieChartRight(data) {
+            pieChartR = echarts.init(document.getElementById('chartPieR'));
+            var yData = []
+
+            yData = [
+                { value: data.AVAILABLE, name: '待发运\n'+data.AVAILABLE, itemStyle: {color: '#f95182'} },
+                { value: data.WAIT_SHIP, name: '签收\n'+data.WAIT_SHIP, itemStyle: {color: '#02f2c5'} },
+                { value: data.ARRIVED, name: '在途\n'+data.ARRIVED, itemStyle: {color: '#fdc70d'} }
+            ]
+
+            var option = {
+                color: ['#f16871', '#11b4b0', '#ffa358', '#a6c84c'],
+                title: {
+                    text: '订单执行情况',
+                    left: 'center',
+                    bottom: '8',
+                    textStyle: {
+                        color: '#ffffff',
+                        fontSize: 12
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}<br/>: {c} ({d}%)'
+                },
+                series: [{
+                    name: '',
+                    type: 'pie',
+                    radius: ['0', '50%'],
+                    label: {
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '12',
+                                fontWeight: 'bold',
+                                shadowBlur: 8,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        // length: 3,
+                        length2: 5
+                    },
+                    data: yData
+                }]
+            };
+
+            pieChartR.setOption(option, true);
+        }
+
     })
 </script>
