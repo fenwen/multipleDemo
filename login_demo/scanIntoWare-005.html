@@ -222,20 +222,18 @@
     // $('#plan_date').fdatepicker({ format: 'yyyy-mm-dd' });
     // $('#real_date').fdatepicker({ format: 'yyyy-mm-dd' });
 
-    
+    getProduceData()
 
     // 入库单号回车
     $('#asnCode').keypress(function(event){
         if(event.keyCode == "13"){
             getCodeData()
-            getProduceData()
         }
     })
 
     // 入库单号开始
     $('#scan_start').off('click').on('click', function(){
         getCodeData()
-        getProduceData()
     })
 
     // 条形码
@@ -257,9 +255,8 @@
 
     // 货品数据
     function getProduceData(){
-        let code = $('#asnCode').val()
         $.ajax({
-            url: "/wms/receive.receive?action=getItem&asnCode="+code,
+            url: "/wms/receive.receive?action=getItem",
             type: 'get',
             dataType: 'json',
             success: function(data){
@@ -345,10 +342,9 @@
     function getBarCodeData(){
         let asnCode = $('#asnCode').val()
         let barCode = $('#barCode').val()
-        let produceCode = $('#produceCode').val()
 
-        if(asnCode && barCode && produceCode){
-            let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode +"&barCode="+ barCode+"&itemId="+produceCode
+        if(asnCode && barCode){
+            let url = "/wms/receive.receive?action=receive&asnCode="+ asnCode +"&barCode="+ barCode
             $.ajax({
                 url: url,
                 type: 'get',
