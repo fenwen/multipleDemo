@@ -8,6 +8,7 @@
         <script src="./js/template-web.min.js"></script>
         <script src="./js/jquery.min.js"></script>
         <script src="./js/foundation-datepicker.js"></script>
+        <script src="./js/layer/layer.js"></script>
         <link rel="stylesheet" href="./css/foundation-datepicker.css">
 
         <style>
@@ -57,6 +58,16 @@
             .scan_container .table_list #orderTable td.red { color: #ffffff; background: red; }
             .scan_container .table_list #orderTable td.green { color: #ffffff; background: green; }
             .scan_container .table_list .no_data { text-align: center; padding: 20px; }
+
+            /* 表格模板样式 */
+            .set_pallet_no_wrapper { padding: 20px; }
+            .set_pallet_no_wrapper .row { display: flex; margin-bottom: 10px; font-size: 14px; }
+            .set_pallet_no_wrapper .row span { display: inline-block; min-width: 80px; text-align: right; line-height: 32px; }
+            .set_pallet_no_wrapper .row .text_rt { flex: 1; }
+            .set_pallet_no_wrapper .row .text_rt input { display: block; width: 100%; padding: 3px 8px; line-height: 24px; border-radius: 3px; border: 1px solid #dcdcdc; }
+            .set_pallet_no_wrapper .btn_group { margin-top: 20px; text-align: center; }
+            .set_pallet_no_wrapper .btn_group .btn { cursor: pointer; margin: 0 10px 0 0; font-size: 14px; line-height: 30px; padding: 0 15px; color: #666666; background: #ffffff; border-radius: 3px; border: 1px solid #DCDFE6; }
+            .set_pallet_no_wrapper .btn_group .btn:hover { opacity: 0.8; }
         </style>
     </head>
 
@@ -208,6 +219,22 @@
     <%if(!list.length) {%>
         <div class="no_data">暂无数据</div>
     <%}%>
+</script>
+
+<!-- 托盘号模板 -->
+<script id="setPalletNoHtml" type="text/html">
+    <div class="set_pallet_no_wrapper">
+        <div class="row">
+            <span>设置托盘号：</span>
+            <div class="text_rt">
+                <input type="text" id="palletNo" value="" >
+            </div>
+        </div>
+
+        <div class="btn_group">
+            <button class="btn" id="set_confirm">确定</button>
+        </div>
+    </div>
 </script>
 
 <script>
@@ -362,6 +389,7 @@
                     //         "receivedQty":"5.0",
                     //         "estimateDate":"2020-12-01",
                     //         "receivedDate":"2020-12-16",
+                    //         "inputLP": 1,
                     //         "asnCode":"59"
                     //     },
                     //     "barCodeInfo":{
@@ -374,6 +402,11 @@
                     //     "code":"-1", // 如果返回为0 则要更新页面上的 去向、计划数量、实收数量、计划入库时间、实际入库时间，非0则不更新；不管是不是0，都要往列表中插数据 
                     //     "msg":"条码状态不为初始化"
                     // }
+
+                    // 设置托盘号
+                    if(result.asnInfo.inputLP == 1){
+                        setPalletNoData(asnCode, produceCode)
+                    }
 
                     if(result.code=="0"){
                         okNum += 1
@@ -420,6 +453,44 @@
                 }
             })
         }
+    }
+
+    // 设置托盘号
+    function setPalletNoData(asnCode, itemId){
+        layer.open({
+            title:"设置托盘号",
+            type: 1,
+            area: ['400px', '180px'],
+            shadeClose: false,
+            content: template("setPalletNoHtml", {}),
+            success: function(){
+                $('#set_confirm').off('click').on('click', function(){
+                    let no = $('#palletNo').val()
+                    
+                    if(no){
+                        $.ajax({
+                            url: "/wms/receive.receive?action=createMoveDoc&lpCode="+ no +"&itemId="+ itemId +"&asnCode="+ asnCode,
+                            type: 'get',
+                            dataType: 'json',
+                            success: function(data){
+                                let result = data
+                                if(result.code == "0"){
+                                    layer.closeAll()
+                                    alert("设置成功");
+                                }else{
+                                    alert(result.msg);
+                                }
+                            },
+                            error: function(err){
+                                alert('fail'+ err);
+                            }
+                        })
+                    }else{
+                        layer.msg('托盘号为空');
+                    }
+                })
+            }
+        });
     }
     
     // 完成
