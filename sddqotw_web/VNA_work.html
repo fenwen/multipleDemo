@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>VNA管理</title>
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/dialog.css">
+        <script src="./js/jquery-1.8.0.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/artDialog/6.0.2/dialog-min.js"></script>
+
+        <!–[if lt IE 7]>
+        <script src="./js/json2.min.js"></script>
+        <![endif]–>
+    </head>
+
+    <body>
+        <div class="VNA_container">
+            <div class="tab_container">
+                <div class="tab_head">
+                    <ul class="tab_title">
+                        <li class="active">上架回库</li>
+                        <li>拣货</li>
+                    </ul>
+                    <div class="codes_select">
+                        <select class="select_style" id="forklift_codes"></select>
+                    </div>
+                </div>
+                
+                <div class="tab_content">
+                    <!-- 上架回库 -->
+                    <div class="tab_item show">
+                        <div class="head_row_0">
+                            <div class="form_item">
+                                <span class="name">切换巷道：</span>
+                                <select class="select_style" id="aisle_code_put"></select>
+                            </div>
+
+                            <div class="form_item direction_radio">
+                                <input type="radio" name="direct" value="左" id="direction_left" checked/>
+                                <label for="direction_left">左</label>
+                                <input type="radio" name="direct" value="左" id="direction_right"/>
+                                <label for="direction_right">右</label>
+                            </div>
+
+                            <div class="form_item">
+                                <span>容器号：</span>
+                                <span class="box_num"></span>
+                            </div>
+
+                            <div class="form_item">
+                                <span>推荐库位：</span>
+                                <span class="recommend_location"></span>
+                            </div>
+
+                            <div class="operate_btn">
+                                <button type="button" class="default-btn-VNA primary disabled" id="query_btn">查询</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="execute_btn">执行任务</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="put_finish_btn">上架完成</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="next_location_btn">下一库位</button>
+                                <button type="button" class="default-btn-VNA warn disabled" id="task_back_btn">任务回滚</button>
+                                <button type="button" class="default-btn-VNA primary" id="refresh_btn">刷新</button>
+                            </div>
+                        </div>
+
+                        <div class="material_tab_content">
+                            <table class="VNA_table_style" id="materialTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th class='checkbox'>
+                                            <input class="materialCheckAll" type='checkbox' onclick="seletedAllCheckboxState(this.checked);">
+                                        </th>
+                                        <th>托盘号</th>
+                                        <th>托盘位置</th>
+                                        <th>物料编码</th>
+                                        <th>物料名称</th>
+                                        <th>数量</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="bottom_tab_content">
+                            <div class="tab_left">
+                                <div class="tab_center">
+                                    <div class="location_hd">
+                                        <span>空库位数：</span>
+                                        <span class="location_num">22</span>
+                                    </div>
+                                    <div class="bottom_tab location_tab_content">
+                                        <table class="VNA_table_style" id="locationTable">
+                                            <thead>
+                                                <tr class="head">
+                                                    <th>高度</th>
+                                                    <th>左</th>
+                                                    <th>右</th>
+                                                    <th>合计</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="4" style="text-align: center">暂无数据</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab_right">
+                                <div class="tab_center">
+                                    <div class="putaway_hd">
+                                        <div class="putaway_hd_r">
+                                            <span>回库：</span>
+                                            <span class="back_num">22</span>
+                                        </div>
+                                        <span>上架：</span>
+                                        <span class="putaway_num">22</span>
+                                    </div>
+                                    <div class="bottom_tab putaway_tab_content">
+                                        <table class="VNA_table_style" id="putawayTable">
+                                            <thead>
+                                                <tr class="head">
+                                                    <th>托盘号</th>
+                                                    <th>类型</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: center">暂无数据</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 拣货 -->
+                    <div class="tab_item">
+                        <div class="head_row_1">
+                            <div class="form_item">
+                                <span class="name">切换巷道：</span>
+                                <select class="select_style" id="aisle_code_pick"></select>
+                            </div>
+
+                            <div class="form_item torr_radio">
+                                <input type="radio" name="torr" value="整托" id="torr_total" checked/>
+                                <label for="torr_total">整托</label>
+                                <input type="radio" name="torr" value="散托" id="torr_san"/>
+                                <label for="torr_san">散托</label>
+                            </div>
+
+                            <div class="form_item">
+                                <span>任务总数：</span>
+                                <span class="task_num"></span>
+                            </div>
+
+                            <div class="form_item">
+                                <span>巷道任务数：</span>
+                                <span class="tunnel_num"></span>
+                            </div>
+
+                            <div class="operate_btn">
+                                <button type="button" class="default-btn-VNA primary disabled" id="query_pick_btn">查询</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="execute_pick_btn">执行任务</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="put_finish_pick_btn">拣货完成</button>
+                                <button type="button" class="default-btn-VNA warn disabled" id="task_back_pick_btn">任务回滚</button>
+                                <button type="button" class="default-btn-VNA primary" id="print_pick_btn">打印</button>
+                                <button type="button" class="default-btn-VNA primary" id="refresh_pick_btn">刷新</button>
+                            </div>
+                        </div>
+
+                        <div class="wave_tab_content">
+                            <table class="VNA_table_style" id="waveTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th class='checkbox'>
+                                            <input class="waveCheckAll" type='checkbox' onclick="seletedAllCheckboxWaveState(this.checked);">
+                                        </th>
+                                        <th>库位</th>
+                                        <th>容器号</th>
+                                        <th>波次号</th>
+                                        <th>行号</th>
+                                        <th>数量</th>
+                                        <th>库存</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="wave_detail_form">
+                            <div class="form_item">
+                                <span class="name">条码：</span>
+                                <input type="text" class="detail_bar_code">
+                            </div>
+                            <div class="form_item">
+                                <span class="name">数量：</span>
+                                <input type="text" class="detail_pick_qty">
+                            </div>
+                            <div class="form_item">
+                                <button type="button" class="default-btn-VNA primary disabled" id="confirm_pick">确定</button>
+                                <button type="button" class="default-btn-VNA primary disabled" id="confirm_all_pick">整单确定</button>
+                                <button type="button" class="default-btn-VNA warn disabled" id="lack_pick">缺拣</button>
+                            </div>
+                        </div>
+
+                        <div class="wave_detail_tab_content">
+                            <table class="VNA_table_style" id="waveDetailTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th class='checkbox'>
+                                            <input class="waveDetailCheckAll" type='checkbox' onclick="seletedAllCheckboxWaveDetailState(this.checked);">
+                                        </th>
+                                        <th>物料编码</th>
+                                        <th>物料名称</th>
+                                        <th>大件</th>
+                                        <th>重量</th>
+                                        <th>数量</th>
+                                        <th>拣货数量</th>
+                                        <th>缺拣数量</th>
+                                        <th>库存</th>
+                                        <th>冻结</th>
+                                        <th>状态</th>
+                                        <th>BN</th>
+                                        <th>附件</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="13" style="text-align: center">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript" src="./js/main.js"></script>
+<script type="text/javascript">
+    var baseUrl = 'http://localhost:8089/thornGwt.vue'
+    var serverName = 'wmsCust'
+    var serverPickName = 'wmsVNAputaway'
+    var resizeTimer = null
+
+    var forkliftCodes = []
+    var materialList = []
+    var selection = []
+    var locationList = []
+    var putawayList = []
+
+    var waveList = []
+    var selectionWave = []
+    var waveDetailList = []
+    var selectionDetailWave = []
+
+    $(document).ready(function () {
+        // change tab
+        $('.tab_title li').off('click').on('click', function(){
+            var index = $(this).index()
+
+            $(this).addClass('active').siblings().removeClass('active')
+            $('.tab_content .tab_item').eq(index).show().siblings().hide()
+
+            setTableHeight()
+
+            if(index == 0) {
+
+            }else{
+
+            }
+        })
+
+        $('.direction_radio input[name="direct"]').change(function(){
+            var confirmDirect = confirm("是否切换方向？") 
+            if (confirmDirect !="0") {
+                queryData()
+            }
+        })
+
+        // 刷新
+        $('#refresh_btn').off('click').on('click', function(){
+            refreshPage()
+        })
+
+        // 拣货-刷新
+        $('#refresh_pick_btn').off('click').on('click', function(){
+            refreshPickPage()
+        })
+
+        window.onresize = function () {
+            if(resizeTimer) clearTimeout(resizeTimer)
+            resizeTimer = setTimeout(function(){
+                setTableHeight()
+            }, 200)
+        }
+
+        loadData()
+        setTableHeight()
+    })
+</script>
