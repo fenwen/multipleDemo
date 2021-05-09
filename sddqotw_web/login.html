@@ -108,7 +108,7 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-    var baseUrl = 'http://localhost:8089/*.login'
+    var baseUrl = './*.login'
 
     $('#login_btn').off('click').on('click', function(){
         var pass = hex_sha.hex_sha1($('#loginPassword').val())

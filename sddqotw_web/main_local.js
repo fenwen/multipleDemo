@@ -1,21 +1,22 @@
 
 // 加载数据
 function loadData(){
-    var params = {
-        p0: serverName,
-        p1: 'loadData',
-        p2: {},
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'loadData',
+    //     p2: {},
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"forkliftCodes\":[{\"forkliftId\":\"21\",\"forkliftCode\":\"1003\"},{\"forkliftId\":\"2\",\"forkliftCode\":\"1002\",\"aisleCodes\":[{\"aisleId\":\"1\",\"aisleCode\":\"ZT08\"}]}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 forkliftCodes = data.forkliftCodes || []
@@ -94,49 +95,50 @@ function loadData(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 查询
 function queryData(){
-    if(!$("#forklift_codes").val() || !$("#aisle_code_put").val()){
-        return;
-    }
+    // if(!$("#forklift_codes").val() || !$("#aisle_code_put").val()){
+    //     return;
+    // }
 
-    var params = {
-        p0: serverName,
-        p1: 'inquire',
-        p2: {
-            aisle: $("#aisle_code_put").val(),
-            direction: $("input[name='direct']").val(),
-            forklift: $("#forklift_codes").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'inquire',
+    //     p2: {
+    //         aisle: $("#aisle_code_put").val(),
+    //         direction: $("input[name='direct']").val(),
+    //         forklift: $("#forklift_codes").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"locationCode\":\"ZT08-0001\",\"locationNumber\":\"39\",\"putawayQty\":\"2\",\"backWarehouseQty\":\"3\",\"forkliftCodes\":[{\"forkliftId\":\"21\",\"forkliftCode\":\"1003\"},{\"forkliftId\":\"2\",\"forkliftCode\":\"1002\",\"aisleCodes\":[{\"aisleId\":\"1\",\"aisleCode\":\"ZT08\"}]}],\"locations\":[{\"height\":\"121\",\"left\":\"5\",\"right\":\"8\",\"total\":\"13\"},{\"height\":\"122\",\"left\":\"5\",\"right\":\"8\",\"total\":\"13\"},{\"height\":\"123\",\"left\":\"5\",\"right\":\"8\",\"total\":\"13\"}],\"putaways\":[{\"palletNo\":\"p202111021\",\"type\":\"回库\"},{\"palletNo\":\"p202211022\",\"type\":\"回库\"},{\"palletNo\":\"p202311023\",\"type\":\"回库\"},{\"palletNo\":\"p202411024\",\"type\":\"上架\"}],\"tableDtos\":[{\"orderId\":\"469\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"storageLocation\":\"W501\",\"quantity\":\"2.0\"},{\"orderId\":\"376\",\"materialCode\":\"TEL001\",\"materialName\":\"X-地铁大柜体80*80\",\"storageLocation\":\"W501\",\"quantity\":\"2.0\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabOneData(data)
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 设置页面数据
@@ -257,25 +259,26 @@ function getCheckboxData(){
 
 // 下一库位
 function queryNextLocation(){
-    var params = {
-        p0: serverName,
-        p1: 'changeLocation',
-        p2: {
-            aisle: $("#aisle_code_put").val(),
-            direction: $("input[name='direct']").val(),
-            forklift: $("#forklift_codes").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'changeLocation',
+    //     p2: {
+    //         aisle: $("#aisle_code_put").val(),
+    //         direction: $("input[name='direct']").val(),
+    //         forklift: $("#forklift_codes").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":true,"message":"未找到已完成任务"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 $('.recommend_location').text(data.locationCode)
@@ -283,65 +286,67 @@ function queryNextLocation(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 任务回滚
 function queryBackBtn(){
-    var params = {
-        p0: serverName,
-        p1: 'taskBack',
-        p2: {},
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'taskBack',
+    //     p2: {},
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":true,"message":"未找到已完成任务"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 alert('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 执行任务
 function queryExecute(){
-    var params = {
-        p0: serverName,
-        p1: 'execute',
-        p2: {
-            orderId: selection[0].orderId,
-            locationCode: $('.recommend_location').text(),
-            palletNo: $('.box_num').text(),
-            forkliftId: $("#forklift_codes").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'execute',
+    //     p2: {
+    //         orderId: selection[0].orderId,
+    //         locationCode: $('.recommend_location').text(),
+    //         palletNo: $('.box_num').text(),
+    //         forkliftId: $("#forklift_codes").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+        var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":true,"message":"未找到已完成任务"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabOneData(data)
@@ -349,35 +354,36 @@ function queryExecute(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 上架完成
 function queryPutFinish(){
-    var params = {
-        p0: serverName,
-        p1: 'putFinsh',
-        p2: {
-            orderId: selection[0].orderId,
-            locationCode: $('.recommend_location').text(),
-            palletNo: $('.box_num').text(),
-            forkliftId: $("#forklift_codes").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverName,
+    //     p1: 'putFinsh',
+    //     p2: {
+    //         orderId: selection[0].orderId,
+    //         locationCode: $('.recommend_location').text(),
+    //         palletNo: $('.box_num').text(),
+    //         forkliftId: $("#forklift_codes").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":true,"message":"未找到已完成任务"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabOneData(data)
@@ -385,11 +391,11 @@ function queryPutFinish(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 刷新
@@ -429,32 +435,42 @@ function setTableHeight(){
 
 
 
-// -----------------------拣货分割线-----------------------------
+
+
+
+
+
+
+
+
+
+// 拣货分割线-----------------------------
 // 查询
 function queryPickData(){
-    if(!$("#forklift_codes").val() || !$("#aisle_code_pick").val()){
-        return;
-    }
+    // if(!$("#forklift_codes").val() || !$("#aisle_code_pick").val()){
+    //     return;
+    // }
 
-    var params = {
-        p0: serverPickName,
-        p1: 'inquire',
-        p2: {
-            aisle: $("#aisle_code_pick").val(),
-            waveType: $("input[name='torr']").val(),
-            forklift: $("#forklift_codes").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverPickName,
+    //     p1: 'inquire',
+    //     p2: {
+    //         aisle: $("#aisle_code_pick").val(),
+    //         waveType: $("input[name='torr']").val(),
+    //         forklift: $("#forklift_codes").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"1\",\"aisletaskQty\":\"1\",\"workingWaves\":[{\"waveId\":\"339\",\"locationCode\":\"ZT08-0000\",\"waveCode\":\"CP001TW006201103000002\",\"lineno\":\"1\",\"waveQty\":\"2.0\",\"invQty\":\"0\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 
@@ -462,11 +478,11 @@ function queryPickData(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 function setTabWaveData(data, haveDetail){
@@ -638,24 +654,25 @@ function getCheckboxWaveDetailData(){
 
 // 执行任务
 function queryPickExecute(){
-    var params = {
-        p0: serverPickName,
-        p1: 'execute',
-        p2: {
-            waveId: selectionWave[0].waveId,
-            waveType: $("input[name='torr']").val()
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverPickName,
+    //     p1: 'execute',
+    //     p2: {
+    //         waveId: selectionWave[0].waveId,
+    //         waveType: $("input[name='torr']").val()
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"1\",\"aisletaskQty\":\"1\",\"workingWaves\":[{\"waveId\":\"339\",\"locationCode\":\"ZT08-0000\",\"waveCode\":\"CP001TW006201103000002\",\"lineno\":\"1\",\"waveQty\":\"2.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"376\",\"itemId\":\"101\",\"itemCode\":\"TEL001\",\"itemName\":\"X-地铁大柜体80*80\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"2.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"0.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, true)
@@ -663,32 +680,33 @@ function queryPickExecute(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 拣货完成
 function queryPickFinish(){
-    var params = {
-        p0: serverPickName,
-        p1: 'putFinsh',
-        p2: {
-            waveId: selectionWave[0].waveId
-        },
-        servicename: 'customService'
-    }
-    params=JSON.stringify(params);
+    // var params = {
+    //     p0: serverPickName,
+    //     p1: 'putFinsh',
+    //     p2: {
+    //         waveId: selectionWave[0].waveId
+    //     },
+    //     servicename: 'customService'
+    // }
+    // params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"1\",\"aisletaskQty\":\"1\",\"workingWaves\":[{\"waveId\":\"339\",\"locationCode\":\"ZT08-0000\",\"waveCode\":\"CP001TW006201103000002\",\"lineno\":\"1\",\"waveQty\":\"2.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"376\",\"itemId\":\"101\",\"itemCode\":\"TEL001\",\"itemName\":\"X-地铁大柜体80*80\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"2.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"0.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, true)
@@ -696,11 +714,11 @@ function queryPickFinish(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 // 任务回滚
