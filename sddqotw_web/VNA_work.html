@@ -249,6 +249,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- 提示文字 -->
+        <div id="tips_pop">
+            <span class="tips_text"></span>
+        </div>
     </body>
 </html>
 
@@ -258,6 +263,7 @@
     var serverName = 'wmsCust'
     var serverPickName = 'wmsVNAputaway'
     var resizeTimer = null
+    var popTimer = null
 
     var forkliftCodes = []
     var materialList = []

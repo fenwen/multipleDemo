@@ -279,7 +279,7 @@ function queryNextLocation(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 $('.recommend_location').text(data.locationCode)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -309,7 +309,7 @@ function queryBackBtn(){
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -345,7 +345,7 @@ function queryExecute(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabOneData(data)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -381,7 +381,7 @@ function queryPutFinish(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabOneData(data)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -426,6 +426,17 @@ function setTableHeight(){
     
 }
 
+// 提示文字
+function toggleInfoDialog(msg){
+    if(popTimer) clearInterval(popTimer)
+    $('#tips_pop').show()
+    $('#tips_pop .tips_text').text(msg)
+    
+    popTimer = setTimeout(function(){
+        $('#tips_pop').hide().text(msg)
+        clearInterval(popTimer)
+    }, 30000)
+}
 
 
 
@@ -659,7 +670,7 @@ function queryPickExecute(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, true)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -692,7 +703,7 @@ function queryPickFinish(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, true)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -722,7 +733,7 @@ function queryPickBack(){
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -753,6 +764,7 @@ function queryPickPrint(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 alert(data.note)
+                toggleInfoDialog(data.note)
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -787,7 +799,7 @@ function queryConfirmPick(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, false)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -821,7 +833,7 @@ function queryConfirmAllPick(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, false)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -856,7 +868,7 @@ function queryLackPick(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 setTabWaveData(data, false)
-                alert('操作成功')
+                toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
