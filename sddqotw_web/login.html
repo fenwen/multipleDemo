@@ -129,7 +129,6 @@ $(document).ready(function () {
             contentType:"application/json;charset=utf-8",
             data: params,
             success: function (data) {
-                console.log('data', data)
                 if(!data.thornMessageKey.errorMessage){
                     window.location.href='./VNA_work.html'
                 }else{
