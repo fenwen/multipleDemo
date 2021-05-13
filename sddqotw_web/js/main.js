@@ -148,12 +148,12 @@ function setTabOneData(data){
     $('.back_num').text(data.backWarehouseQty)
     
     selection = []
-    materialList = data.tableDtos
-    locationList = data.locations
-    putawayList = data.putaways
+    materialList = data.tableDtos || []
+    locationList = data.locations || []
+    putawayList = data.putaways || []
 
+    $("#materialTable tbody").html('')
     if(materialList.length > 0){
-        $("#materialTable tbody").html('')
         $.each(materialList, function(i, item) {
             $("#materialTable tbody").append(""
                 +"<tr>"
@@ -176,8 +176,8 @@ function setTabOneData(data){
         document.getElementById(id).click();
     });
 
+    $("#locationTable tbody").html('')
     if(locationList.length > 0){
-        $("#locationTable tbody").html('')
         $.each(locationList, function(i, item) {
             $("#locationTable tbody").append(""
                 +"<tr>"
@@ -192,8 +192,8 @@ function setTabOneData(data){
         $("#locationTable tbody").append('<tr><td colspan="4" style="text-align: center">暂无数据</td></tr>')
     }
 
+    $("#putawayTable tbody").html('')
     if(putawayList.length > 0){
-        $("#putawayTable tbody").html('')
         $.each(putawayList, function(i, item) {
             $("#putawayTable tbody").append(""
                 +"<tr>"
@@ -488,8 +488,8 @@ function setTabWaveData(data, haveDetail){
     $('.task_num').text(data.alltaskQty)
     $('.tunnel_num').text(data.aisletaskQty)
 
+    $("#waveTable tbody").html('')
     if(waveList.length > 0){
-        $("#waveTable tbody").html('')
         $.each(waveList, function(i, item) {
             $("#waveTable tbody").append(""
                 +"<tr>"
@@ -515,8 +515,8 @@ function setTabWaveData(data, haveDetail){
 
 
     // 详情table
+    $("#waveDetailTable tbody").html('')
     if(waveDetailList.length > 0 && haveDetail){
-        $("#waveDetailTable tbody").html('')
         $.each(waveDetailList, function(i, item) {
             $("#waveDetailTable tbody").append(""
                 +"<tr>"
