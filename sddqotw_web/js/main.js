@@ -261,6 +261,7 @@ function queryNextLocation(){
         p0: serverName,
         p1: 'changeLocation',
         p2: {
+            orderId: selection[0].orderId,
             aisle: $("#aisle_code_put").val(),
             direction: $("input[name='direct']").val(),
             forklift: $("#forklift_codes").val()
@@ -290,12 +291,14 @@ function queryNextLocation(){
     })
 }
 
-// 任务回滚
+// 任务关闭
 function queryBackBtn(){
     var params = {
         p0: serverName,
         p1: 'taskBack',
-        p2: {},
+        p2: {
+            forklift: $("#forklift_codes").val()
+        },
         servicename: 'customService'
     }
     params=JSON.stringify(params);
@@ -356,7 +359,7 @@ function queryExecute(){
     })
 }
 
-// 上架完成
+//任务完成
 function queryPutFinish(){
     var params = {
         p0: serverName,
@@ -714,12 +717,14 @@ function queryPickFinish(){
     })
 }
 
-// 任务回滚
+// 任务关闭
 function queryPickBack(){
     var params = {
         p0: serverPickName,
         p1: 'taskBack',
-        p2: {},
+        p2: {
+            forklift: $("#forklift_codes").val()
+        },
         servicename: 'customService'
     }
     params=JSON.stringify(params);
