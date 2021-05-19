@@ -18,18 +18,12 @@ em { font-style: normal; }
 .default-btn-VNA.primary:hover { border: 1px solid #66b1ff; background-color: #66b1ff; }
 .default-btn-VNA.primary.disabled { background: #a0cfff; border: 1px solid #a0cfff; cursor: not-allowed; }
 .default-btn-VNA.primary.disabled:hover { cursor: not-allowed; }
-#task_back_btn.warn { color: #fff; border: 1px solid #f56c6c; background-color: #f56c6c; }
-#task_back_btn.warn:hover { border: 1px solid #f78989; background-color: #f78989; }
-#task_back_btn.warn.disabled { background: #fab6b6; border: 1px solid #fab6b6; cursor: not-allowed; }
-#task_back_btn.warn.disabled:hover { cursor: not-allowed; }
-#task_back_pick_btn.warn { color: #fff; border: 1px solid #f56c6c; background-color: #f56c6c; }
-#task_back_pick_btn.warn:hover { border: 1px solid #f78989; background-color: #f78989; }
-#task_back_pick_btn.warn.disabled { background: #fab6b6; border: 1px solid #fab6b6; cursor: not-allowed; }
-#task_back_pick_btn.warn.disabled:hover { cursor: not-allowed; }
-#lack_pick.warn { color: #fff; border: 1px solid #f56c6c; background-color: #f56c6c; }
-#lack_pick.warn:hover { border: 1px solid #f78989; background-color: #f78989; }
-#lack_pick.warn.disabled { background: #fab6b6; border: 1px solid #fab6b6; cursor: not-allowed; }
-#lack_pick.warn.disabled:hover { cursor: not-allowed; }
+
+.default-warn-btn-VNA { display: inline-block; margin-right: 4px; line-height: 18px; font-size: 12px; font-weight: normal; color: #444444; border-radius: 4px; border: 1px solid #dfdfdf; padding: 4px 12px; background-color: #fbfbfb; cursor: pointer; }
+.default-warn-btn-VNA.warn { color: #fff; border: 1px solid #f56c6c; background-color: #f56c6c; }
+.default-warn-btn-VNA.warn:hover { border: 1px solid #f78989; background-color: #f78989; }
+.default-warn-btn-VNA.warn.disabled { background: #fab6b6; border: 1px solid #fab6b6; cursor: not-allowed; }
+.default-warn-btn-VNA.warn.disabled:hover { cursor: not-allowed; }
 
 #tips_pop {
   position: absolute;
@@ -41,8 +35,9 @@ em { font-style: normal; }
   display: none;
 }
 #tips_pop .tips_text {
-  background: #edf2fc;
-  padding: 20px;
+  color: #67c23a;
+  background: #f0f9eb;
+  padding: 12px 20px;
   font-size: 16px;
   line-height: 44px;
 }
@@ -102,9 +97,22 @@ em { font-style: normal; }
 }
 .tab_head .codes_select {
   position: absolute;
-  right: 0;
+  left: 50%;
   top: 0;
   width: 180px;
+  margin-left: -90px;
+}
+.head_info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 30p'x;
+}
+.head_info .back_login {
+  padding-left: 12px;
+  color: #409EFF;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .tab_content {

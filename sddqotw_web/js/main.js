@@ -65,10 +65,14 @@ function loadData(){
                         $('#task_back_btn').removeClass('disabled').off('click').on('click', function(){
                             queryBackBtn()
                         })
+                        $('#task_close_btn').removeClass('disabled').off('click').on('click', function(){
+                            queryCloseBtn()
+                        })
                     }else{
                         $('#query_btn').addClass('disabled').off('click')
                         $('#next_location_btn').addClass('disabled').off('click')
                         $('#task_back_btn').addClass('disabled').off('click')
+                        $('#task_close_btn').addClass('disabled').off('click')
                     }
                 });
 
@@ -86,9 +90,13 @@ function loadData(){
                         $('#task_back_pick_btn').removeClass('disabled').off('click').on('click', function(){
                             queryPickBack()
                         })
+                        $('#task_close_pick_btn').removeClass('disabled').off('click').on('click', function(){
+                            queryPickClose()
+                        })
                     }else{
                         $('#query_pick_btn').addClass('disabled').off('click')
                         $('#task_back_pick_btn').addClass('disabled').off('click')
+                        $('#task_close_pick_btn').addClass('disabled').off('click')
                     }
                 });
             }else{
@@ -143,6 +151,7 @@ function queryData(){
 function setTabOneData(data){
     $('.box_num').text(data.palletNo)
     $('.recommend_location').text(data.locationCode)
+    $('.current_task').text(data.mission)
     $('.location_num').text(data.locationNumber)
     $('.putaway_num').text(data.putawayQty)
     $('.back_num').text(data.backWarehouseQty)
@@ -280,6 +289,7 @@ function queryNextLocation(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 $('.recommend_location').text(data.locationCode)
+                $('.current_task').text(data.mission)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -291,7 +301,7 @@ function queryNextLocation(){
     })
 }
 
-// 任务关闭
+// 任务回滚
 function queryBackBtn(){
     var params = {
         p0: serverName,
@@ -312,7 +322,39 @@ function queryBackBtn(){
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
-                toggleInfoDialog('操作成功')
+                alert('操作成功')
+            }else{
+                alert(res.thornMessageKey.message)
+            }
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
+}
+
+// 任务关闭
+function queryCloseBtn(){
+    var params = {
+        p0: serverName,
+        p1: 'taskClose',
+        p2: {
+            forklift: $("#forklift_codes").val()
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
+    
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            if(!res.thornMessageKey.errorMessage){
+                var data = JSON.parse(res.thornMessageKey.message);
+                alert('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -405,6 +447,7 @@ function refreshPage(){
     $('#aisle_code_put').val('')
     $('.box_num').text('')
     $('.recommend_location').text('')
+    $('.current_task').text('')
     $('.location_num').text('')
     $('.putaway_num').text('')
     $('.back_num').text('')
@@ -455,7 +498,7 @@ function queryPickData(){
         p1: 'inquire',
         p2: {
             aisle: $("#aisle_code_pick").val(),
-            waveType: $("input[name='torr']").val(),
+            waveType: '整托', // $("input[name='torr']").val(),
             forklift: $("#forklift_codes").val()
         },
         servicename: 'customService'
@@ -490,6 +533,7 @@ function setTabWaveData(data, haveDetail){
     waveDetailList = haveDetail ? data.waveDetail : []
     $('.task_num').text(data.alltaskQty)
     $('.tunnel_num').text(data.aisletaskQty)
+    $('.pick_current_task').text(data.mission)
 
     $("#waveTable tbody").html('')
     if(waveList.length > 0){
@@ -657,7 +701,7 @@ function queryPickExecute(){
         p1: 'execute',
         p2: {
             waveId: selectionWave[0].waveId,
-            waveType: $("input[name='torr']").val()
+            waveType: '整托', // $("input[name='torr']").val()
         },
         servicename: 'customService'
     }
@@ -717,7 +761,7 @@ function queryPickFinish(){
     })
 }
 
-// 任务关闭
+// 任务回滚
 function queryPickBack(){
     var params = {
         p0: serverPickName,
@@ -738,7 +782,39 @@ function queryPickBack(){
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
-                toggleInfoDialog('操作成功')
+                alert('操作成功')
+            }else{
+                alert(res.thornMessageKey.message)
+            }
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
+}
+
+// 任务关闭
+function queryPickClose(){
+    var params = {
+        p0: serverPickName,
+        p1: 'taskClose',
+        p2: {
+            forklift: $("#forklift_codes").val()
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
+    
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            if(!res.thornMessageKey.errorMessage){
+                var data = JSON.parse(res.thornMessageKey.message);
+                alert('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -894,6 +970,7 @@ function refreshPickPage(){
     $('#aisle_code_pick').val('')
     $('.task_num').text('')
     $('.tunnel_num').text('')
+    $('.pick_current_task').text('')
     $("#waveTable tbody").html('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
     $("#waveDetailTable tbody").html('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
 }

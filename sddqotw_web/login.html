@@ -130,7 +130,8 @@ $(document).ready(function () {
             data: params,
             success: function (data) {
                 if(!data.thornMessageKey.errorMessage){
-                    window.location.href='./VNA_work.html'
+                    var result = JSON.parse(data.thornMessageKey.message)
+                    window.location.href='./VNA_work.html?name='+result.user.loginName
                 }else{
                     alert(data.thornMessageKey.message)
                 }

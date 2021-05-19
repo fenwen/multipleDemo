@@ -25,6 +25,10 @@
                     <div class="codes_select">
                         <select class="select_style" id="forklift_codes"></select>
                     </div>
+                    <div class="head_info">
+                        <span class="login_name"></span>
+                        <span class="back_login">退出登录</span>
+                    </div>
                 </div>
                 
                 <div class="tab_content">
@@ -53,12 +57,18 @@
                                 <span class="recommend_location"></span>
                             </div>
 
+                            <div class="form_item">
+                                <span>当前任务：</span>
+                                <span class="current_task"></span>
+                            </div>
+
                             <div class="operate_btn">
                                 <button type="button" class="default-btn-VNA primary disabled" id="query_btn">查询</button>
                                 <button type="button" class="default-btn-VNA primary disabled" id="execute_btn">执行任务</button>
                                 <button type="button" class="default-btn-VNA primary disabled" id="put_finish_btn">任务完成</button>
                                 <button type="button" class="default-btn-VNA primary disabled" id="next_location_btn">下一库位</button>
-                                <button type="button" class="default-btn-VNA warn disabled" id="task_back_btn">任务关闭</button>
+                                <button type="button" class="default-warn-btn-VNA warn disabled" id="task_close_btn">任务关闭</button>
+                                <button type="button" class="default-warn-btn-VNA warn disabled" id="task_back_btn">任务回滚</button>
                                 <button type="button" class="default-btn-VNA primary" id="refresh_btn">刷新</button>
                             </div>
                         </div>
@@ -166,11 +176,17 @@
                                 <span class="tunnel_num"></span>
                             </div>
 
+                            <div class="form_item">
+                                <span>当前任务：</span>
+                                <span class="pick_current_task"></span>
+                            </div>
+
                             <div class="operate_btn">
                                 <button type="button" class="default-btn-VNA primary disabled" id="query_pick_btn">查询</button>
                                 <button type="button" class="default-btn-VNA primary disabled" id="execute_pick_btn">执行任务</button>
                                 <button type="button" class="default-btn-VNA primary disabled" id="put_finish_pick_btn">拣货完成</button>
-                                <button type="button" class="default-btn-VNA warn disabled" id="task_back_pick_btn">任务关闭</button>
+                                <button type="button" class="default-warn-btn-VNA warn disabled" id="task_close_pick_btn">任务关闭</button>
+                                <button type="button" class="default-warn-btn-VNA warn disabled" id="task_back_pick_btn">任务回滚</button>
                                 <button type="button" class="default-btn-VNA primary" id="print_pick_btn">打印</button>
                                 <button type="button" class="default-btn-VNA primary" id="refresh_pick_btn">刷新</button>
                             </div>
@@ -275,6 +291,11 @@
     var selectionDetailWave = []
 
     $(document).ready(function () {
+        // 退出登录
+        $('.back_login').off('click').on('click', function(){
+            window.location.href='./login.html'
+        })
+
         // change tab
         $('.tab_title li').off('click').on('click', function(){
             var index = $(this).index()
@@ -307,6 +328,11 @@
         $('#refresh_pick_btn').off('click').on('click', function(){
             refreshPickPage()
         })
+
+        // 用户名
+        var urlSearch = location.search
+        var arr = urlSearch.split('name=')
+        $('.login_name').text(arr[1])
 
         window.onresize = function () {
             if(resizeTimer) clearTimeout(resizeTimer)
