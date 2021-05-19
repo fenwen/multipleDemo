@@ -29,8 +29,9 @@ function loadData(){
 
                 $("#forklift_codes").change(function(){
                     var forkId = $("#forklift_codes").val()
-                    $('#aisle_code_put').html('')
-                    $('#aisle_code_pick').html('')
+
+                    refreshPage() // 重置数据
+                    refreshPickPage()
 
                     // 巷道
                     if(forkId){
@@ -111,6 +112,9 @@ function loadData(){
 
 // 查询
 function queryData(){
+    $('#execute_btn').addClass('disabled').off('click')
+    $('#put_finish_btn').addClass('disabled').off('click')
+
     if(!$("#forklift_codes").val() || !$("#aisle_code_put").val()){
         return;
     }
@@ -175,6 +179,9 @@ function setTabOneData(data){
                 +"</tr>"
             )
         })
+        
+        $("#materialTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
+        checkedChangeState()
     }else{
         $("#materialTable tbody").append('<tr><td colspan="6" style="text-align: center">暂无数据</td></tr>')
     }
@@ -183,6 +190,11 @@ function setTabOneData(data){
     $("#materialTable").off("click", "tr td:not(.checkbox)").on("click", "tr td:not(.checkbox)", function () {
         var id = $(this).parent('tr').find("input[type=checkbox]").attr('id')
         document.getElementById(id).click();
+
+        var status = $(this).parent('tr').find('.check_item').attr('checked')
+        if(status == 'checked'){
+            $(this).parent('tr').siblings().find('.check_item').attr('checked', false)
+        }
     });
 
     $("#locationTable tbody").html('')
@@ -227,7 +239,9 @@ function seletedAllCheckboxState(state){
 
 // 选择单个
 function onclickCheckbox(){
-    checkedChangeState()
+    setTimeout(function(){
+        checkedChangeState()
+    }, 50)
 }
 
 // 选择控制按钮
@@ -388,8 +402,8 @@ function queryExecute(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabOneData(data)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabOneData(data)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -424,9 +438,10 @@ function queryPutFinish(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabOneData(data)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabOneData(data)
                 toggleInfoDialog('操作成功')
+                queryData()
             }else{
                 alert(res.thornMessageKey.message)
             }
@@ -489,6 +504,9 @@ function toggleInfoDialog(msg){
 // -----------------------拣货分割线-----------------------------
 // 查询
 function queryPickData(){
+    $('#execute_pick_btn').addClass('disabled').off('click')
+    $('#put_finish_pick_btn').addClass('disabled').off('click')
+
     if(!$("#forklift_codes").val() || !$("#aisle_code_pick").val()){
         return;
     }
@@ -529,8 +547,6 @@ function queryPickData(){
 function setTabWaveData(data, haveDetail){
     selectionWave = []
     waveList = data.workingWaves || []
-    selectionDetailWave = []
-    waveDetailList = haveDetail ? data.waveDetail : []
     $('.task_num').text(data.alltaskQty)
     $('.tunnel_num').text(data.aisletaskQty)
     $('.pick_current_task').text(data.mission)
@@ -550,6 +566,9 @@ function setTabWaveData(data, haveDetail){
                 +"</tr>"
             )
         })
+
+        $("#waveTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
+        checkedChangeWaveState()
     }else{
         $("#waveTable tbody").append('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
     }
@@ -558,39 +577,11 @@ function setTabWaveData(data, haveDetail){
     $("#waveTable").off("click", "tr td:not(.checkbox)").on("click", "tr td:not(.checkbox)", function () {
         var id = $(this).parent('tr').find("input[type=checkbox]").attr('id')
         document.getElementById(id).click();
-    });
 
-
-    // 详情table
-    $("#waveDetailTable tbody").html('')
-    if(waveDetailList.length > 0 && haveDetail){
-        $.each(waveDetailList, function(i, item) {
-            $("#waveDetailTable tbody").append(""
-                +"<tr>"
-                    +"<td class='checkbox'><input class='check_item' type='checkbox' value='"+ item.detailId +"' id='"+ item.detailId +"' onclick='onclickWaveDetailCheckbox();'></td>"
-                    +"<td>"+ item.itemCode +"</td>"
-                    +"<td>"+ item.itemName +"</td>"
-                    +"<td>"+ item.bulky +"</td>"
-                    +"<td>"+ item.weight +"</td>"
-                    +"<td>"+ item.deQty +"</td>"
-                    +"<td>"+ item.pickedQty +"</td>"
-                    +"<td>"+ item.shortQty +"</td>"
-                    +"<td>"+ item.invQty +"</td>"
-                    +"<td>"+ item.frozenQty +"</td>"
-                    +"<td>"+ item.status +"</td>"
-                    +"<td>"+ item.bnNum +"</td>"
-                    +"<td></td>"
-                +"</tr>"
-            )
-        })
-    }else{
-        $("#waveDetailTable tbody").append('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
-    }
-
-    // 行选择
-    $("#waveDetailTable").off("click", "tr td:not(.checkbox)").on("click", "tr td:not(.checkbox)", function () {
-        var id = $(this).parent('tr').find("input[type=checkbox]").attr('id')
-        document.getElementById(id).click();
+        var status = $(this).parent('tr').find('.check_item').attr('checked')
+        if(status == 'checked'){
+            $(this).parent('tr').siblings().find('.check_item').attr('checked', false)
+        }
     });
 }
 
@@ -605,7 +596,9 @@ function seletedAllCheckboxWaveState(state){
 
 // wave table——选择单个
 function onclickWaveCheckbox(){
-    checkedChangeWaveState()
+    setTimeout(function(){
+        checkedChangeWaveState()
+    }, 50)
 }
 
 // wave table——选择控制按钮
@@ -619,6 +612,8 @@ function checkedChangeWaveState(){
         $('#put_finish_pick_btn').removeClass('disabled').off('click').on('click', function(){
             queryPickFinish()
         })
+
+        queryDetailData()
     }else{
         $('#execute_pick_btn').addClass('disabled').off('click')
         $('#put_finish_pick_btn').addClass('disabled').off('click')
@@ -642,6 +637,85 @@ function getCheckboxWaveData(){
     return list;
 }
 
+// 详情接口
+function queryDetailData(){
+    var params = {
+        p0: serverPickName,
+        p1: 'querydate',
+        p2: {
+            forkliftId: $("#forklift_codes").val(),
+            waveId: selectionWave[0].waveId,
+            waveType: '整托', // $("input[name='torr']").val()
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
+    
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            if(!res.thornMessageKey.errorMessage){
+                var data = JSON.parse(res.thornMessageKey.message);
+                setTabWaveDetailData(data)
+            }else{
+                alert(res.thornMessageKey.message)
+            }
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
+}
+
+function setTabWaveDetailData(data){
+    selectionDetailWave = []
+    waveDetailList = data.waveDetail || []
+
+    // 详情table
+    $("#waveDetailTable tbody").html('')
+    if(waveDetailList.length > 0){
+        $.each(waveDetailList, function(i, item) {
+            $("#waveDetailTable tbody").append(""
+                +"<tr>"
+                    +"<td class='checkbox'><input class='check_item' type='checkbox' value='"+ item.detailId +"' id='"+ item.detailId +"' onclick='onclickWaveDetailCheckbox();'></td>"
+                    +"<td>"+ item.itemCode +"</td>"
+                    +"<td>"+ item.itemName +"</td>"
+                    +"<td>"+ item.bulky +"</td>"
+                    +"<td>"+ item.weight +"</td>"
+                    +"<td>"+ item.deQty +"</td>"
+                    +"<td>"+ item.pickedQty +"</td>"
+                    +"<td>"+ item.shortQty +"</td>"
+                    +"<td>"+ item.invQty +"</td>"
+                    +"<td>"+ item.frozenQty +"</td>"
+                    +"<td>"+ item.status +"</td>"
+                    +"<td>"+ item.bnNum +"</td>"
+                    +"<td></td>"
+                +"</tr>"
+            )
+        })
+
+        $("#waveDetailTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
+        checkedChangeWaveDetailState()
+    }else{
+        $("#waveDetailTable tbody").append('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
+    }
+
+    // 行选择
+    $("#waveDetailTable").off("click", "tr td:not(.checkbox)").on("click", "tr td:not(.checkbox)", function () {
+        var id = $(this).parent('tr').find("input[type=checkbox]").attr('id')
+        document.getElementById(id).click();
+
+        var status = $(this).parent('tr').find('.check_item').attr('checked')
+        if(status == 'checked'){
+            $(this).parent('tr').siblings().find('.check_item').attr('checked', false)
+        }
+    });
+}
+
 // 详情table——选择所有
 function seletedAllCheckboxWaveDetailState(state){
     $('#waveDetailTable .check_item').each(function () {
@@ -653,7 +727,9 @@ function seletedAllCheckboxWaveDetailState(state){
 
 // 详情table——选择单个
 function onclickWaveDetailCheckbox(){
-    checkedChangeWaveDetailState()
+    setTimeout(function(){
+        checkedChangeWaveDetailState()
+    }, 50)
 }
 
 // 详情table——选择控制按钮
@@ -700,6 +776,7 @@ function queryPickExecute(){
         p0: serverPickName,
         p1: 'execute',
         p2: {
+            forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
             waveType: '整托', // $("input[name='torr']").val()
         },
@@ -715,8 +792,8 @@ function queryPickExecute(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabWaveData(data, true)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabWaveData(data, true)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -748,8 +825,8 @@ function queryPickFinish(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabWaveData(data, true)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabWaveData(data, true)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -844,7 +921,6 @@ function queryPickPrint(){
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
-                alert(data.note)
                 toggleInfoDialog(data.note)
             }else{
                 alert(res.thornMessageKey.message)
@@ -878,8 +954,8 @@ function queryConfirmPick(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabWaveData(data, false)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabWaveData(data, false)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -912,8 +988,8 @@ function queryConfirmAllPick(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabWaveData(data, false)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabWaveData(data, false)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
@@ -947,8 +1023,8 @@ function queryLackPick(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
-                setTabWaveData(data, false)
+                // var data = JSON.parse(res.thornMessageKey.message);
+                // setTabWaveData(data, false)
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
