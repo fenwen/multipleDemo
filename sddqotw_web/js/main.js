@@ -167,7 +167,7 @@ function setTabOneData(data){
             )
         })
     }else{
-        $("#materialTable tbody").append('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+        $("#materialTable tbody").append('<tr><td colspan="6" style="text-align: center">暂无数据</td></tr>')
     }
     
     // 行选择
@@ -408,7 +408,7 @@ function refreshPage(){
     $('.location_num').text('')
     $('.putaway_num').text('')
     $('.back_num').text('')
-    $("#materialTable tbody").html('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+    $("#materialTable tbody").html('<tr><td colspan="6" style="text-align: center">暂无数据</td></tr>')
     $("#locationTable tbody").html('<tr><td colspan="4" style="text-align: center">暂无数据</td></tr>')
     $("#putawayTable tbody").html('<tr><td colspan="2" style="text-align: center">暂无数据</td></tr>')
 }
