@@ -645,12 +645,12 @@ function queryDetailData(){
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
-            waveType: '整托', // $("input[name='torr']").val()
+            waveType: '整托' // $("input[name='torr']").val()
         },
         servicename: 'customService'
     }
     params=JSON.stringify(params);
-    
+
     $.ajax({
         url: baseUrl,
         type: 'POST',
@@ -778,7 +778,7 @@ function queryPickExecute(){
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
-            waveType: '整托', // $("input[name='torr']").val()
+            waveType: '整托' // $("input[name='torr']").val()
         },
         servicename: 'customService'
     }
