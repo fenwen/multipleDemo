@@ -112,6 +112,14 @@ function loadData(){
 
 // 查询
 function queryData(){
+    var directVal = ''
+    var directRadio = $("input[name='direct']")
+    for(var i=0; i<directRadio.length; i++){
+        if(directRadio[i].checked){
+            directVal = directRadio[i].value
+        }
+    }
+
     $('#execute_btn').addClass('disabled').off('click')
     $('#put_finish_btn').addClass('disabled').off('click')
 
@@ -124,7 +132,7 @@ function queryData(){
         p1: 'inquire',
         p2: {
             aisle: $("#aisle_code_put").val(),
-            direction: $("input[name='direct']").val(),
+            direction: directVal,
             forklift: $("#forklift_codes").val()
         },
         servicename: 'customService'
@@ -280,13 +288,21 @@ function getCheckboxData(){
 
 // 下一库位
 function queryNextLocation(){
+    var directVal = ''
+    var directRadio = $("input[name='direct']")
+    for(var i=0; i<directRadio.length; i++){
+        if(directRadio[i].checked){
+            directVal = directRadio[i].value
+        }
+    }
+
     var params = {
         p0: serverName,
         p1: 'changeLocation',
         p2: {
             orderId: selection[0].orderId,
             aisle: $("#aisle_code_put").val(),
-            direction: $("input[name='direct']").val(),
+            direction: directVal,
             forklift: $("#forklift_codes").val()
         },
         servicename: 'customService'
@@ -402,7 +418,8 @@ function queryExecute(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                // var data = JSON.parse(res.thornMessageKey.message);
+                var data = JSON.parse(res.thornMessageKey.message);
+                $('.current_task').text(data.mission)
                 // setTabOneData(data)
                 toggleInfoDialog('操作成功')
             }else{
@@ -504,6 +521,14 @@ function toggleInfoDialog(msg){
 // -----------------------拣货分割线-----------------------------
 // 查询
 function queryPickData(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     $('#execute_pick_btn').addClass('disabled').off('click')
     $('#put_finish_pick_btn').addClass('disabled').off('click')
 
@@ -516,7 +541,7 @@ function queryPickData(){
         p1: 'inquire',
         p2: {
             aisle: $("#aisle_code_pick").val(),
-            waveType: '整托', // $("input[name='torr']").val(),
+            waveType: torrVal,
             forklift: $("#forklift_codes").val()
         },
         servicename: 'customService'
@@ -639,18 +664,26 @@ function getCheckboxWaveData(){
 
 // 详情接口
 function queryDetailData(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     var params = {
         p0: serverPickName,
         p1: 'querydate',
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
-            waveType: '整托' // $("input[name='torr']").val()
+            waveType: torrVal
         },
         servicename: 'customService'
     }
     params=JSON.stringify(params);
-
+    
     $.ajax({
         url: baseUrl,
         type: 'POST',
@@ -772,13 +805,21 @@ function getCheckboxWaveDetailData(){
 
 // 执行任务
 function queryPickExecute(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     var params = {
         p0: serverPickName,
         p1: 'execute',
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
-            waveType: '整托' // $("input[name='torr']").val()
+            waveType: torrVal
         },
         servicename: 'customService'
     }
@@ -792,7 +833,8 @@ function queryPickExecute(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                // var data = JSON.parse(res.thornMessageKey.message);
+                var data = JSON.parse(res.thornMessageKey.message);
+                $('.current_task').text(data.mission)
                 // setTabWaveData(data, true)
                 toggleInfoDialog('操作成功')
             }else{
@@ -991,6 +1033,7 @@ function queryConfirmAllPick(){
                 // var data = JSON.parse(res.thornMessageKey.message);
                 // setTabWaveData(data, false)
                 toggleInfoDialog('操作成功')
+                queryPickData()
             }else{
                 alert(res.thornMessageKey.message)
             }

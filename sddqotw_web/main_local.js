@@ -113,6 +113,14 @@ function loadData(){
 
 // 查询
 function queryData(){
+    var directVal = ''
+    var directRadio = $("input[name='direct']")
+    for(var i=0; i<directRadio.length; i++){
+        if(directRadio[i].checked){
+            directVal = directRadio[i].value
+        }
+    }
+
     $('#execute_btn').addClass('disabled').off('click')
     $('#put_finish_btn').addClass('disabled').off('click')
 
@@ -125,7 +133,7 @@ function queryData(){
     //     p1: 'inquire',
     //     p2: {
     //         aisle: $("#aisle_code_put").val(),
-    //         direction: $("input[name='direct']").val(),
+    //         direction: directVal,
     //         forklift: $("#forklift_codes").val()
     //     },
     //     servicename: 'customService'
@@ -282,13 +290,21 @@ function getCheckboxData(){
 
 // 下一库位
 function queryNextLocation(){
+    var directVal = ''
+    var directRadio = $("input[name='direct']")
+    for(var i=0; i<directRadio.length; i++){
+        if(directRadio[i].checked){
+            directVal = directRadio[i].value
+        }
+    }
+
     // var params = {
     //     p0: serverName,
     //     p1: 'changeLocation',
     //     p2: {
     //         orderId: selection[0].orderId,
     //         aisle: $("#aisle_code_put").val(),
-    //         direction: $("input[name='direct']").val(),
+    //         direction: directVal,
     //         forklift: $("#forklift_codes").val()
     //     },
     //     servicename: 'customService'
@@ -407,7 +423,8 @@ function queryExecute(){
     //     success: function(res){
             var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":true,"message":"未找到已完成任务"}}
             if(!res.thornMessageKey.errorMessage){
-                // var data = JSON.parse(res.thornMessageKey.message);
+                var data = JSON.parse(res.thornMessageKey.message);
+                $('.current_task').text(data.mission)
                 // setTabOneData(data)
                 toggleInfoDialog('操作成功')
             }else{
@@ -510,33 +527,41 @@ function toggleInfoDialog(msg){
 // -----------------------拣货分割线-----------------------------
 // 查询
 function queryPickData(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     $('#execute_pick_btn').addClass('disabled').off('click')
     $('#put_finish_pick_btn').addClass('disabled').off('click')
 
-    // if(!$("#forklift_codes").val() || !$("#aisle_code_pick").val()){
-    //     return;
-    // }
+    if(!$("#forklift_codes").val() || !$("#aisle_code_pick").val()){
+        return;
+    }
 
-    // var params = {
-    //     p0: serverPickName,
-    //     p1: 'inquire',
-    //     p2: {
-    //         aisle: $("#aisle_code_pick").val(),
-    //         waveType: '整托', // $("input[name='torr']").val(),
-    //         forklift: $("#forklift_codes").val()
-    //     },
-    //     servicename: 'customService'
-    // }
-    // params=JSON.stringify(params);
+    var params = {
+        p0: serverPickName,
+        p1: 'inquire',
+        p2: {
+            aisle: $("#aisle_code_pick").val(),
+            waveType: torrVal,
+            forklift: $("#forklift_codes").val()
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
     
-    // $.ajax({
-    //     url: baseUrl,
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     contentType:"application/json;charset=utf-8",
-    //     data: params,
-    //     success: function(res){
-            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"2\",\"aisletaskQty\":\"2\",\"workingWaves\":[{\"waveId\":\"66\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T1504\",\"waveCode\":\"CP001CGRK201015000002\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"},{\"waveId\":\"101\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T2112\",\"waveCode\":\"CP001TW006201021000008\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"116\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"3.0\",\"invQty\":\"264.0\",\"shortQty\":\"0\",\"pickedQty\":\"2.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"},{\"detailId\":\"117\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"5.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"3.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            // var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"2\",\"aisletaskQty\":\"2\",\"workingWaves\":[{\"waveId\":\"66\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T1504\",\"waveCode\":\"CP001CGRK201015000002\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"},{\"waveId\":\"101\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T2112\",\"waveCode\":\"CP001TW006201021000008\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"116\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"3.0\",\"invQty\":\"264.0\",\"shortQty\":\"0\",\"pickedQty\":\"2.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"},{\"detailId\":\"117\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"5.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"3.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 
@@ -544,11 +569,11 @@ function queryPickData(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-    //     },
-    //     error: function(err){
-    //         alert('fail'+ err);
-    //     }
-    // })
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
 }
 
 function setTabWaveData(data, haveDetail){
@@ -646,13 +671,21 @@ function getCheckboxWaveData(){
 
 // 详情接口
 function queryDetailData(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     // var params = {
     //     p0: serverPickName,
     //     p1: 'querydate',
     //     p2: {
     //         forkliftId: $("#forklift_codes").val(),
     //         waveId: selectionWave[0].waveId,
-    //         waveType: '整托', // $("input[name='torr']").val()
+    //         waveType: torrVal
     //     },
     //     servicename: 'customService'
     // }
@@ -780,13 +813,21 @@ function getCheckboxWaveDetailData(){
 
 // 执行任务
 function queryPickExecute(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     // var params = {
     //     p0: serverPickName,
     //     p1: 'execute',
     //     p2: {
     //         forkliftId: $("#forklift_codes").val(),
     //         waveId: selectionWave[0].waveId,
-    //         waveType: '整托', // $("input[name='torr']").val()
+    //         waveType: torrVal
     //     },
     //     servicename: 'customService'
     // }
@@ -801,7 +842,8 @@ function queryPickExecute(){
     //     success: function(res){
             var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"1\",\"aisletaskQty\":\"1\",\"workingWaves\":[{\"waveId\":\"339\",\"locationCode\":\"ZT08-0000\",\"waveCode\":\"CP001TW006201103000002\",\"lineno\":\"1\",\"waveQty\":\"2.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"376\",\"itemId\":\"101\",\"itemCode\":\"TEL001\",\"itemName\":\"X-地铁大柜体80*80\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"2.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"0.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
-                // var data = JSON.parse(res.thornMessageKey.message);
+                var data = JSON.parse(res.thornMessageKey.message);
+                $('.current_task').text(data.mission)
                 // setTabWaveData(data, true)
                 toggleInfoDialog('操作成功')
             }else{
@@ -1001,6 +1043,7 @@ function queryConfirmAllPick(){
                 // var data = JSON.parse(res.thornMessageKey.message);
                 // setTabWaveData(data, false)
                 toggleInfoDialog('操作成功')
+                queryPickData()
             }else{
                 alert(res.thornMessageKey.message)
             }
