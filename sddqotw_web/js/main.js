@@ -585,6 +585,7 @@ function setTabWaveData(data, haveDetail){
                     +"<td>"+ item.locationCode +"</td>"
                     +"<td>"+ item.palletNo +"</td>"
                     +"<td>"+ item.waveCode +"</td>"
+                    +"<td>"+ item.itemCode +"</td>"
                     +"<td>"+ item.lineno +"</td>"
                     +"<td>"+ item.waveQty +"</td>"
                     +"<td>"+ item.invQty +"</td>"
@@ -595,7 +596,7 @@ function setTabWaveData(data, haveDetail){
         $("#waveTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
         checkedChangeWaveState()
     }else{
-        $("#waveTable tbody").append('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+        $("#waveTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     }
     
     // 行选择
@@ -835,6 +836,9 @@ function queryPickExecute(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 $('.current_task').text(data.mission)
+                if(data.IsTwo == 'true'){
+                    alert('改单含有多个物料请注意！')
+                }
                 // setTabWaveData(data, true)
                 toggleInfoDialog('操作成功')
             }else{
@@ -853,7 +857,8 @@ function queryPickFinish(){
         p0: serverPickName,
         p1: 'putFinsh',
         p2: {
-            waveId: selectionWave[0].waveId
+            waveId: selectionWave[0].waveId,
+            palletNo: selectionWave[0].palletNo
         },
         servicename: 'customService'
     }
@@ -1090,7 +1095,7 @@ function refreshPickPage(){
     $('.task_num').text('')
     $('.tunnel_num').text('')
     $('.pick_current_task').text('')
-    $("#waveTable tbody").html('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+    $("#waveTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     $("#waveDetailTable tbody").html('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
 }
 
