@@ -836,7 +836,7 @@ function queryPickExecute(){
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 $('.current_task').text(data.mission)
-                if(data.IsTwo == 'true'){
+                if(data.isTwo == 'true'){
                     alert('改单含有多个物料请注意！')
                 }
                 // setTabWaveData(data, true)
