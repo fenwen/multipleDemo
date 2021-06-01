@@ -857,6 +857,7 @@ function queryPickFinish(){
         p0: serverPickName,
         p1: 'putFinsh',
         p2: {
+            forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
             palletNo: selectionWave[0].palletNo
         },
@@ -1020,6 +1021,7 @@ function queryConfirmAllPick(){
         p0: serverPickName,
         p1: 'confirmPickTicket',
         p2: {
+            forklift: $("#forklift_codes").val(),
             orderId: selectionWave[0].waveId,
             detailId: selectionDetailWave[0].detailId
         },
