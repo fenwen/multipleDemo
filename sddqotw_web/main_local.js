@@ -554,14 +554,14 @@ function queryPickData(){
     }
     params=JSON.stringify(params);
     
-    $.ajax({
-        url: baseUrl,
-        type: 'POST',
-        dataType: 'json',
-        contentType:"application/json;charset=utf-8",
-        data: params,
-        success: function(res){
-            // var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"2\",\"aisletaskQty\":\"2\",\"workingWaves\":[{\"waveId\":\"66\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T1504\",\"waveCode\":\"CP001CGRK201015000002\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"},{\"waveId\":\"101\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T2112\",\"waveCode\":\"CP001TW006201021000008\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"116\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"3.0\",\"invQty\":\"264.0\",\"shortQty\":\"0\",\"pickedQty\":\"2.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"},{\"detailId\":\"117\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"5.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"3.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
+    // $.ajax({
+    //     url: baseUrl,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     contentType:"application/json;charset=utf-8",
+    //     data: params,
+    //     success: function(res){
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"2\",\"aisletaskQty\":\"2\",\"workingWaves\":[{\"waveId\":\"66\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T1504\",\"waveCode\":\"CP001CGRK201015000002\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"},{\"waveId\":\"101\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T2112\",\"waveCode\":\"CP001TW006201021000008\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\"}],\"waveDetail\":[{\"detailId\":\"116\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"3.0\",\"invQty\":\"264.0\",\"shortQty\":\"0\",\"pickedQty\":\"2.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"},{\"detailId\":\"117\",\"itemId\":\"61\",\"itemCode\":\"TECOLA\",\"itemName\":\"可乐\",\"bulky\":\"DJ\",\"weight\":\"0\",\"deQty\":\"5.0\",\"invQty\":\"0\",\"shortQty\":\"0\",\"pickedQty\":\"3.0\",\"frozenQty\":\"0\",\"status\":\"工作中\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 
@@ -569,11 +569,11 @@ function queryPickData(){
             }else{
                 alert(res.thornMessageKey.message)
             }
-        },
-        error: function(err){
-            alert('fail'+ err);
-        }
-    })
+    //     },
+    //     error: function(err){
+    //         alert('fail'+ err);
+    //     }
+    // })
 }
 
 function setTabWaveData(data, haveDetail){
@@ -592,6 +592,7 @@ function setTabWaveData(data, haveDetail){
                     +"<td>"+ item.locationCode +"</td>"
                     +"<td>"+ item.palletNo +"</td>"
                     +"<td>"+ item.waveCode +"</td>"
+                    +"<td>"+ item.itemCode +"</td>"
                     +"<td>"+ item.lineno +"</td>"
                     +"<td>"+ item.waveQty +"</td>"
                     +"<td>"+ item.invQty +"</td>"
@@ -602,7 +603,7 @@ function setTabWaveData(data, haveDetail){
         $("#waveTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
         checkedChangeWaveState()
     }else{
-        $("#waveTable tbody").append('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+        $("#waveTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     }
     
     // 行选择
@@ -1025,6 +1026,7 @@ function queryConfirmAllPick(){
         p0: serverPickName,
         p1: 'confirmPickTicket',
         p2: {
+            forklift: $("#forklift_codes").val(),
             orderId: selectionWave[0].waveId,
             detailId: selectionDetailWave[0].detailId
         },
@@ -1100,7 +1102,7 @@ function refreshPickPage(){
     $('.task_num').text('')
     $('.tunnel_num').text('')
     $('.pick_current_task').text('')
-    $("#waveTable tbody").html('<tr><td colspan="7" style="text-align: center">暂无数据</td></tr>')
+    $("#waveTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     $("#waveDetailTable tbody").html('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
 }
 
