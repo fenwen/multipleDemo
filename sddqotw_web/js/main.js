@@ -581,7 +581,7 @@ function setTabWaveData(data, haveDetail){
         $.each(waveList, function(i, item) {
             $("#waveTable tbody").append(""
                 +"<tr>"
-                    +"<td class='checkbox'><input class='check_item' type='checkbox' value='"+ item.waveId +"' id='"+ item.waveId +"' onclick='onclickWaveCheckbox();'></td>"
+                    +"<td class='checkbox'><input class='check_item' type='checkbox' value='"+ item.id +"' id='"+ item.id +"' onclick='onclickWaveCheckbox();'></td>"
                     +"<td>"+ item.locationCode +"</td>"
                     +"<td>"+ item.palletNo +"</td>"
                     +"<td>"+ item.waveCode +"</td>"
@@ -643,6 +643,10 @@ function checkedChangeWaveState(){
     }else{
         $('#execute_pick_btn').addClass('disabled').off('click')
         $('#put_finish_pick_btn').addClass('disabled').off('click')
+
+        waveDetailList = []
+        selectionDetailWave = []
+        $("#waveDetailTable tbody").html('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
     }
 }
 
@@ -654,7 +658,7 @@ function getCheckboxWaveData(){
         var that = $(this)
         if ($(this).attr("checked")) {
             for(var i=0; i<waveList.length; i++){
-                if(that.val() == waveList[i].waveId){
+                if(that.val() == waveList[i].id){
                     list.push(waveList[i])
                 }
             }
@@ -679,6 +683,7 @@ function queryDetailData(){
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
+            palletNo: $('.box_num').text(),
             waveType: torrVal
         },
         servicename: 'customService'
@@ -864,7 +869,7 @@ function queryPickFinish(){
         servicename: 'customService'
     }
     params=JSON.stringify(params);
-    
+
     $.ajax({
         url: baseUrl,
         type: 'POST',
