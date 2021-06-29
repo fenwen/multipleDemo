@@ -825,6 +825,7 @@ function queryPickExecute(){
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
+            palletNo: selectionWave[0].palletNo,
             waveType: torrVal
         },
         servicename: 'customService'
