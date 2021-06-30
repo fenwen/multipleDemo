@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>排队等待看板</title>
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/echarts-4.3.0.min.js"></script>
+        <script src="./js/china.js"></script>
+
+        <style>
+            body, html { width: 100%; height: 100%; background: #00335e; font-size: 13px; color: #ffffff; }
+            * { margin: 0; padding: 0; }
+            .clearfix:after { display: block; height: 0; content: ""; clear: both; }
+        
+            .minitor_wrapper { height: 100%; overflow-y: auto; background: #00335e; }
+            .minitor_head { position: relative; padding: 10px 0; height: 32px; line-height: 32px; }
+            .minitor_head .minitor_title { font-size: 22px; font-weight: bold; text-align: center; padding: 0 50px; }
+            .minitor_head .minitor_h_l { position: absolute; left: 20px; top: 8px; }
+            .minitor_head .minitor_h_l img { height: 34px; }
+            .minitor_head .minitor_h_l span { color: #ffd85c; font-size: 12px; }
+            .minitor_head .minitor_h_r { position: absolute; right: 20px; top: 8px; font-size: 12px; line-height: 20px;}
+            .minitor_head .minitor_h_r .monitor_time { vertical-align: middle; display: inline-block; margin-top: -30px; }
+            #fullScreenMap { display: inline-block; width: 36px; height: 36px; text-align: center; cursor: pointer; }
+            #fullScreenMap:hover { opacity: 0.8; }
+            #fullScreenMap img { width: 24px; margin: 6px auto;}
+            #fullScreenMap .img_expand { display: block; }
+            #fullScreenMap .img_shrink { display: none; }
+        
+            .minitor_content { position: relative; padding: 0 20px; height: calc(100% - 72px); }
+            .minitor_content .panel_content { width: 100%; height: 100%; }
+            .minitor_content .minitor_top { height: calc(50% - 20px); display: flex; }
+            .minitor_content .minitor_bottom { display: flex; height: calc(50% - 20px); margin-top: 20px; }
+            .minitor_content .minitor_bottom .minitor_b_l { flex: 1; margin: 0 10px; }
+            .minitor_content .minitor_bottom .minitor_b_r { flex: 1; margin: 0 10px;}
+
+            .wait_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse; }
+            .wait_table th { height: 36px; line-height: 36px; font-weight: normal; border-top: 2px solid #004882; border-right: 2px solid #004882; background: #003c6e; }
+            .wait_table td { text-align: center; font-size: 20px; border-bottom: 2px solid #003c6e; }
+
+            .ware_table { width: 100%; height: 100%; margin: 0; border-collapse: collapse;  border: 1px solid #004882; }
+            .ware_table th { height: 36px; line-height: 36px; font-weight: normal; border-top: 2px solid #004882; background: #003c6e; }
+            .ware_table td { display: table-cell; vertical-align: middle; text-align: center; border-top: 2px solid #003c6e; }
+
+            .loop-pie { position: relative; width: 60px; height: 60px; margin: 0 auto; }
+            .loop-pie-line { position: absolute; width: 50%; height: 100%; top: 0; overflow: hidden; }
+            .loop-pie-l { top: 0px; left: 0px; }
+            .loop-pie-r { top: 0px; -webkit-transform: rotate(180deg); right: 0px }
+            .loop-pie-c { width: 200%; height: 100%; border: 8px solid transparent; border-radius: 50%; position: absolute; box-sizing: border-box; top: 0; -webkit-transform: rotate(-45deg); }
+            .loop-pie-rm { border-top:8px solid #baedee; border-left:8px solid #baedee; border-bottom:8px solid #1ac4c7; border-right:8px solid #1ac4c7; }
+            .loop-pie-lm { border-top:8px solid #baedee; border-left:8px solid #baedee; border-bottom:8px solid #1ac4c7; border-right:8px solid #1ac4c7; }
+        </style>
+    </head>
+
+    <body>
+        <div class="minitor_wrapper">
+            <div class="minitor_head">
+                <h4 class="minitor_title">排队等待看板</h4>
+                <div class="minitor_h_r">
+                    <span class="monitor_time"></span>
+                    <div id="fullScreenMap">
+                        <img class="img_expand" src="./images/mars_expand.png">
+                        <img class="img_shrink" src="./images/mars_shrink.png">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="minitor_content clearfix">
+                <div class="minitor_top">
+                    <div class="panel_content">
+                        <table class="wait_table">
+                            <tbody>
+                                <tr>
+                                    <td>仓库</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                </tr>
+                                <tr>
+                                    <td>仓库</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                </tr>
+                                <tr>
+                                    <td>仓库</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                    <td>1234</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="minitor_bottom">
+                    <div class="minitor_b_l">
+                        <div class="panel_content panel_ware">
+                            <table class="ware_table">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>今日预约</th>
+                                        <th>已完成</th>
+                                        <th>排队中</th>
+                                        <th>未抵达</th>
+                                        <th>完成进度</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>淄博综合仓</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>
+                                            <div class="loop-pie">
+                                                <div class="loop-pie-line loop-pie-r">
+                                                    <div class="loop-pie-c loop-pie-rm" id="loop-rc1"></div>
+                                                </div>
+                                                <div class="loop-pie-line loop-pie-l">
+                                                    <div class="loop-pie-c loop-pie-lm" id="loop-lc1"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>淄博综合仓</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>
+                                            <div class="loop-pie">
+                                                <div class="loop-pie-line loop-pie-r">
+                                                    <div class="loop-pie-c loop-pie-rm" id="loop-rc2"></div>
+                                                </div>
+                                                <div class="loop-pie-line loop-pie-l">
+                                                    <div class="loop-pie-c loop-pie-lm" id="loop-lc2"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>淄博综合仓</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>23</td>
+                                        <td>
+                                            <div class="loop-pie">
+                                                <div class="loop-pie-line loop-pie-r">
+                                                    <div class="loop-pie-c loop-pie-rm" id="loop-rc3"></div>
+                                                </div>
+                                                <div class="loop-pie-line loop-pie-l">
+                                                    <div class="loop-pie-c loop-pie-lm" id="loop-lc3"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="minitor_b_r">
+                        <div class="panel_content panel_ware">
+                            <table class="ware_table">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>类型</th>
+                                        <th>当日</th>
+                                        <th>下一日</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">淄博综合仓</td>
+                                        <td>车次</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                    <tr>
+                                        <td>托盘</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">淄博综合仓</td>
+                                        <td>车次</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                    <tr>
+                                        <td>托盘</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">淄博综合仓</td>
+                                        <td>车次</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                    <tr>
+                                        <td>托盘</td>
+                                        <td>12433</td>
+                                        <td>12433</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    $(document).ready(function(){
+
+        loadPercent(0, 100, 1);
+        loadPercent(60, 100, 2);
+        loadPercent(80, 100, 3);
+
+        function loadPercent(x, y, index) {
+            var rotate = (x / y) * 360
+            var rotateRight = 0
+            var rotateLeft = 0
+            if (rotate < 180) {
+                rotateRight = rotate + (-45)
+            } else {
+                rotateRight = 135
+                rotateLeft = (rotate - 180 - 45)
+                $("#loop-lc"+ index).css({
+                    "-webkit-transform": "rotate(" + rotateLeft + "deg)",
+                })
+            }
+
+            $("#loop-rc"+ index).css({
+                "-webkit-transform": "rotate(" + rotateRight + "deg)",
+            })
+        }
+
+        $('.wait_table').height($('.minitor_top').eq(0).height())
+        $('.ware_table').height($('.minitor_bottom').eq(0).height())
+
+        getPageData()
+
+        function getPageData(){
+            var result = { "message" : "", "status" : "success", "data" : [ { "id" : 45, "todayAppointCount" : 0, "name" : "", "nextAppointCount" : 0 }, { "id" : 43885, "todayAppointCount" : 0, "name" : "", "nextAppointCount" : 0 }, { "id" : 43886, "todayAppointCount" : 0, "name" : "2号", "nextAppointCount" : 0 }, { "id" : 43887, "todayAppointCount" : 0, "name" : "3号", "nextAppointCount" : 0 }, { "id" : 46954, "todayAppointCount" : 0, "name" : "", "nextAppointCount" : 0 } ] }
+            console.log(result)
+        }
+    })
+</script>
