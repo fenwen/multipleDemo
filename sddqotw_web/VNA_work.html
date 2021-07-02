@@ -21,6 +21,7 @@
                     <ul class="tab_title">
                         <li class="active">上架回库</li>
                         <li>拣货</li>
+                        <li>盘点</li>
                     </ul>
                     <div class="codes_select">
                         <select class="select_style" id="forklift_codes"></select>
@@ -261,6 +262,73 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- 盘点 -->
+                    <div class="tab_item">
+                        <div class="head_row_2">
+                            <div class="form_item">
+                                <span class="name">切换巷道：</span>
+                                <select class="select_style" id="aisle_code_check"></select>
+                            </div>
+
+                            <div class="form_item">
+                                <span>巷道任务数：</span>
+                                <span class="check_tunnel_num"></span>
+                            </div>
+
+                            <div class="operate_btn">
+                                <div class="form_item">
+                                    <span>库位：</span>
+                                    <input type="text" class="select_style check_s_ware">
+                                </div>
+                                <div class="form_item">
+                                    <span>托盘号：</span>
+                                    <input type="text" class="select_style check_s_tuo">
+                                </div>
+
+                                <button type="button" class="default-btn-VNA primary disabled" id="query_check_btn">查询</button>
+                                <button type="button" class="default-btn-VNA primary" id="refresh_check_btn">刷新</button>
+                            </div>
+                        </div>
+
+                        <div class="check_detail_form">
+                            <div class="form_item">
+                                <span class="name">条码：</span>
+                                <input type="text" class="detail_ck_bar_code">
+                            </div>
+                            <div class="form_item">
+                                <span class="name">数量：</span>
+                                <input type="text" class="detail_ck_qty">
+                            </div>
+                            <div class="form_item">
+                                <button type="button" class="default-btn-VNA primary disabled" id="confirm_check">盘点确定</button>
+                            </div>
+                        </div>
+
+                        <div class="check_detail_tab_content">
+                            <table class="VNA_table_style" id="checkDetailTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th class='checkbox'>
+                                            <input class="checkDetailCheckAll" type='checkbox' onclick="seletedAllCheckboxCheckDetailState(this.checked);">
+                                        </th>
+                                        <th>物料编码</th>
+                                        <th>物料名称</th>
+                                        <th>托盘号</th>
+                                        <th>库位</th>
+                                        <th>数量</th>
+                                        <th>状态</th>
+                                        <th>BN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8" style="text-align: center">暂无数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -277,6 +345,7 @@
     var baseUrl = './thornGwt.vue'
     var serverName = 'wmsCust'
     var serverPickName = 'wmsVNAputaway'
+    var serverCheckName = 'WmsVNAcount'
     var resizeTimer = null
     var popTimer = null
 
@@ -290,6 +359,9 @@
     var selectionWave = []
     var waveDetailList = []
     var selectionDetailWave = []
+
+    var checkDetailList = []
+    var selectDetailCheck = []
 
     $(document).ready(function () {
         // 退出登录
@@ -323,6 +395,14 @@
         // 刷新
         $('#refresh_btn').off('click').on('click', function(){
             refreshPage()
+        })
+        // 刷新
+        $('#refresh_pick_btn').off('click').on('click', function(){
+            refreshPickPage()
+        })
+        // 刷新
+        $('#refresh_check_btn').off('click').on('click', function(){
+            refreshCheckPage()
         })
 
         // 拣货-刷新

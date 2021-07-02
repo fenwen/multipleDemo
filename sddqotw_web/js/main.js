@@ -32,6 +32,7 @@ function loadData(){
 
                     refreshPage() // 重置数据
                     refreshPickPage()
+                    refreshCheckPage()
 
                     // 巷道
                     if(forkId){
@@ -44,6 +45,7 @@ function loadData(){
                                 }
                                 $("#aisle_code_put").html(aHtml);
                                 $("#aisle_code_pick").html(aHtml);
+                                $("#aisle_code_check").html(aHtml);
                             }
                         }
                     }
@@ -98,6 +100,21 @@ function loadData(){
                         $('#query_pick_btn').addClass('disabled').off('click')
                         $('#task_back_pick_btn').addClass('disabled').off('click')
                         $('#task_close_pick_btn').addClass('disabled').off('click')
+                    }
+                });
+
+                $("#aisle_code_check").change(function(){
+                    var aisleId = $("#aisle_code_check").val()
+
+                    $('#confirm_check').addClass('disabled').off('click')
+
+                    // 巷道
+                    if(aisleId){
+                        $('#query_check_btn').removeClass('disabled').off('click').on('click', function(){
+                            queryCheckData()
+                        })
+                    }else{
+                        $('#query_check_btn').addClass('disabled').off('click')
                     }
                 });
             }else{
@@ -494,6 +511,7 @@ function setTableHeight(){
     var index = $('.tab_title li.active').index()
     var conditionH = $('.head_row_0').height() + $('.tab_head').height()
     var conditionPickH = $('.head_row_1').height() + $('.tab_head').height() + $('.wave_detail_form').height()
+    var conditionCheckH = $('.head_row_2').height() + $('.tab_head').height() + $('.check_detail_form').height()
     
     $('.material_tab_content').height(winH*0.6 - conditionH/2 - 32)
     $('.bottom_tab_content').height(winH*0.4 - conditionH/2 - 32)
@@ -501,7 +519,8 @@ function setTableHeight(){
 
     $('.wave_tab_content').height(winH*0.5 - conditionPickH/2 - 36)
     $('.wave_detail_tab_content').height(winH*0.5 - conditionPickH/2 - 36)
-    
+
+    $('.check_detail_tab_content').height(winH - conditionCheckH - 60)
 }
 
 // 提示文字
@@ -1107,3 +1126,182 @@ function refreshPickPage(){
     $("#waveDetailTable tbody").html('<tr><td colspan="13" style="text-align: center">暂无数据</td></tr>')
 }
 
+// -----------------------盘点-----------------------------
+// 查询
+function queryCheckData(){
+    $('#confirm_check').addClass('disabled').off('click')
+    if(!$("#forklift_codes").val() || !$("#aisle_code_check").val()) return;
+
+    var params = {
+        p0: serverCheckName,
+        p1: 'inquire',
+        p2: {
+            forklift: $("#forklift_codes").val(),
+            aisle: $("#aisle_code_check").val(),
+            loccode: $(".check_s_ware").val(), // 库位
+            tpcode: $(".check_s_tuo").val(), //托盘
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
+    
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            if(!res.thornMessageKey.errorMessage){
+                var data = JSON.parse(res.thornMessageKey.message);
+                
+                setTabCheckDetailData(data)
+            }else{
+                alert(res.thornMessageKey.message)
+            }
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
+}
+
+function setTabCheckDetailData(data){
+    selectDetailCheck = []
+    checkDetailList = data.tableDtos || []
+
+    $("#checkDetailTable tbody").html('')
+    if(checkDetailList.length > 0){
+        $.each(checkDetailList, function(i, item) {
+            $("#checkDetailTable tbody").append(""
+                +"<tr>"
+                    +"<td class='checkbox'><input class='check_item' type='checkbox' value='"+ item.invid +"' id='"+ item.invid +"' onclick='onclickCheckDetailCheckbox();'></td>"
+                    +"<td>"+ item.materialCode +"</td>"
+                    +"<td>"+ item.materialName +"</td>"
+                    +"<td>"+ item.palletNo +"</td>"
+                    +"<td>"+ item.loccode +"</td>"
+                    +"<td>"+ item.invqty +"</td>"
+                    +"<td>"+ item.test1 +"</td>"
+                    +"<td>"+ item.test2 +"</td>"
+                +"</tr>"
+            )
+        })
+
+        $("#checkDetailTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
+        checkedChangeCheckDetailState()
+    }else{
+        $("#checkDetailTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+    }
+    
+    // 行选择
+    $("#checkDetailTable").off("click", "tr td:not(.checkbox)").on("click", "tr td:not(.checkbox)", function () {
+        var id = $(this).parent('tr').find("input[type=checkbox]").attr('id')
+        document.getElementById(id).click();
+
+        var status = $(this).parent('tr').find('.check_item').attr('checked')
+        if(status == 'checked'){
+            $(this).parent('tr').siblings().find('.check_item').attr('checked', false)
+        }
+    });
+}
+
+// check table——选择所有
+function seletedAllCheckboxCheckDetailState(state){
+    $('#checkDetailTable .check_item').each(function () {
+        this.checked = state;
+    });
+    
+    checkedChangeCheckDetailState()
+}
+
+// check table——选择单个
+function onclickCheckDetailCheckbox(){
+    setTimeout(function(){
+        checkedChangeCheckDetailState()
+    }, 50)
+}
+
+// check table——选择控制按钮
+function checkedChangeCheckDetailState(){
+    selectDetailCheck = getCheckboxCheckData()
+
+    if(selectDetailCheck.length == 1){
+        $('#confirm_check').removeClass('disabled').off('click').on('click', function(){
+            checkConfirm()
+        })
+    }else{
+        $('#confirm_check').addClass('disabled').off('click')
+
+        checkDetailList = []
+        selectDetailCheck = []
+        $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+    }
+}
+
+// check table——获取选中数据的Data
+function getCheckboxCheckData(){
+    var list = []
+
+    $("#checkDetailTable .check_item:checkbox").each(function () {
+        var that = $(this)
+        if ($(this).attr("checked")) {
+            for(var i=0; i<checkDetailList.length; i++){
+                if(that.val() == checkDetailList[i].invid){
+                    list.push(checkDetailList[i])
+                }
+            }
+        }
+    });
+    return list;
+}
+
+// 盘点确定
+function checkConfirm(){
+    var params = {
+        p0: serverCheckName,
+        p1: 'confirmPickCount',
+        p2: {
+            forklift: $("#forklift_codes").val(),
+            aisle: $("#aisle_code_check").val(),
+            loccode: $(".check_s_ware").val(), // 库位
+            tpcode: $(".check_s_tuo").val(), //托盘
+            invid: selectDetailCheck[0].invid,
+            countqty: selectDetailCheck[0].countqty,
+            tmcode: selectDetailCheck[0].tmcode,
+        },
+        servicename: 'customService'
+    }
+    params=JSON.stringify(params);
+    
+    $.ajax({
+        url: baseUrl,
+        type: 'POST',
+        dataType: 'json',
+        contentType:"application/json;charset=utf-8",
+        data: params,
+        success: function(res){
+            if(!res.thornMessageKey.errorMessage){
+                var data = JSON.parse(res.thornMessageKey.message);
+                toggleInfoDialog('操作成功')
+            }else{
+                alert(res.thornMessageKey.message)
+            }
+        },
+        error: function(err){
+            alert('fail'+ err);
+        }
+    })
+}
+
+// 刷新
+function refreshCheckPage(){
+    checkDetailList = []
+    selectDetailCheck = []
+
+    $('#aisle_code_check').val('')
+    $('.check_s_ware').val('')
+    $('.check_s_tuo').val('')
+    $('.detail_ck_bar_code').val('')
+    $('.detail_ck_qty').val('')
+    $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+}
