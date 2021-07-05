@@ -854,6 +854,7 @@ function queryPickExecute(){
     //         forkliftId: $("#forklift_codes").val(),
     //         waveId: selectionWave[0].waveId,
     //         palletNo: selectionWave[0].palletNo,
+    //         locationCode: selectionWave[0].locationCode,
     //         waveType: torrVal
     //     },
     //     servicename: 'customService'
@@ -894,7 +895,8 @@ function queryPickFinish(){
     //     p2: {
     //         forkliftId: $("#forklift_codes").val(),
     //         waveId: selectionWave[0].waveId,
-    //         palletNo: selectionWave[0].palletNo
+    //         palletNo: selectionWave[0].palletNo,
+    //         locationCode: selectionWave[0].locationCode
     //     },
     //     servicename: 'customService'
     // }
@@ -1058,6 +1060,7 @@ function queryConfirmAllPick(){
         p2: {
             forklift: $("#forklift_codes").val(),
             orderId: selectionWave[0].waveId,
+            locationCode: selectionWave[0].locationCode,
             detailId: selectionDetailWave[0].detailId
         },
         servicename: 'customService'
@@ -1149,7 +1152,7 @@ function queryCheckData(){
             forklift: $("#forklift_codes").val(),
             aisle: $("#aisle_code_check").val(),
             loccode: $(".check_s_ware").val(), // 库位
-            tpcode: $(".check_s_tuo").val(), //托盘
+            tpcode: $(".check_s_tuo").val() //托盘
         },
         servicename: 'customService'
     }
@@ -1278,7 +1281,7 @@ function checkConfirm(){
             tpcode: $(".check_s_tuo").val(), //托盘
             invid: selectDetailCheck[0].invid,
             countqty: selectDetailCheck[0].countqty,
-            tmcode: selectDetailCheck[0].tmcode,
+            tmcode: selectDetailCheck[0].tmcode
         },
         servicename: 'customService'
     }
@@ -1292,7 +1295,7 @@ function checkConfirm(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                // var data = JSON.parse(res.thornMessageKey.message);
+                var data = JSON.parse(res.thornMessageKey.message);
                 toggleInfoDialog('操作成功')
             }else{
                 alert(res.thornMessageKey.message)
