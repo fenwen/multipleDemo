@@ -845,6 +845,7 @@ function queryPickExecute(){
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
             palletNo: selectionWave[0].palletNo,
+            locationCode: selectionWave[0].locationCode,
             waveType: torrVal
         },
         servicename: 'customService'
@@ -884,7 +885,8 @@ function queryPickFinish(){
         p2: {
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
-            palletNo: selectionWave[0].palletNo
+            palletNo: selectionWave[0].palletNo,
+            locationCode: selectionWave[0].locationCode,
         },
         servicename: 'customService'
     }
@@ -1048,7 +1050,8 @@ function queryConfirmAllPick(){
         p2: {
             forklift: $("#forklift_codes").val(),
             orderId: selectionWave[0].waveId,
-            detailId: selectionDetailWave[0].detailId
+            locationCode: selectionWave[0].locationCode,
+            detailId: selectionDetailWave[0].detailId,
         },
         servicename: 'customService'
     }
