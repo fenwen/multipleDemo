@@ -1171,7 +1171,7 @@ function queryCheckData(){
 
 function setTabCheckDetailData(data){
     selectDetailCheck = []
-    checkDetailList = data.tableDtos || []
+    checkDetailList = data.pdDetails || []
 
     $("#checkDetailTable tbody").html('')
     if(checkDetailList.length > 0){
