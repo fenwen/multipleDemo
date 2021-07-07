@@ -268,7 +268,7 @@ function seletedAllCheckboxState(state){
 function onclickCheckbox(){
     setTimeout(function(){
         checkedChangeState()
-    }, 50)
+    }, 20)
 }
 
 // 选择控制按钮
@@ -650,7 +650,7 @@ function seletedAllCheckboxWaveState(state){
 function onclickWaveCheckbox(){
     setTimeout(function(){
         checkedChangeWaveState()
-    }, 50)
+    }, 20)
 }
 
 // wave table——选择控制按钮
@@ -796,7 +796,7 @@ function seletedAllCheckboxWaveDetailState(state){
 function onclickWaveDetailCheckbox(){
     setTimeout(function(){
         checkedChangeWaveDetailState()
-    }, 50)
+    }, 20)
 }
 
 // 详情table——选择控制按钮
@@ -1165,7 +1165,7 @@ function queryCheckData(){
     //     contentType:"application/json;charset=utf-8",
     //     data: params,
     //     success: function(res){
-            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"alltaskQty\":\"2\",\"aisletaskQty\":\"2\",\"workingWaves\":[{\"id\":\"1\",\"waveId\":\"66\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T1504\",\"waveCode\":\"CP001CGRK201015000002\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"0\",\"itemCode\":\"可乐\"},{\"id\":\"2\",\"waveId\":\"101\",\"locationCode\":\"ZT08-0101\",\"palletNo\":\"T2112\",\"waveCode\":\"CP001TW006201021000008\",\"lineno\":\"1\",\"waveQty\":\"5.0\",\"invQty\":\"2.0\",\"itemCode\":\"可乐\"}]}"}}
+            var res = {"@type":"java.util.HashMap","thornMessageKey":{"@type":"com.vtradex.thorn.client.ui.support.MessageKey","errorMessage":false,"message":"{\"pdDetails\":[{\"invid\":\"63\",\"materialCode\":\"TEhp1\",\"materialName\":\"货品1\",\"palletNo\":\"TP007\",\"loccode\":\"1-1-1-1\",\"invqty\":\"4.0\"},{\"invid\":\"94\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T002\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"97\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T1501\",\"loccode\":\"1-1-1-1\",\"invqty\":\"3.0\"},{\"invid\":\"142\",\"materialCode\":\"TEhp1\",\"materialName\":\"货品1\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"143\",\"materialCode\":\"TEhp1\",\"materialName\":\"货品1\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"156\",\"materialCode\":\"TECODE\",\"materialName\":\"货品编码\",\"palletNo\":\"T2002\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"95\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T003\",\"loccode\":\"1-1-1-1\",\"invqty\":\"8.0\"},{\"invid\":\"234\",\"materialCode\":\"TEhp1\",\"materialName\":\"货品1\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"236\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"62\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"palletNo\":\"TP007\",\"loccode\":\"1-1-1-1\",\"invqty\":\"3.0\"},{\"invid\":\"200\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"TP2101\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"159\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T1901\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"256\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"palletNo\":\"004\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"258\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"1234\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"141\",\"materialCode\":\"TEhp1\",\"materialName\":\"货品1\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"208\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"217\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2111\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"218\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2112\",\"loccode\":\"1-1-1-1\",\"invqty\":\"2.0\"},{\"invid\":\"331\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2806\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"343\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"347\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"277\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2701\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"318\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2805\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"403\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"407\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"459\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"327\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"palletNo\":\"T1\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"360\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"283\",\"materialCode\":\"CP0101129\",\"materialName\":\"下一代地铁电源板\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"297\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2604\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"308\",\"materialCode\":\"CP0101129\",\"materialName\":\"下一代地铁电源板\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"311\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2802\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"409\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T3003\",\"loccode\":\"1-1-1-1\",\"invqty\":\"8.0\"},{\"invid\":\"477\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"279\",\"materialCode\":\"CP0101129\",\"materialName\":\"下一代地铁电源板\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"281\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2702\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"430\",\"materialCode\":\"ZS826E-262-000\",\"materialName\":\"AXME模块\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"313\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T2803\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"371\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"372\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"491\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"20.0\"},{\"invid\":\"330\",\"materialCode\":\"hp2\",\"materialName\":\"货品2\",\"palletNo\":\"TT63\",\"loccode\":\"1-1-1-1\",\"invqty\":\"5.0\"},{\"invid\":\"415\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T3006\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"457\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"492\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"},{\"invid\":\"809\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"loccode\":\"1-1-1-1\",\"invqty\":\"1.0\"},{\"invid\":\"796\",\"materialCode\":\"TECOLA\",\"materialName\":\"可乐\",\"palletNo\":\"T003\",\"loccode\":\"1-1-1-1\",\"invqty\":\"10.0\"}]}"}}
             if(!res.thornMessageKey.errorMessage){
                 var data = JSON.parse(res.thornMessageKey.message);
                 
@@ -1195,8 +1195,9 @@ function setTabCheckDetailData(data){
                     +"<td>"+ item.palletNo +"</td>"
                     +"<td>"+ item.loccode +"</td>"
                     +"<td>"+ item.invqty +"</td>"
-                    +"<td>"+ item.test1 +"</td>"
-                    +"<td>"+ item.test2 +"</td>"
+                    +"<td>"+ (item.type ? item.type : '') +"</td>"
+                    +"<td>"+ (item.bncode ? item.bncode : '') +"</td>"
+                    +"<td>"+ (item.pdtime ? item.pdtime : '') +"</td>"
                 +"</tr>"
             )
         })
@@ -1204,7 +1205,7 @@ function setTabCheckDetailData(data){
         $("#checkDetailTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
         checkedChangeCheckDetailState()
     }else{
-        $("#checkDetailTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+        $("#checkDetailTable tbody").append('<tr><td colspan="9" style="text-align: center">暂无数据</td></tr>')
     }
     
     // 行选择
@@ -1232,7 +1233,7 @@ function seletedAllCheckboxCheckDetailState(state){
 function onclickCheckDetailCheckbox(){
     setTimeout(function(){
         checkedChangeCheckDetailState()
-    }, 50)
+    }, 20)
 }
 
 // check table——选择控制按钮
@@ -1245,10 +1246,6 @@ function checkedChangeCheckDetailState(){
         })
     }else{
         $('#confirm_check').addClass('disabled').off('click')
-
-        checkDetailList = []
-        selectDetailCheck = []
-        $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     }
 }
 
@@ -1280,8 +1277,8 @@ function checkConfirm(){
             loccode: $(".check_s_ware").val(), // 库位
             tpcode: $(".check_s_tuo").val(), //托盘
             invid: selectDetailCheck[0].invid,
-            countqty: selectDetailCheck[0].countqty,
-            tmcode: selectDetailCheck[0].tmcode
+            countqty: $(".detail_ck_bar_code").val(), //盘点数量
+            tmcode: $(".detail_ck_qty").val(), //条码
         },
         servicename: 'customService'
     }
@@ -1317,5 +1314,5 @@ function refreshCheckPage(){
     $('.check_s_tuo').val('')
     $('.detail_ck_bar_code').val('')
     $('.detail_ck_qty').val('')
-    $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+    $("#checkDetailTable tbody").html('<tr><td clspan="9" style="text-align: center">暂无数据</td></tr>')
 }

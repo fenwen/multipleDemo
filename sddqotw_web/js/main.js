@@ -266,7 +266,7 @@ function seletedAllCheckboxState(state){
 function onclickCheckbox(){
     setTimeout(function(){
         checkedChangeState()
-    }, 50)
+    }, 20)
 }
 
 // 选择控制按钮
@@ -643,7 +643,7 @@ function seletedAllCheckboxWaveState(state){
 function onclickWaveCheckbox(){
     setTimeout(function(){
         checkedChangeWaveState()
-    }, 50)
+    }, 20)
 }
 
 // wave table——选择控制按钮
@@ -787,7 +787,7 @@ function seletedAllCheckboxWaveDetailState(state){
 function onclickWaveDetailCheckbox(){
     setTimeout(function(){
         checkedChangeWaveDetailState()
-    }, 50)
+    }, 20)
 }
 
 // 详情table——选择控制按钮
@@ -1184,8 +1184,9 @@ function setTabCheckDetailData(data){
                     +"<td>"+ item.palletNo +"</td>"
                     +"<td>"+ item.loccode +"</td>"
                     +"<td>"+ item.invqty +"</td>"
-                    +"<td>"+ item.test1 +"</td>"
-                    +"<td>"+ item.test2 +"</td>"
+                    +"<td>"+ (item.type ? item.type : '') +"</td>"
+                    +"<td>"+ (item.bncode ? item.bncode : '') +"</td>"
+                    +"<td>"+ (item.pdtime ? item.pdtime : '') +"</td>"
                 +"</tr>"
             )
         })
@@ -1193,7 +1194,7 @@ function setTabCheckDetailData(data){
         $("#checkDetailTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
         checkedChangeCheckDetailState()
     }else{
-        $("#checkDetailTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+        $("#checkDetailTable tbody").append('<tr><td colspan="9" style="text-align: center">暂无数据</td></tr>')
     }
     
     // 行选择
@@ -1221,7 +1222,7 @@ function seletedAllCheckboxCheckDetailState(state){
 function onclickCheckDetailCheckbox(){
     setTimeout(function(){
         checkedChangeCheckDetailState()
-    }, 50)
+    }, 20)
 }
 
 // check table——选择控制按钮
@@ -1234,10 +1235,6 @@ function checkedChangeCheckDetailState(){
         })
     }else{
         $('#confirm_check').addClass('disabled').off('click')
-
-        checkDetailList = []
-        selectDetailCheck = []
-        $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     }
 }
 
@@ -1269,8 +1266,8 @@ function checkConfirm(){
             loccode: $(".check_s_ware").val(), // 库位
             tpcode: $(".check_s_tuo").val(), //托盘
             invid: selectDetailCheck[0].invid,
-            countqty: selectDetailCheck[0].countqty,
-            tmcode: selectDetailCheck[0].tmcode
+            countqty: $(".detail_ck_bar_code").val(), //盘点数量
+            tmcode: $(".detail_ck_qty").val(), //条码
         },
         servicename: 'customService'
     }
@@ -1306,5 +1303,5 @@ function refreshCheckPage(){
     $('.check_s_tuo').val('')
     $('.detail_ck_bar_code').val('')
     $('.detail_ck_qty').val('')
-    $("#checkDetailTable tbody").html('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
+    $("#checkDetailTable tbody").html('<tr><td clspan="9" style="text-align: center">暂无数据</td></tr>')
 }
