@@ -1277,8 +1277,8 @@ function checkConfirm(){
             loccode: $(".check_s_ware").val(), // 库位
             tpcode: $(".check_s_tuo").val(), //托盘
             invid: selectDetailCheck[0].invid,
-            countqty: $(".detail_ck_bar_code").val(), //盘点数量
-            tmcode: $(".detail_ck_qty").val(), //条码
+            countqty: $(".detail_ck_qty").val(), //盘点数量
+            tmcode: $(".detail_ck_bar_code").val() //条码
         },
         servicename: 'customService'
     }
