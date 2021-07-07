@@ -1257,6 +1257,17 @@ function getCheckboxCheckData(){
 
 // 盘点确定
 function checkConfirm(){
+    if($(".detail_ck_qty").val()){
+        var confirmDirect = confirm("盘点实际数量为："+ $(".detail_ck_qty").val() +"，是否确认？") 
+        if (confirmDirect !="0") {
+            checkConfirmSave()
+        }
+    }else{
+        checkConfirmSave()
+    }
+}
+
+function checkConfirmSave(){
     var params = {
         p0: serverCheckName,
         p1: 'confirmPickCount',
@@ -1281,8 +1292,12 @@ function checkConfirm(){
         data: params,
         success: function(res){
             if(!res.thornMessageKey.errorMessage){
-                var data = JSON.parse(res.thornMessageKey.message);
                 toggleInfoDialog('操作成功')
+
+                checkDetailList = []
+                selectDetailCheck = []
+                $("#checkDetailTable tbody").html('<tr><td clspan="9" style="text-align: center">暂无数据</td></tr>')
+                queryCheckData()
             }else{
                 alert(res.thornMessageKey.message)
             }
