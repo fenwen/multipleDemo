@@ -612,8 +612,8 @@ function setTabWaveData(data, haveDetail){
             )
         })
 
-        $("#waveTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
-        checkedChangeWaveState()
+        // $("#waveTable input.check_item").eq(0).prop("checked","checked"); // 默认选中第一条
+        // checkedChangeWaveState()
     }else{
         $("#waveTable tbody").append('<tr><td colspan="8" style="text-align: center">暂无数据</td></tr>')
     }
@@ -879,6 +879,14 @@ function queryPickExecute(){
 
 // 拣货完成
 function queryPickFinish(){
+    var torrVal = ''
+    var torrRadio = $("input[name='torr']")
+    for(var i=0; i<torrRadio.length; i++){
+        if(torrRadio[i].checked){
+            torrVal = torrRadio[i].value
+        }
+    }
+
     var params = {
         p0: serverPickName,
         p1: 'putFinsh',
@@ -886,7 +894,8 @@ function queryPickFinish(){
             forkliftId: $("#forklift_codes").val(),
             waveId: selectionWave[0].waveId,
             palletNo: selectionWave[0].palletNo,
-            locationCode: selectionWave[0].locationCode
+            locationCode: selectionWave[0].locationCode,
+            waveType: torrVal
         },
         servicename: 'customService'
     }
