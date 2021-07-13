@@ -419,6 +419,7 @@ function queryExecute(){
         p1: 'execute',
         p2: {
             orderId: selection[0].orderId,
+            materialCode: selection[0].materialCode,
             locationCode: $('.recommend_location').text(),
             palletNo: $('.box_num').text(),
             forkliftId: $("#forklift_codes").val()
@@ -1151,7 +1152,8 @@ function queryCheckData(){
             forklift: $("#forklift_codes").val(),
             aisle: $("#aisle_code_check").val(),
             loccode: $(".check_s_ware").val(), // 库位
-            tpcode: $(".check_s_tuo").val() //托盘
+            tpcode: $(".check_s_tuo").val(), //托盘
+            itemcode: $(".check_s_good").val() //货品
         },
         servicename: 'customService'
     }
@@ -1305,7 +1307,15 @@ function checkConfirmSave(){
 
                 checkDetailList = []
                 selectDetailCheck = []
-                $("#checkDetailTable tbody").html('<tr><td clspan="9" style="text-align: center">暂无数据</td></tr>')
+                $("#checkDetailTable tbody").html('<tr><td colspan="9" style="text-align: center">暂无数据</td></tr>')
+
+                // 输入框清空，库位聚焦
+                $('.check_s_ware').val('').focus()
+                $('.check_s_tuo').val('')
+                $('.check_s_good').val('')
+                $('.detail_ck_bar_code').val('')
+                $('.detail_ck_qty').val('')
+
                 queryCheckData()
             }else{
                 alert(res.thornMessageKey.message)
@@ -1325,7 +1335,8 @@ function refreshCheckPage(){
     $('#aisle_code_check').val('')
     $('.check_s_ware').val('')
     $('.check_s_tuo').val('')
+    $('.check_s_good').val('')
     $('.detail_ck_bar_code').val('')
     $('.detail_ck_qty').val('')
-    $("#checkDetailTable tbody").html('<tr><td clspan="9" style="text-align: center">暂无数据</td></tr>')
+    $("#checkDetailTable tbody").html('<tr><td colspan="9" style="text-align: center">暂无数据</td></tr>')
 }
